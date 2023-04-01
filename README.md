@@ -30,4 +30,4 @@ Cheems Bot Multi Device is a automated whatsapp bot developed by <a href="https:
 </a>
 #### بعد تصوير الباركود قم برفع الملف علي الاسكريبت`
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://dashboard.heroku.com/new?template=https://github.com/Babelhara/BOT_ELGAZARV8?)
