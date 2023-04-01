@@ -16,22 +16,22 @@ global.doc6 = 'application/vnd.android.package-archive'
 
 //owmner v card
 global.owner = ['201098906252'] //ur owner number
-global.ownername = "NIPUNA RANGANA" //ur owner name
-global.ytname = "يوتيوب: ELGAZAR_ALWAZER" //ur yt chanel name
-global.socialm = "يوتيوب: Nipuna15" //ur github or insta name
-global.location = "India, Mizoram, Aizawl" //ur location
+global.ownername = "ᗴᒪᘜᗩᘔᗩᖇ ᗩᒪᗯᗩᘔᗴᖇ❤️" //ur owner name
+global.ytname = "يوتيوب: ELGAZAR_ALWAZER" //اسم قناتك او موقعك
+global.socialm = "يوتيوب: Nipuna15" //اسم قناتك او نوقعك
+global.location = "Africa, Egypt, Cairo" //بلدك
 
 //bot bomdy 
-global.ownernomer = "201098906252" //ur number
-global.premium = ['201098906252'] //ur premium number
-global.botname = 'Moxie-MD_BOT' //ur bot name
-global.linkz = "https://chat.whatsapp.com/HYj9wu5Jrv6CROxyeQbHoS" //رابط جروب دعم واتساب
-global.websitex = "https://youtu.be/WiIqCdiDjFo" //قناه اليوتيوب الخاص بك او انستجرام او اي موقع خاص بك
-global.botscript = 'https://github.com\nipuna15/Moxie-MD-Bot' //وهنا ايضا تضع الموقع الخاص بك
-global.themeemoji = "🔱" //ايموجي المنشن
-global.packname = "Sticker By" //حقوق الملصق
-global.author = "Moxie Bot" //حقوق الملصق التانيه
-global.wm = "Moxie Bot Inc." //حقوق الملصق عند عمل ملصق بحقوقك
+global.ownernomer = "201098906252" //رقم المطور
+global.premium = ['201098906252'] //رقم المطور للبريميوم
+global.botname = '❤️ᗴᒪᘜᗩᘔᗩᖇ ᗷOT❤️' //اسم البوت
+global.linkz = "https://youtube.com/@ABDALLAH_MOHAMED" //رابط جروب دعم واتساب
+global.websitex = "https://youtube.com/@ABDALLAH_MOHAMED" //قناه اليوتيوب الخاص بك او انستجرام او اي موقع خاص بك
+global.botscript = 'https://youtube.com/@ABDALLAH_MOHAMED' //وهنا ايضا تضع الموقع الخاص بك
+global.themeemoji = "🐤" //ايموجي المنشن
+global.packname = "⍣الجزار الوزير يروحي⍣" //حقوق الملصق
+global.author = "⍣01098906252⍣" //حقوق الملصق التانيه
+global.wm = "❤️ᗴᒪᘜᗩᘔᗩᖇ ᗷOT❤️" //حقوق الملصق عند عمل ملصق بحقوقك
 
 //Downlod messages
 global.videodownlod = "📥 جاري تنزيل الفيديو..."
