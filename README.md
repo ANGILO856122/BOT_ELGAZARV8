@@ -1,8 +1,8 @@
 
 
-<h1 align="center">**ELGAZAR_BOTV8**<br></h1>
+<h1 align="center">**ELGAZAR_BOTV8✨**<br></h1>
 <p align="center">
-<img src="https://telegra.ph/file/86f4d8e6bfb7ba044994f.jpg" alt="animated" width="500" height="330" />
+<img src="https://telegra.ph/file/86f4d8e6bfb7ba044994f.jpg" alt="animated" width="500" height="300" />
 </p>
 
 <p align="center">
