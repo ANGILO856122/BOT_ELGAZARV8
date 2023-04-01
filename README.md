@@ -21,7 +21,7 @@ Cheems Bot Multi Device is a automated whatsapp bot developed by <a href="https:
 
 
 -------
-# Setup For Deployment 👇
+# طرق تنصيب البوت 👇
 
 - FORK THE REPOSITORY [Here](https://github.com/nipuna15/Moxie-MD-Bot/fork)
 
