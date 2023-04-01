@@ -28,14 +28,7 @@ Cheems Bot Multi Device is a automated whatsapp bot developed by <a href="https:
 ## `ثم عمل سكان للباركود`
 <a href="https://BOT-ELGAZAR-QR.lsydlsyd3.repl.co/"><img src="https://repl.it/badge/github/quiec/whatsAlfa" width="200" />
 </a>
-#### Or, Scan indirectly from my `repl.it`
-
- ` BUILDPACKS`
-
-```
-https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest
-https://github.com/clhuang/heroku-buildpack-webp-binaries.git
-```
+#### بعد تصوير الباركود قم برفع الملف علي الاسكريبت`
 
 [![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template?template=https://github.com/nipuna15/Moxie-MD-Bot)
 
