@@ -6,7 +6,8 @@
 </p>
 
 <p align="center">
-Cheems Bot Multi Device is a automated whatsapp bot developed by <a href="https://github.com/nipuna15" target="_blank"></a> using <a href="https://github.com/adiwajshing/Baileys" target="_blank">Baileys</a> and <a href="https://github.com/nodejs" target="_blank">Nodejs</a>. Dont forget to give a star bro.
+مرحبا انا الجزار مطور الجزار بوت اول بوت واتساب عربي في الواتساب عربي من 2018 ارجو منكم الاشتراك بقناتي علي اليوتيوب ودعمي لاستمرار في عمل المزيد من البوتات لكم وشكرا لكم❤✨ 
+.
 </p>
 
 
