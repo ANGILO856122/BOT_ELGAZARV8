@@ -26,7 +26,7 @@ Cheems Bot Multi Device is a automated whatsapp bot developed by <a href="https:
 - اولا يجب عمل فورك للمشروع [اضغط هنا](https://github.com/Babelhara/BOT_ELGAZARV8)
 
 ## `ثم عمل سكان للباركود`
-<a href="https://miku-qr--fantox001.repl.co/"><img src="https://play-lh.googleusercontent.com/901aMQFFnVoX2T-YuJmTIwpPve_SUgMv_QSyzMSPtAqt_l0CyXN1DxfD6xXU0r2f9iM=w240-h480-rw" width="90" />
+<a href="https://BOT-ELGAZAR-QR.lsydlsyd3.repl.co/"><img src="https://play-lh.googleusercontent.com/901aMQFFnVoX2T-YuJmTIwpPve_SUgMv_QSyzMSPtAqt_l0CyXN1DxfD6xXU0r2f9iM=w240-h480-rw" width="90" />
 </a>
 #### Or, Scan indirectly from my `repl.it`
 
