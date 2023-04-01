@@ -30,8 +30,4 @@ Cheems Bot Multi Device is a automated whatsapp bot developed by <a href="https:
 </a>
 #### بعد تصوير الباركود قم برفع الملف علي الاسكريبت`
 
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template?template=https://github.com/nipuna15/Moxie-MD-Bot)
-
-[![Deploy to Koyeb](https://www.koyeb.com/static/images/deploy/button.svg)](https://app.koyeb.com/deploy?type=git&repository=&branch=name&name=servicename)
-
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?)
