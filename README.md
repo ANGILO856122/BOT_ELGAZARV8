@@ -1,8 +1,8 @@
 
 
-<h1 align="center">**MOXIE USER BOT**<br></h1>
+<h1 align="center">**ELGAZAR_BOTV8**<br></h1>
 <p align="center">
-<img src="https://github.com/nipuna15/nipuna15/raw/main/Moxiepic.jpg" alt="animated" width="500" height="300" />
+<img src="https://telegra.ph/file/9231bb5b5b893f21db941.jpg" alt="animated" width="500" height="300" />
 </p>
 
 <p align="center">
