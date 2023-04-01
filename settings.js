@@ -15,39 +15,39 @@ global.doc5 = 'application/pdf'
 global.doc6 = 'application/vnd.android.package-archive'
 
 //owmner v card
-global.owner = ['916909137213'] //ur owner number
+global.owner = ['201098906252'] //ur owner number
 global.ownername = "NIPUNA RANGANA" //ur owner name
-global.ytname = "YT: Xeon" //ur yt chanel name
-global.socialm = "GitHub: Nipuna15" //ur github or insta name
+global.ytname = "يوتيوب: ELGAZAR_ALWAZER" //ur yt chanel name
+global.socialm = "يوتيوب: Nipuna15" //ur github or insta name
 global.location = "India, Mizoram, Aizawl" //ur location
 
 //bot bomdy 
-global.ownernomer = "916909137213" //ur number
-global.premium = ['916909137213'] //ur premium number
+global.ownernomer = "201098906252" //ur number
+global.premium = ['201098906252'] //ur premium number
 global.botname = 'Moxie-MD_BOT' //ur bot name
-global.linkz = "https://chat.whatsapp.com/HYj9wu5Jrv6CROxyeQbHoS" //your theme url which will be displayed on whatsapp
-global.websitex = "https://youtu.be/WiIqCdiDjFo" //ur website to be displayed
-global.botscript = 'https://github.com\nipuna15/Moxie-MD-Bot' //script link
-global.themeemoji = "🔱" //ur theme emoji
-global.packname = "Sticker By" //ur sticker watermark packname
-global.author = "Moxie Bot" //ur sticker watermark author
-global.wm = "Moxie Bot Inc." //ur watermark
+global.linkz = "https://chat.whatsapp.com/HYj9wu5Jrv6CROxyeQbHoS" //رابط جروب دعم واتساب
+global.websitex = "https://youtu.be/WiIqCdiDjFo" //قناه اليوتيوب الخاص بك او انستجرام او اي موقع خاص بك
+global.botscript = 'https://github.com\nipuna15/Moxie-MD-Bot' //وهنا ايضا تضع الموقع الخاص بك
+global.themeemoji = "🔱" //ايموجي المنشن
+global.packname = "Sticker By" //حقوق الملصق
+global.author = "Moxie Bot" //حقوق الملصق التانيه
+global.wm = "Moxie Bot Inc." //حقوق الملصق عند عمل ملصق بحقوقك
 
 //Downlod messages
-global.videodownlod = "📥 Downloading Your Video..."
-global.videouplod = "📤 Uploading Your Video..."
-global.songdownlod = "📥 Downloading Your Song..."
-global.songuplod = "📤 Uploading Your Song..."
+global.videodownlod = "📥 جاري تنزيل الفيديو..."
+global.videouplod = "📤 جاري تحميل الفيديو..."
+global.songdownlod = "📥 جاري تنزيل المقطع الصوتي..."
+global.songuplod = "📤 جاري تحميل المقطع الصوتي..."
 
 //Image url
-global.aliveimg = "https://github.com/nipuna15/nipuna15/raw/main/Moxiepic.jpg" // Alive Image Url
-global.menuimg = "https://github.com/nipuna15/nipuna15/raw/main/Moxiepic.jpg" // Menu Image Url
+global.aliveimg = "https://github.com/nipuna15/nipuna15/raw/main/Moxiepic.jpg" // لا تغيرها ما الها فائده
+global.menuimg = "https://github.com/nipuna15/nipuna15/raw/main/Moxiepic.jpg" // لا تغيرها ما الها فائده
 
 
 //alive,menu messages
 global.alivemg = "┌─❖\n│ Hi 👋 └┬❖  ${pushname} \n┌┤✑  ${ucapanWaktu} 😄\n│└────────────┈ ⳹\n│\n└─ 𝘽𝙊𝙏 𝙄𝙉𝙁𝙊        \n│𝗦𝗽𝗲𝗲𝗱 : ${latensie.toFixed(4)} miliseconds\n│𝗥𝘂𝗻𝘁𝗶𝗺𝗲 : ${runtime(process.uptime())}\n│𝗣𝗼𝘄𝗲𝗿𝗲𝗱 : @${ini_mark.split('@')[0]}\n│𝗕𝗼𝘁 : ${global.botname}\n│𝗢𝘄𝗻𝗲𝗿 : @${ownernya.split('@')[0]}\n│𝗣𝗿𝗲𝗳𝗶𝘅 :  NO-PREFIX \n│𝗠𝗼𝗱𝗲 : ${MoxieBotInc.public ? 'Public' : `Self`}\n│𝗛𝗼𝘀𝘁 𝗡𝗮𝗺𝗲 : ${os.hostname()}\n│𝗣𝗹𝗮𝘁𝗳𝗼𝗿𝗺 : ${os.platform()}\n│𝗧𝗼𝘁𝗮𝗹 𝗨𝘀𝗲𝗿 : ${Object.keys(global.db.data.users).length}\n│𝗧𝗼𝘁𝗮𝗹 𝗛𝗶𝘁 : ${jumlahcmd}\n│𝗧𝗼𝘁𝗮𝗹 𝗛𝗶𝘁 𝗧𝗼𝗱𝗮𝘆 : ${jumlahharian}n/│\n└─ 𝙐𝙎𝙀𝙍 𝙄𝙉𝙁𝙊 \n│𝗡𝗮𝗺𝗲 : ${pushname}\n│𝗡𝘂𝗺𝗯𝗲𝗿 : @${me.split('@')[0]}\n│𝗣𝗿𝗲𝗺𝗶𝘂𝗺 : ${isPremium ? '✅' : `❌`}\n│𝗟𝗶𝗺𝗶𝘁 : ${isPremium ? '♾Infinity' : `〽️${db.data.users[m.sender].limit}`}\n│\n└─ 𝙏𝙄𝙈𝙀 𝙄𝙉𝙁𝙊 \n│𝗧𝗶𝗺𝗲 : ${xtime}\n│𝗗𝗮𝘁𝗲 : ${xdate}\n└┬────────────┈ ⳹\n │✑  Please Select\n\n│✑  The Button Below\n └─────────────┈ ⳹"
-global.antilinkmg = "\'\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send any link in this group or u will be kicked immediately!"
-global.badwordmg = "\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nNobody is allowed to use bad words in this group, one who uses will be kicked immediately!"
+global.antilinkmg = "\'\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nإذا لم تكن مشرفا ، فلا ترسل أي رابط في هذا الجروب وإلا فسيتم طردك على الفور!"
+global.badwordmg = "\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nلا يسمح لأحد باستخدام كلمات سيئة في هذا الجروب, الشخص الذي يستخدم سيتم طرده على الفور!"
 
 // Other
 global.sessionName = 'session'
@@ -56,16 +56,16 @@ global.sp = ''
 
 //messages
 global.mess = {
-    success: 'Here you go!',
-    admin: 'This feature could be used by admins only!',
-    botAdmin: 'Bot Must Be Admin First!',
-    premime: 'Premium Special Features If You Want to Register Type Rent',
-    owner: 'This feature could be used by owner only',
-    group: 'Features Used Only For Groups!',
-    private: 'Features Used Only For Private Chat!',
-    bot: 'This feature could be used by bot only',
-    wait: 'In process...',
-    linkm: 'Where is the link?',
+    success: 'تم يروحي!',
+    admin: '『 الامر دا لادمن بس! 』',
+    botAdmin: '『 ارفع البوت ادمن الاول 』',
+    premime: '『 ميزات خاصة متميزة إذا كنت ترغب في تسجيل نوع الإيجار』',
+    owner: '『 الميزه دي للمطور بس!』',
+    group: '『 الميزه دي للجروبات بس! 』',
+    private: '『 الميزه دي في الخاص بس! 』',
+    bot: '『 الميزه دي للبوت بس! 』',
+    wait: '『 استني شويه... 』',
+    linkm: '『 فين الرابط? 』',
     endLimit: 'Your Daily Limit Has Expired, The Limit Will Be Reset Every 12 Hours',
     nsfw: 'The nsfw feature has not been activated, please contact the admin to activate',
 }
