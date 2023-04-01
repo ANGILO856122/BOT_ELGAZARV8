@@ -23,7 +23,7 @@ Cheems Bot Multi Device is a automated whatsapp bot developed by <a href="https:
 -------
 # طرق تنصيب البوت 👇
 
-- FORK THE REPOSITORY [Here](https://github.com/nipuna15/Moxie-MD-Bot/fork)
+- اولا يجب عمل فورك للمشروع [اضغط هنا](https://github.com/nipuna15/Moxie-MD-Bot/fork)
 
 ## `Scan QR Code For Session`
 [![Cheems Bot](https://repl.it/badge/github/quiec/whatsasena)]()
