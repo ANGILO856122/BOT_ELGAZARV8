@@ -81,7 +81,7 @@ let ntilinkytvid =JSON.parse(fs.readFileSync('./database/antilinkytvideo.json'))
 let bad = JSON.parse(fs.readFileSync('./src/toxic/bad.json'));
 let autorep =JSON.parse(fs.readFileSync('./database/autoreply.json'));
 
-module.exports = MoxieBotInc = async (MoxieBotInc, m, chatUpdate, store) => {
+module.exports = ElgazarBot = async (ElgazarBot, m, chatUpdate, store) => {
     try {
 var body = (m.mtype === 'conversation') ? m.message.conversation : (m.mtype == 'imageMessage') ? m.message.imageMessage.caption : (m.mtype == 'videoMessage') ? m.message.videoMessage.caption : (m.mtype == 'extendedTextMessage') ? m.message.extendedTextMessage.text : (m.mtype == 'buttonsResponseMessage') ? m.message.buttonsResponseMessage.selectedButtonId : (m.mtype == 'listResponseMessage') ? m.message.listResponseMessage.singleSelectReply.selectedRowId : (m.mtype == 'templateButtonReplyMessage') ? m.message.templateButtonReplyMessage.selectedId : (m.mtype === 'messageContextInfo') ? (m.message.buttonsResponseMessage?.selectedButtonId || m.message.listResponseMessage?.singleSelectReply.selectedRowId || m.text) : ''
 var budy = (typeof m.text == 'string' ? m.text : '')
@@ -90,7 +90,7 @@ const isCmd = body.startsWith(prefix)
 const command = body.replace(prefix, '').trim().split(/ +/).shift().toLowerCase()
 const args = body.trim().split(/ +/).slice(1)
 const pushname = m.pushName || "No Name"
-const botNumber = await MoxieBotInc.decodeJid(MoxieBotInc.user.id)
+const botNumber = await ElgazarBot.decodeJid(ElgazarBot.user.id)
 const isCreator = [botNumber, ...global.owner].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
 const itsMe = m.sender == botNumber ? true : false
 const text = q = args.join(" ")
@@ -144,7 +144,7 @@ if (cek == null) return null
 		
 	
 // Group
-        const groupMetadata = m.isGroup ? await MoxieBotInc.groupMetadata(m.chat).catch(e => {}) : ''
+        const groupMetadata = m.isGroup ? await ElgazarBot.groupMetadata(m.chat).catch(e => {}) : ''
         const groupName = m.isGroup ? groupMetadata.subject : ''
         const participants = m.isGroup ? await groupMetadata.participants : ''
         const groupAdmins = m.isGroup ? await getGroupAdmins(participants) : ''
@@ -245,7 +245,7 @@ return list[Math.floor(Math.random() * list.length)]
 }
 
 // Public & Self
-if (!MoxieBotInc.public) {
+if (!ElgazarBot.public) {
     if (!m.key.fromMe) return
 }
 function randomNomor(angka){
@@ -254,25 +254,25 @@ return Math.floor(Math.random() * angka) + 1
 const hsjdh = randomNomor(5)
 
 //auto react all message
-/////MoxieBotInc.sendMessage(m.chat, {
+/////ElgazarBot.sendMessage(m.chat, {
           ////react: {
             ////////////////////////////////////////text: `${pickRandom(['😨','😅','😂','😳','😎', '🥵', '😱', '🐦', '🙄', '🐤','🗿','🐦','🤨','🥴','😐','👆','😔', '👀','👎'])}`,
             ////key: m.key,
           /////}})
 
 //auto recording all
-    if (global.autoRecord) { if (m.chat) { MoxieBotInc.sendPresenceUpdate('recording', m.chat) }
+    if (global.autoRecord) { if (m.chat) { ElgazarBot.sendPresenceUpdate('recording', m.chat) }
 }
 //autotyper all
-  if (global.autoTyping) { if (m.chat) { MoxieBotInc.sendPresenceUpdate('composing', m.chat) }
+  if (global.autoTyping) { if (m.chat) { ElgazarBot.sendPresenceUpdate('composing', m.chat) }
 }
 
 // total hit
         global.hit = {}
 if (isCmd) {
-data = await fetchJson('https://api.countapi.xyz/hit/MoxieBotInc-md/visits')
+data = await fetchJson('https://api.countapi.xyz/hit/ElgazarBot-md/visits')
 jumlahcmd = `${data.value}`
-dataa = await fetchJson(`https://api.countapi.xyz/hit/MoxieBotInc-md${moment.tz('Asia/Kolkata').format('DDMMYYYY')}/visits`)
+dataa = await fetchJson(`https://api.countapi.xyz/hit/ElgazarBot-md${moment.tz('Asia/Kolkata').format('DDMMYYYY')}/visits`)
 jumlahharian = `${dataa.value}`
 }
 
@@ -323,7 +323,7 @@ detectLinks: false,
     //reply fake
 	//group target \\
 const reply = (teks) => {
-           MoxieBotInc.sendMessage(m.chat, { text: teks, contextInfo:{"externalAdReply": {"title": ` ${global.botname}`,"body": `${ownername}`, "previewType": "PHOTO","thumbnailUrl": ``,"thumbnail": fs.readFileSync(`./Moxie_Plaguing/Moxie_Media/theme/Moxiepic.jpg`),"sourceUrl": `${linkz}`}}}, { quoted: m})
+           ElgazarBot.sendMessage(m.chat, { text: teks, contextInfo:{"externalAdReply": {"title": ` ${global.botname}`,"body": `${ownername}`, "previewType": "PHOTO","thumbnailUrl": ``,"thumbnail": fs.readFileSync(`./Moxie_Plaguing/Moxie_Media/theme/Moxiepic.jpg`),"sourceUrl": `${linkz}`}}}, { quoted: m})
         }
 
 	//button
@@ -334,7 +334,7 @@ footer: desc1,
 buttons: but,
 headerType: 1
 }
-MoxieBotInc.sendMessage(id, butonna, options)
+ElgazarBot.sendMessage(id, butonna, options)
 }
 const http = randomNomor(500)
 
@@ -372,19 +372,19 @@ let buttonMessage = {
      mediaType: 1
    }}
        }
-   MoxieBotInc.sendMessage(m.chat, buttonMessage, options)
+   ElgazarBot.sendMessage(m.chat, buttonMessage, options)
    }
                 
         // Autosticker gc
         if (isAutoSticker) {
             if (/image/.test(mime) && !/webp/.test(mime)) {
                 let mediac = await quoted.download()
-                await MoxieBotInc.sendImageAsSticker(from, mediac, m, { packname: global.packname, author: global.author })
+                await ElgazarBot.sendImageAsSticker(from, mediac, m, { packname: global.packname, author: global.author })
                 console.log(`Auto sticker detected`)
             } else if (/video/.test(mime)) {
                 if ((quoted.msg || quoted).seconds > 11) return
                 let mediac = await quoted.download()
-                await MoxieBotInc.sendVideoAsSticker(from, mediac, m, { packname: global.packname, author: global.author })
+                await ElgazarBot.sendVideoAsSticker(from, mediac, m, { packname: global.packname, author: global.author })
             }
         }
         
@@ -392,13 +392,13 @@ let buttonMessage = {
         if (Antilinkgc) {
         if (budy.match(`chat.whatsapp.com`)) {
         if (!isBotAdmins) return m.reply(`${mess.botAdmin}, to kick the person who send link`)
-        let gclink = (`https://chat.whatsapp.com/`+await MoxieBotInc.groupInviteCode(m.chat))
+        let gclink = (`https://chat.whatsapp.com/`+await ElgazarBot.groupInviteCode(m.chat))
         let isLinkThisGc = new RegExp(gclink, 'i')
         let isgclink = isLinkThisGc.test(m.text)
-        if (isgclink) return MoxieBotInc.sendMessage(m.chat, {text: `\`\`\`「 Group Link Detected 」\`\`\`\n\nYou won't be kicked by a bot because what you send is a link to this group`})
-        if (isAdmins) return MoxieBotInc.sendMessage(m.chat, {text: `\`\`\`「 Group Link Detected 」\`\`\`\n\nAdmin has sent a link, admin is free to post any link`})
-        if (isCreator) return MoxieBotInc.sendMessage(m.chat, {text: `\`\`\`「 Group Link Detected 」\`\`\`\n\nOwner has sent a link, owner is free to post any link`})
-        await MoxieBotInc.sendMessage(m.chat,
+        if (isgclink) return ElgazarBot.sendMessage(m.chat, {text: `\`\`\`「 Group Link Detected 」\`\`\`\n\nYou won't be kicked by a bot because what you send is a link to this group`})
+        if (isAdmins) return ElgazarBot.sendMessage(m.chat, {text: `\`\`\`「 Group Link Detected 」\`\`\`\n\nAdmin has sent a link, admin is free to post any link`})
+        if (isCreator) return ElgazarBot.sendMessage(m.chat, {text: `\`\`\`「 Group Link Detected 」\`\`\`\n\nOwner has sent a link, owner is free to post any link`})
+        await ElgazarBot.sendMessage(m.chat,
 			    {
 			        delete: {
 			            remoteJid: m.chat,
@@ -407,8 +407,8 @@ let buttonMessage = {
 			            participant: m.key.participant
 			        }
 			    })
-			MoxieBotInc.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
-			MoxieBotInc.sendMessage(from, {text:`\`\`\`「 Group Link Detected 」\`\`\`\n\n@${kice.split("@")[0]} Has been kicked because of sending group link in this group`, contextInfo:{mentionedJid:[kice]}}, {quoted:m})
+			ElgazarBot.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
+			ElgazarBot.sendMessage(from, {text:`\`\`\`「 Group Link Detected 」\`\`\`\n\n@${kice.split("@")[0]} Has been kicked because of sending group link in this group`, contextInfo:{mentionedJid:[kice]}}, {quoted:m})
             }            
         }
         
@@ -421,7 +421,7 @@ if (isAdmins) return m.reply(bvl)
 if (m.key.fromMe) return m.reply(bvl)
 if (isCreator) return m.reply(bvl)
 kice = m.sender
-        await MoxieBotInc.sendMessage(m.chat,
+        await ElgazarBot.sendMessage(m.chat,
 			    {
 			        delete: {
 			            remoteJid: m.chat,
@@ -430,8 +430,8 @@ kice = m.sender
 			            participant: m.key.participant
 			        }
 			    })
-			MoxieBotInc.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
-MoxieBotInc.sendMessage(from, {text:`\`\`\`「 Wa.me Link Detected 」\`\`\`\n\n@${kice.split("@")[0]} Has been kicked because of sending wa.me link in this group`, contextInfo:{mentionedJid:[kice]}}, {quoted:m})
+			ElgazarBot.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
+ElgazarBot.sendMessage(from, {text:`\`\`\`「 Wa.me Link Detected 」\`\`\`\n\n@${kice.split("@")[0]} Has been kicked because of sending wa.me link in this group`, contextInfo:{mentionedJid:[kice]}}, {quoted:m})
 } else {
 }
   if (antiWame)
@@ -442,7 +442,7 @@ if (isAdmins) return m.reply(bvl)
 if (m.key.fromMe) return m.reply(bvl)
 if (isCreator) return m.reply(bvl)
 kice = m.sender
-        await MoxieBotInc.sendMessage(m.chat,
+        await ElgazarBot.sendMessage(m.chat,
 			    {
 			        delete: {
 			            remoteJid: m.chat,
@@ -451,15 +451,15 @@ kice = m.sender
 			            participant: m.key.participant
 			        }
 			    })
-			MoxieBotInc.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
-MoxieBotInc.sendMessage(from, {text:`\`\`\`「 Wa.me Link Detected 」\`\`\`\n\n@${kice.split("@")[0]} Has been kicked because of sending wa.me link in this group`, contextInfo:{mentionedJid:[kice]}}, {quoted:m})
+			ElgazarBot.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
+ElgazarBot.sendMessage(from, {text:`\`\`\`「 Wa.me Link Detected 」\`\`\`\n\n@${kice.split("@")[0]} Has been kicked because of sending wa.me link in this group`, contextInfo:{mentionedJid:[kice]}}, {quoted:m})
 } else {
 }
 //antivirtex by Moxie
   if (antiVirtex) {
   if (budy.length > 3500) {
   if (!isBotAdmins) return m.reply(mess.botAdmin)
-          await MoxieBotInc.sendMessage(m.chat,
+          await ElgazarBot.sendMessage(m.chat,
 			    {
 			        delete: {
 			            remoteJid: m.chat,
@@ -468,8 +468,8 @@ MoxieBotInc.sendMessage(from, {text:`\`\`\`「 Wa.me Link Detected 」\`\`\`\n\n
 			            participant: m.key.participant
 			        }
 			    })
-			MoxieBotInc.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
-			MoxieBotInc.sendMessage(from, {text:`\`\`\`「 Virus Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} Has been kicked because of sending virus in this group`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
+			ElgazarBot.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
+			ElgazarBot.sendMessage(from, {text:`\`\`\`「 Virus Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} Has been kicked because of sending virus in this group`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
   }
   }
 //anti bad words by Moxie
@@ -483,7 +483,7 @@ bvl = `\`\`\`「 Bad Word Detected 」\`\`\`\n\nYou are using bad word but you a
 if (isAdmins) return m.reply(bvl)
 if (m.key.fromMe) return m.reply(bvl)
 if (isCreator) return m.reply(bvl)
-        await MoxieBotInc.sendMessage(m.chat,
+        await ElgazarBot.sendMessage(m.chat,
 			    {
 			        delete: {
 			            remoteJid: m.chat,
@@ -492,8 +492,8 @@ if (isCreator) return m.reply(bvl)
 			            participant: m.key.participant
 			        }
 			    })
-			MoxieBotInc.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
-MoxieBotInc.sendMessage(from, {text:`\`\`\`「 Bad Word Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} was kicked because of using bad words in this group`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})}
+			ElgazarBot.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
+ElgazarBot.sendMessage(from, {text:`\`\`\`「 Bad Word Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} was kicked because of using bad words in this group`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})}
 }
 //antilink youtube video by Moxie
 if (AntiLinkYoutubeVid)
@@ -503,7 +503,7 @@ bvl = `\`\`\`「 YoutTube Video Link Detected 」\`\`\`\n\nAdmin has sent a yout
 if (isAdmins) return m.reply(bvl)
 if (m.key.fromMe) return m.reply(bvl)
 if (isCreator) return m.reply(bvl)
-        await MoxieBotInc.sendMessage(m.chat,
+        await ElgazarBot.sendMessage(m.chat,
 			    {
 			        delete: {
 			            remoteJid: m.chat,
@@ -512,8 +512,8 @@ if (isCreator) return m.reply(bvl)
 			            participant: m.key.participant
 			        }
 			    })
-			MoxieBotInc.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
-MoxieBotInc.sendMessage(from, {text:`\`\`\`「 YouTube Video Link Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} Has been kicked because of sending youtube video link in this group`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
+			ElgazarBot.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
+ElgazarBot.sendMessage(from, {text:`\`\`\`「 YouTube Video Link Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} Has been kicked because of sending youtube video link in this group`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
 } else {
 }
 //antilink youtube channel by Moxie
@@ -524,7 +524,7 @@ bvl = `\`\`\`「 YoutTube Channel Link Detected 」\`\`\`\n\nAdmin has sent a yo
 if (isAdmins) return m.reply(bvl)
 if (m.key.fromMe) return m.reply(bvl)
 if (isCreator) return m.reply(bvl)
-        await MoxieBotInc.sendMessage(m.chat,
+        await ElgazarBot.sendMessage(m.chat,
 			    {
 			        delete: {
 			            remoteJid: m.chat,
@@ -533,8 +533,8 @@ if (isCreator) return m.reply(bvl)
 			            participant: m.key.participant
 			        }
 			    })
-			MoxieBotInc.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
-MoxieBotInc.sendMessage(from, {text:`\`\`\`「 YouTube Channel Link Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} Has been kicked because of sending youtube channel link in this group`, contextInfo:{mentionedJid:[m.sendet]}}, {quoted:m})
+			ElgazarBot.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
+ElgazarBot.sendMessage(from, {text:`\`\`\`「 YouTube Channel Link Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} Has been kicked because of sending youtube channel link in this group`, contextInfo:{mentionedJid:[m.sendet]}}, {quoted:m})
 } else {
 }
 //antilink instagram by Moxie
@@ -545,7 +545,7 @@ bvl = `\`\`\`「 Instagram Link Detected 」\`\`\`\n\nAdmin has sent a instagram
 if (isAdmins) return m.reply(bvl)
 if (m.key.fromMe) return m.reply(bvl)
 if (isCreator) return m.reply(bvl)
-        await MoxieBotInc.sendMessage(m.chat,
+        await ElgazarBot.sendMessage(m.chat,
 			    {
 			        delete: {
 			            remoteJid: m.chat,
@@ -554,8 +554,8 @@ if (isCreator) return m.reply(bvl)
 			            participant: m.key.participant
 			        }
 			    })
-			MoxieBotInc.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
-MoxieBotInc.sendMessage(from, {text:`\`\`\`「 Instagram Link Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} Has been kicked because of sending instagram link in this group`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
+			ElgazarBot.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
+ElgazarBot.sendMessage(from, {text:`\`\`\`「 Instagram Link Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} Has been kicked because of sending instagram link in this group`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
 } else {
 }
 //antilink facebook by Moxie
@@ -566,7 +566,7 @@ bvl = `\`\`\`「 Facebook Link Detected 」\`\`\`\n\nAdmin has sent a facebook l
 if (isAdmins) return m.reply(bvl)
 if (m.key.fromMe) return m.reply(bvl)
 if (isCreator) return m.reply(bvl)
-        await MoxieBotInc.sendMessage(m.chat,
+        await ElgazarBot.sendMessage(m.chat,
 			    {
 			        delete: {
 			            remoteJid: m.chat,
@@ -575,8 +575,8 @@ if (isCreator) return m.reply(bvl)
 			            participant: m.key.participant
 			        }
 			    })
-			MoxieBotInc.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
-MoxieBotInc.sendMessage(from, {text:`\`\`\`「 Facebook Link Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} Has been kicked because of sending facebook link in this group`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
+			ElgazarBot.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
+ElgazarBot.sendMessage(from, {text:`\`\`\`「 Facebook Link Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} Has been kicked because of sending facebook link in this group`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
 } else {
 }
 //antilink telegram by Moxie
@@ -588,7 +588,7 @@ bvl = `\`\`\`「 Telegram Link Detected 」\`\`\`\n\nAdmin has sent a telegram l
 if (isAdmins) return m.reply(bvl)
 if (m.key.fromMe) return m.reply(bvl)
 if (isCreator) return m.reply(bvl)
-        await MoxieBotInc.sendMessage(m.chat,
+        await ElgazarBot.sendMessage(m.chat,
 			    {
 			        delete: {
 			            remoteJid: m.chat,
@@ -597,8 +597,8 @@ if (isCreator) return m.reply(bvl)
 			            participant: m.key.participant
 			        }
 			    })
-			MoxieBotInc.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
-MoxieBotInc.sendMessage(from, {text:`\`\`\`「 Telegram Link Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} Has been kicked because of sending telegram link in this group`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
+			ElgazarBot.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
+ElgazarBot.sendMessage(from, {text:`\`\`\`「 Telegram Link Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} Has been kicked because of sending telegram link in this group`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
 } else {
 }
 //antilink tiktok by Moxie
@@ -609,7 +609,7 @@ bvl = `\`\`\`「 Tiktok Link Detected 」\`\`\`\n\nAdmin has sent a tiktok link,
 if (isAdmins) return m.reply(bvl)
 if (m.key.fromMe) return m.reply(bvl)
 if (isCreator) return m.reply(bvl)
-        await MoxieBotInc.sendMessage(m.chat,
+        await ElgazarBot.sendMessage(m.chat,
 			    {
 			        delete: {
 			            remoteJid: m.chat,
@@ -618,8 +618,8 @@ if (isCreator) return m.reply(bvl)
 			            participant: m.key.participant
 			        }
 			    })
-			MoxieBotInc.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
-MoxieBotInc.sendMessage(from, {text:`\`\`\`「 Tiktok Link Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} Has been kicked because of sending tiktok link in this group`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
+			ElgazarBot.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
+ElgazarBot.sendMessage(from, {text:`\`\`\`「 Tiktok Link Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} Has been kicked because of sending tiktok link in this group`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
 } else {
 }
 //antilink twitter by Moxie
@@ -630,7 +630,7 @@ bvl = `\`\`\`「 Twitter Link Detected 」\`\`\`\n\nAdmin has sent a twitter lin
 if (isAdmins) return m.reply(bvl)
 if (m.key.fromMe) return m.reply(bvl)
 if (isCreator) return m.reply(bvl)
-        await MoxieBotInc.sendMessage(m.chat,
+        await ElgazarBot.sendMessage(m.chat,
 			    {
 			        delete: {
 			            remoteJid: m.chat,
@@ -639,8 +639,8 @@ if (isCreator) return m.reply(bvl)
 			            participant: m.key.participant
 			        }
 			    })
-			MoxieBotInc.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
-MoxieBotInc.sendMessage(from, {text:`\`\`\`「 Tiktok Link Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} Has been kicked because of sending twitter link in this group`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
+			ElgazarBot.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
+ElgazarBot.sendMessage(from, {text:`\`\`\`「 Tiktok Link Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} Has been kicked because of sending twitter link in this group`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
 } else {
 }
 //antilink all by Moxie
@@ -651,7 +651,7 @@ bvl = `\`\`\`「 Link Detected 」\`\`\`\n\nAdmin has sent a link, admin is free
 if (isAdmins) return m.reply(bvl)
 if (m.key.fromMe) return m.reply(bvl)
 if (isCreator) return m.reply(bvl)
-        await MoxieBotInc.sendMessage(m.chat,
+        await ElgazarBot.sendMessage(m.chat,
 			    {
 			        delete: {
 			            remoteJid: m.chat,
@@ -660,8 +660,8 @@ if (isCreator) return m.reply(bvl)
 			            participant: m.key.participant
 			        }
 			    })
-			MoxieBotInc.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
-MoxieBotInc.sendMessage(from, {text:`\`\`\`「 Link Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} Has been kicked because of sending link in this group`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
+			ElgazarBot.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
+ElgazarBot.sendMessage(from, {text:`\`\`\`「 Link Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} Has been kicked because of sending link in this group`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
 } else {
 }
 
@@ -670,28 +670,28 @@ MoxieBotInc.sendMessage(from, {text:`\`\`\`「 Link Detected 」\`\`\`\n\n@${m.s
         for (let anji of Moxieysticker){
 				if (budy === anji){
 					result = fs.readFileSync(`./Moxie_Plaguing/Moxie_Media/sticker/${anji}.webp`)
-					MoxieBotInc.sendMessage(m.chat, { sticker: result }, { quoted: m })
+					ElgazarBot.sendMessage(m.chat, { sticker: result }, { quoted: m })
 					}
 			}
 			  if (Autoreply)
 			for (let anju of Moxieyaudio){
 				if (budy === anju){
 					result = fs.readFileSync(`./Moxie_Plaguing/Moxie_Media/audio/${anju}.mp3`)
-					MoxieBotInc.sendMessage(m.chat, { audio: result, mimetype: 'audio/mp4', ptt: true }, { quoted: m })     
+					ElgazarBot.sendMessage(m.chat, { audio: result, mimetype: 'audio/mp4', ptt: true }, { quoted: m })     
 					}
 			}
 			  if (Autoreply)
 			for (let anjh of Moxieyimage){
 				if (budy === anjh){
 					result = fs.readFileSync(`./Moxie_Plaguing/Moxie_Media/image/${anjh}.jpg`)
-					MoxieBotInc.sendMessage(m.chat, { image: result }, { quoted: m })
+					ElgazarBot.sendMessage(m.chat, { image: result }, { quoted: m })
 					}
 			}
 			  if (Autoreply) 
 					for (let anjh of Moxieyvideo){
 				if (budy === anjh){
 					result = fs.readFileSync(`./Moxie_Plaguing/Moxie_Media/video/${anjh}.mp4`)
-					MoxieBotInc.sendMessage(m.chat, { video: result }, { quoted: m })
+					ElgazarBot.sendMessage(m.chat, { video: result }, { quoted: m })
 					}
 				  }
 
@@ -709,7 +709,7 @@ emoji.get(satu)
 .then(emoji => {
 const buttons = [{buttonId: "y", buttonText: {displayText:satu}, type: 1}]
 const buttonMessage = {image: {url: emoji.images[dua].url},caption: "Here you go!",footerText: `${botname}`,buttons: buttons,headerType: 4}
-MoxieBotInc.sendMessage(from, buttonMessage, {quoted:m})
+ElgazarBot.sendMessage(from, buttonMessage, {quoted:m})
 })
 } catch (e) {
 m.reply("Emoji error, please enter another emoji\nNOTE : Just enter 1 emoji")
@@ -720,10 +720,10 @@ if (isMedia && m.msg.fileSha256 && (m.msg.fileSha256.toString('base64') in globa
 let hash = global.db.data.sticker[m.msg.fileSha256.toString('base64')]
 let { text, mentionedJid } = hash
 let messages = await generateWAMessage(m.chat, { text: text, mentions: mentionedJid }, {
-    userJid: MoxieBotInc.user.id,
+    userJid: ElgazarBot.user.id,
     quoted: m.quoted && m.quoted.fakeObj
 })
-messages.key.fromMe = areJidsSameUser(m.sender, MoxieBotInc.user.id)
+messages.key.fromMe = areJidsSameUser(m.sender, ElgazarBot.user.id)
 messages.key.id = m.key.id
 messages.pushName = m.pushName
 if (m.isGroup) messages.participant = m.sender
@@ -732,7 +732,7 @@ let msg = {
     messages: [proto.WebMessageInfo.fromObject(messages)],
     type: 'append'
 }
-MoxieBotInc.ev.emit('messages.upsert', msg)
+ElgazarBot.ev.emit('messages.upsert', msg)
 }
 
 //guess song
@@ -740,7 +740,7 @@ MoxieBotInc.ev.emit('messages.upsert', msg)
             kuis = true
             jawaban = tebaklagu[m.sender.split('@')[0]]
             if (budy.toLowerCase() == jawaban) {
-                await MoxieBotInc.sendButtonText(m.chat, [{ buttonId: 'guess song', buttonText: { displayText: 'Guess The Song' }, type: 1 }], `🎮 Guess The Music 🎮\n\nCorrect Answer 🎉\n\nWant To Play Again? Press The Button Below`, MoxieBotInc.user.name, m)
+                await ElgazarBot.sendButtonText(m.chat, [{ buttonId: 'guess song', buttonText: { displayText: 'Guess The Song' }, type: 1 }], `🎮 Guess The Music 🎮\n\nCorrect Answer 🎉\n\nWant To Play Again? Press The Button Below`, ElgazarBot.user.name, m)
                 delete tebaklagu[m.sender.split('@')[0]]
             } else m.reply('*Wrong answer!*')
         }
@@ -803,8 +803,8 @@ ${isWin ? `@${winner.split('@')[0]} Won!` : isTie ? `Game Over` : `Turn ${['❌'
 Type *surrender* to surrender and admit defeat`
 	    if ((room.game._currentTurn ^ isSurrender ? room.x : room.o) !== m.chat)
 	    room[room.game._currentTurn ^ isSurrender ? 'x' : 'o'] = m.chat
-	    if (room.x !== room.o) await MoxieBotInc.sendText(room.x, str, m, { mentions: parseMention(str) } )
-	    await MoxieBotInc.sendText(room.o, str, m, { mentions: parseMention(str) } )
+	    if (room.x !== room.o) await ElgazarBot.sendText(room.x, str, m, { mentions: parseMention(str) } )
+	    await ElgazarBot.sendText(room.o, str, m, { mentions: parseMention(str) } )
 	    if (isTie || isWin) {
 	    delete this.game[room.id]
 	    }
@@ -818,7 +818,7 @@ Type *surrender* to surrender and admit defeat`
 	    let tie = false
 	    if (m.sender == roof.p2 && /^(acc(ept)?|accept|yes|okay?|reject|no|later|nop(e.)?yes|y)/i.test(m.text) && m.isGroup && roof.status == 'wait') {
 	    if (/^(reject|no|later|n|nop(e.)?yes)/i.test(m.text)) {
-	    MoxieBotInc.sendTextWithMentions(m.chat, `@${roof.p2.split`@`[0]} rejected the suit, the suit is canceled`, m)
+	    ElgazarBot.sendTextWithMentions(m.chat, `@${roof.p2.split`@`[0]} rejected the suit, the suit is canceled`, m)
 	    delete this.suit[roof.id]
 	    return !0
 	    }
@@ -826,20 +826,20 @@ Type *surrender* to surrender and admit defeat`
 	    roof.asal = m.chat
 	    clearTimeout(roof.waktu)
 	    //delete roof[roof.id].waktu
-	    MoxieBotInc.sendText(m.chat, `Suit has been sent to chat
+	    ElgazarBot.sendText(m.chat, `Suit has been sent to chat
 
 @${roof.p.split`@`[0]} and 
 @${roof.p2.split`@`[0]}
 
 Please choose a suit in the respective chat"
 click https://wa.me/${botNumber.split`@`[0]}`, m, { mentions: [roof.p, roof.p2] })
-	    if (!roof.pilih) MoxieBotInc.sendText(roof.p, `Please Select \n\Rock🗿\nPaper📄\nScissors✂️`, m)
-	    if (!roof.pilih2) MoxieBotInc.sendText(roof.p2, `Please Select \n\nRock🗿\nPaper📄\nScissors✂️`, m)
+	    if (!roof.pilih) ElgazarBot.sendText(roof.p, `Please Select \n\Rock🗿\nPaper📄\nScissors✂️`, m)
+	    if (!roof.pilih2) ElgazarBot.sendText(roof.p2, `Please Select \n\nRock🗿\nPaper📄\nScissors✂️`, m)
 	    roof.waktu_milih = setTimeout(() => {
-	    if (!roof.pilih && !roof.pilih2) MoxieBotInc.sendText(m.chat, `Both Players Don't Want To Play,\nSuit Canceled`)
+	    if (!roof.pilih && !roof.pilih2) ElgazarBot.sendText(m.chat, `Both Players Don't Want To Play,\nSuit Canceled`)
 	    else if (!roof.pilih || !roof.pilih2) {
 	    win = !roof.pilih ? roof.p2 : roof.p
-	    MoxieBotInc.sendTextWithMentions(m.chat, `@${(roof.pilih ? roof.p2 : roof.p).split`@`[0]} Didn't Choose Suit, Game Over!`, m)
+	    ElgazarBot.sendTextWithMentions(m.chat, `@${(roof.pilih ? roof.p2 : roof.p).split`@`[0]} Didn't Choose Suit, Game Over!`, m)
 	    }
 	    delete this.suit[roof.id]
 	    return !0
@@ -855,13 +855,13 @@ click https://wa.me/${botNumber.split`@`[0]}`, m, { mentions: [roof.p, roof.p2] 
 	    roof.pilih = reg.exec(m.text.toLowerCase())[0]
 	    roof.text = m.text
 	    m.reply(`You have chosen ${m.text} ${!roof.pilih2 ? `\n\nWaiting for the opponent to choose` : ''}`)
-	    if (!roof.pilih2) MoxieBotInc.sendText(roof.p2, '_The opponent has chosen_\nNow it is your turn', 0)
+	    if (!roof.pilih2) ElgazarBot.sendText(roof.p2, '_The opponent has chosen_\nNow it is your turn', 0)
 	    }
 	    if (jwb2 && reg.test(m.text) && !roof.pilih2 && !m.isGroup) {
 	    roof.pilih2 = reg.exec(m.text.toLowerCase())[0]
 	    roof.text2 = m.text
 	    m.reply(`You have chosen ${m.text} ${!roof.pilih ? `\n\nWaiting for the opponent to choose` : ''}`)
-	    if (!roof.pilih) MoxieBotInc.sendText(roof.p, '_The opponent has chosen_\nNow it is your turn', 0)
+	    if (!roof.pilih) ElgazarBot.sendText(roof.p, '_The opponent has chosen_\nNow it is your turn', 0)
 	    }
 	    let stage = roof.pilih
 	    let stage2 = roof.pilih2
@@ -874,7 +874,7 @@ click https://wa.me/${botNumber.split`@`[0]}`, m, { mentions: [roof.p, roof.p2] 
 	    else if (k.test(stage) && b.test(stage2)) win = roof.p
 	    else if (k.test(stage) && g.test(stage2)) win = roof.p2
 	    else if (stage == stage2) tie = true
-	    MoxieBotInc.sendText(roof.asal, `_*Suit Results*_${tie ? '\nSERIES' : ''}
+	    ElgazarBot.sendText(roof.asal, `_*Suit Results*_${tie ? '\nSERIES' : ''}
 
 @${roof.p.split`@`[0]} (${roof.text}) ${tie ? '' : roof.p == win ? ` Win \n` : ` Lost \n`}
 @${roof.p2.split`@`[0]} (${roof.text2}) ${tie ? '' : roof.p2 == win ? ` Win \n` : ` Lost  \n`}
@@ -956,8 +956,8 @@ ${arr.slice(6).join('')}
 Waiting @${room.game.currentTurn.split('@')[0]}
 
 Type *surrender* to surrender and admit defeat`
-            if (room.x !== room.o) await MoxieBotInc.sendText(room.x, str, m, { mentions: parseMention(str) } )
-            await MoxieBotInc.sendText(room.o, str, m, { mentions: parseMention(str) } )
+            if (room.x !== room.o) await ElgazarBot.sendText(room.x, str, m, { mentions: parseMention(str) } )
+            await ElgazarBot.sendText(room.o, str, m, { mentions: parseMention(str) } )
             } else {
             room = {
             id: 'tictactoe-' + (+new Date),
@@ -977,7 +977,7 @@ Type *surrender* to surrender and admit defeat`
             try {
             if (this.game) {
             delete this.game
-            MoxieBotInc.sendText(m.chat, `Successfully deleted TicTacToe session`, m)
+            ElgazarBot.sendText(m.chat, `Successfully deleted TicTacToe session`, m)
             } else if (!this.game) {
             m.reply(`Session TicTacToe🎮 does not exist`)
             } else throw '?'
@@ -1002,13 +1002,13 @@ Type *surrender* to surrender and admit defeat`
 
 *Hi* @${m.mentionedJid[0].split`@`[0]} *Please type accept to accept or type reject to reject`
             this.suit[id] = {
-            chat: await MoxieBotInc.sendText(m.chat, caption, m, { mentions: parseMention(caption) }),
+            chat: await ElgazarBot.sendText(m.chat, caption, m, { mentions: parseMention(caption) }),
             id: id,
             p: m.sender,
             p2: m.mentionedJid[0],
             status: 'wait',
             waktu: setTimeout(() => {
-            if (this.suit[id]) MoxieBotInc.sendText(m.chat, `_Suit time out_`, m)
+            if (this.suit[id]) ElgazarBot.sendText(m.chat, `_Suit time out_`, m)
             delete this.suit[id]
             }, 60000), poin, poin_lose, timeout
             }
@@ -1018,19 +1018,19 @@ Type *surrender* to surrender and admit defeat`
                 if (!isCreator) throw mess.owner
                 if (!q) throw 'Option : 1. mute\n2. unmute\n3. archive\n4. unarchive\n5. read\n6. unread\n7. delete'
                 if (args[0] === 'mute') {
-                    MoxieBotInc.chatModify({ mute: 'Infinity' }, m.chat, []).then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
+                    ElgazarBot.chatModify({ mute: 'Infinity' }, m.chat, []).then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
                 } else if (args[0] === 'unmute') {
-                    MoxieBotInc.chatModify({ mute: null }, m.chat, []).then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
+                    ElgazarBot.chatModify({ mute: null }, m.chat, []).then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
                 } else if (args[0] === 'archive') {
-                    MoxieBotInc.chatModify({  archive: true }, m.chat, []).then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
+                    ElgazarBot.chatModify({  archive: true }, m.chat, []).then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
                 } else if (args[0] === 'unarchive') {
-                    MoxieBotInc.chatModify({ archive: false }, m.chat, []).then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
+                    ElgazarBot.chatModify({ archive: false }, m.chat, []).then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
                 } else if (args[0] === 'read') {
-                    MoxieBotInc.chatModify({ markRead: true }, m.chat, []).then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
+                    ElgazarBot.chatModify({ markRead: true }, m.chat, []).then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
                 } else if (args[0] === 'unread') {
-                    MoxieBotInc.chatModify({ markRead: false }, m.chat, []).then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
+                    ElgazarBot.chatModify({ markRead: false }, m.chat, []).then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
                 } else if (args[0] === 'delete') {
-                    MoxieBotInc.chatModify({ clear: { message: { id: m.quoted.id, fromMe: true }} }, m.chat, []).then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
+                    ElgazarBot.chatModify({ clear: { message: { id: m.quoted.id, fromMe: true }} }, m.chat, []).then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
                 }
             }
             break
@@ -1041,14 +1041,14 @@ if (args[0] === "song") {
 if (tebaklagu.hasOwnProperty(m.sender.split('@')[0])) throw "There are still unfinished sessions!"
 let anugas = await fetchJson('https://raw.githubusercontent.com/DGMoxie/Moxie_Plaguing/Moxie_Media/main/guessSong.json')
 let result = anugas[Math.floor(Math.random() * anugas.length)]
-let msg = await MoxieBotInc.sendMessage(m.chat, { audio: { url: result.link_song }, mimetype: 'audio/mpeg' }, { quoted: m })
-MoxieBotInc.sendText(m.chat, `What is the name of this song?\n\nArtist : ${result.artist}\nTime : 60s`, msg).then(() => {
+let msg = await ElgazarBot.sendMessage(m.chat, { audio: { url: result.link_song }, mimetype: 'audio/mpeg' }, { quoted: m })
+ElgazarBot.sendText(m.chat, `What is the name of this song?\n\nArtist : ${result.artist}\nTime : 60s`, msg).then(() => {
 tebaklagu[m.sender.split('@')[0]] = result.jawaban.toLowerCase()
 })
 await sleep(60000)
 if (tebaklagu.hasOwnProperty(m.sender.split('@')[0])) {
 console.log("Answer: " + result.jawaban)
-MoxieBotInc.sendButtonText(m.chat, [{ buttonId: 'guess song', buttonText: { displayText: 'Guess the song' }, type: 1 }], `Time has run out\nAnswer:  ${tebaklagu[m.sender.split('@')[0]]}\n\nWant to play? press the button below`, `${global.botname}`, m)
+ElgazarBot.sendButtonText(m.chat, [{ buttonId: 'guess song', buttonText: { displayText: 'Guess the song' }, type: 1 }], `Time has run out\nAnswer:  ${tebaklagu[m.sender.split('@')[0]]}\n\nWant to play? press the button below`, `${global.botname}`, m)
 delete tebaklagu[m.sender.split('@')[0]]
 }
 }
@@ -1059,7 +1059,7 @@ break
                 let { genMath, modes } = require('./lib/math')
                 if (!text) throw `Mode: ${Object.keys(modes).join(' | ')}\nUsage example: ${prefix}math medium`
                 let result = await genMath(text.toLowerCase())
-                MoxieBotInc.sendText(m.chat, `*What is the result of: ${result.soal.toLowerCase()}*?\n\nTime: ${(result.waktu / 1000).toFixed(2)} second`, m).then(() => {
+                ElgazarBot.sendText(m.chat, `*What is the result of: ${result.soal.toLowerCase()}*?\n\nTime: ${(result.waktu / 1000).toFixed(2)} second`, m).then(() => {
                     kuismath[m.sender.split('@')[0]] = result.jawaban
                 })
                 await sleep(result.waktu)
@@ -1074,7 +1074,7 @@ break
             const somtoy = solot[Math.floor(Math.random() * solot.length)]
             let sloth =`[  🎰VIRTUAL SLOT 🎰  ]\n------------------------\n\n🍒 : 🍌 : 🍇\n${somtoy}<=====\n🍇 : 🍌 : 🍒\n\n------------------------\n[  🎰 VIRTUAL SLOT 🎰  ]\n\n*Information* :\n_If you get 3 of the same fruit_\n_Means You Win_\n\n_Example : 🍒 : 🍒 : 🍒_ <=====`
             let buttons = [{ buttonId: 'slot', buttonText: { displayText: '🎰PLAY AGAIN🎰' }, type: 1 }]
-            await MoxieBotInc.sendButtonText(m.chat, buttons, sloth, botname, m)
+            await ElgazarBot.sendButtonText(m.chat, buttons, sloth, botname, m)
             }
             break
             case 'soulmate': {
@@ -1089,7 +1089,7 @@ break
             let buttons = [
                         { buttonId: '❤️', buttonText: { displayText: '❤️' }, type: 1 }
                     ]
-                    await MoxieBotInc.sendButtonText(m.chat, buttons, jawab, botname, m, {mentions: ments})
+                    await ElgazarBot.sendButtonText(m.chat, buttons, jawab, botname, m, {mentions: ments})
             }
             break
             case 'couple': {
@@ -1103,7 +1103,7 @@ Cieeee, What's Going On❤️�👀`
             let buttons = [
                         { buttonId: '❤️', buttonText: { displayText: '❤️' }, type: 1 }
                     ]
-                    await MoxieBotInc.sendButtonText(m.chat, buttons, jawab, botname, m, {mentions: menst})
+                    await ElgazarBot.sendButtonText(m.chat, buttons, jawab, botname, m, {mentions: menst})
             }
             break
             case 'buttonmaker': {
@@ -1111,7 +1111,7 @@ Cieeee, What's Going On❤️�👀`
 			if (!text) throw `Example : ${prefix + command} hi|hello`
             let jawab = `${text.split("|")[0]}`
             let buttons = [{ buttonId: 'menu', buttonText: { displayText: `${themeemoji}` }, type: 1 }]
-            await MoxieBotInc.sendButtonText(m.chat, buttons, jawab, `${text.split("|")[1]}`, m)
+            await ElgazarBot.sendButtonText(m.chat, buttons, jawab, `${text.split("|")[1]}`, m)
             }
             break
             
@@ -1123,7 +1123,7 @@ Cieeee, What's Going On❤️�👀`
                         key: { remoteJid: m.chat, fromMe: true, id: quoted.id }
                     }
                 }
-                MoxieBotInc.sendMessage(m.chat, reactionMessage)
+                ElgazarBot.sendMessage(m.chat, reactionMessage)
             }
             break  
             case 'join': {
@@ -1132,12 +1132,12 @@ Cieeee, What's Going On❤️�👀`
                 if (!isUrl(args[0]) && !args[0].includes('whatsapp.com')) throw 'Link Invalid!'
                 m.reply(mess.wait)
                 let result = args[0].split('https://chat.whatsapp.com/')[1]
-                await MoxieBotInc.groupAcceptInvite(result).then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
+                await ElgazarBot.groupAcceptInvite(result).then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
             }
             break
             case 'leavegc': {
                 if (!isCreator) throw mess.owner
-                await MoxieBotInc.groupLeave(m.chat).then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
+                await ElgazarBot.groupLeave(m.chat).then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
             }
             break
             case 'setexif': {
@@ -1153,7 +1153,7 @@ Cieeee, What's Going On❤️�👀`
                 if (!isBotAdmins) throw mess.botAdmin
                 if (!isAdmins) throw mess.admin
 		let users = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
-		await MoxieBotInc.groupParticipantsUpdate(m.chat, [users], 'remove').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
+		await ElgazarBot.groupParticipantsUpdate(m.chat, [users], 'remove').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
 	}
 	break
 	case 'add': {
@@ -1161,7 +1161,7 @@ Cieeee, What's Going On❤️�👀`
                 if (!isBotAdmins) throw mess.botAdmin
                 if (!isAdmins) throw mess.admin
 		let users = m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
-		await MoxieBotInc.groupParticipantsUpdate(m.chat, [users], 'add').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
+		await ElgazarBot.groupParticipantsUpdate(m.chat, [users], 'add').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
 	}
 	break
 	case 'promote': {
@@ -1169,7 +1169,7 @@ Cieeee, What's Going On❤️�👀`
                 if (!isBotAdmins) throw mess.botAdmin
                 if (!isAdmins) throw mess.admin
 		let users = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
-		await MoxieBotInc.groupParticipantsUpdate(m.chat, [users], 'promote').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
+		await ElgazarBot.groupParticipantsUpdate(m.chat, [users], 'promote').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
 	}
 	break
 	case 'demote': {
@@ -1177,19 +1177,19 @@ Cieeee, What's Going On❤️�👀`
                 if (!isBotAdmins) throw mess.botAdmin
                 if (!isAdmins) throw mess.admin
 		let users = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
-		await MoxieBotInc.groupParticipantsUpdate(m.chat, [users], 'demote').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
+		await ElgazarBot.groupParticipantsUpdate(m.chat, [users], 'demote').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
 	}
 	break
         case 'block': {
 		if (!isCreator) throw mess.owner
 		let users = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
-		await MoxieBotInc.updateBlockStatus(users, 'block').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
+		await ElgazarBot.updateBlockStatus(users, 'block').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
 	}
 	break
         case 'unblock': {
 		if (!isCreator) throw mess.owner
 		let users = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
-		await MoxieBotInc.updateBlockStatus(users, 'unblock').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
+		await ElgazarBot.updateBlockStatus(users, 'unblock').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
 	}
 	break
 	    case 'setname': case 'setsubject': {
@@ -1197,7 +1197,7 @@ Cieeee, What's Going On❤️�👀`
                 if (!isBotAdmins) throw mess.botAdmin
                 if (!isAdmins) throw mess.admin
                 if (!text) throw 'Text ?'
-                await MoxieBotInc.groupUpdateSubject(m.chat, text).then((res) => m.reply(mess.success)).catch((err) => m.reply(jsonformat(err)))
+                await ElgazarBot.groupUpdateSubject(m.chat, text).then((res) => m.reply(mess.success)).catch((err) => m.reply(jsonformat(err)))
             }
             break
           case 'setdesc': case 'setdesk': {
@@ -1205,7 +1205,7 @@ Cieeee, What's Going On❤️�👀`
                 if (!isBotAdmins) throw mess.botAdmin
                 if (!isAdmins) throw mess.admin
                 if (!text) throw 'Text ?'
-                await MoxieBotInc.groupUpdateDescription(m.chat, text).then((res) => m.reply(mess.success)).catch((err) => m.reply(jsonformat(err)))
+                await ElgazarBot.groupUpdateDescription(m.chat, text).then((res) => m.reply(mess.success)).catch((err) => m.reply(jsonformat(err)))
             }
             break
           case 'setbotpp': {
@@ -1213,8 +1213,8 @@ Cieeee, What's Going On❤️�👀`
                 if (!quoted) throw `Send/Reply Image With Caption ${prefix + command}`
                 if (!/image/.test(mime)) throw `Send/Reply Image With Caption ${prefix + command}`
                 if (/webp/.test(mime)) throw `Send/Reply Image With Caption ${prefix + command}`
-                let media = await MoxieBotInc.downloadAndSaveMediaMessage(quoted)
-                await MoxieBotInc.updateProfilePicture(botNumber, { url: media }).catch((err) => fs.unlinkSync(media))
+                let media = await ElgazarBot.downloadAndSaveMediaMessage(quoted)
+                await ElgazarBot.updateProfilePicture(botNumber, { url: media }).catch((err) => fs.unlinkSync(media))
                 m.reply(mess.success)
                 }
                 break
@@ -1224,8 +1224,8 @@ Cieeee, What's Going On❤️�👀`
                 if (!quoted) throw `Send/Reply Image With Caption ${prefix + command}`
                 if (!/image/.test(mime)) throw `Send/Reply Image With Caption ${prefix + command}`
                 if (/webp/.test(mime)) throw `Send/Reply Image With Caption ${prefix + command}`
-                let media = await MoxieBotInc.downloadAndSaveMediaMessage(quoted)
-                await MoxieBotInc.updateProfilePicture(m.chat, { url: media }).catch((err) => fs.unlinkSync(media))
+                let media = await ElgazarBot.downloadAndSaveMediaMessage(quoted)
+                await ElgazarBot.updateProfilePicture(m.chat, { url: media }).catch((err) => fs.unlinkSync(media))
                 m.reply(mess.success)
                 }
                 break
@@ -1239,14 +1239,14 @@ let teks = `╚»˙·٠${themeemoji}●♥ Tag All ♥●${themeemoji}٠·˙«�
                 for (let mem of participants) {
                 teks += `${themeemoji} @${mem.id.split('@')[0]}\n`
                 }
-                MoxieBotInc.sendMessage(m.chat, { text: teks, mentions: participants.map(a => a.id) }, { quoted: m })
+                ElgazarBot.sendMessage(m.chat, { text: teks, mentions: participants.map(a => a.id) }, { quoted: m })
                 }
                 break
                 case 'hidetag': {
             if (!m.isGroup) throw mess.group
             if (!isBotAdmins) throw mess.botAdmin
             if (!isAdmins) throw mess.admin
-            MoxieBotInc.sendMessage(m.chat, { text : q ? q : '' , mentions: participants.map(a => a.id)}, { quoted: m })
+            ElgazarBot.sendMessage(m.chat, { text : q ? q : '' , mentions: participants.map(a => a.id)}, { quoted: m })
             }
             break
 	    case 'style': case 'styletext': {
@@ -1297,11 +1297,11 @@ let buttonsVote = [
 
             let buttonMessageVote = {
                 text: teks_vote,
-                footer: MoxieBotInc.user.name,
+                footer: ElgazarBot.user.name,
                 buttons: buttonsVote,
                 headerType: 1
             }
-            MoxieBotInc.sendMessage(m.chat, buttonMessageVote)
+            ElgazarBot.sendMessage(m.chat, buttonMessageVote)
 	    }
             break
                case 'upvote': {
@@ -1338,12 +1338,12 @@ ${vote[m.chat][2].map((v, i) => `├ ${i + 1}. @${v.split`@`[0]}`).join('\n')}
 
             let buttonMessageUpvote = {
                 text: teks_vote,
-                footer: MoxieBotInc.user.name,
+                footer: ElgazarBot.user.name,
                 buttons: buttonsUpvote,
                 headerType: 1,
                 mentions: menvote
              }
-            MoxieBotInc.sendMessage(m.chat, buttonMessageUpvote)
+            ElgazarBot.sendMessage(m.chat, buttonMessageUpvote)
 	    }
              break
                 case 'devote': {
@@ -1380,12 +1380,12 @@ ${vote[m.chat][2].map((v, i) => `├ ${i + 1}. @${v.split`@`[0]}`).join('\n')}
 
             let buttonMessageDevote = {
                 text: teks_vote,
-                footer: MoxieBotInc.user.name,
+                footer: ElgazarBot.user.name,
                 buttons: buttonsDevote,
                 headerType: 1,
                 mentions: menvote
             }
-            MoxieBotInc.sendMessage(m.chat, buttonMessageDevote)
+            ElgazarBot.sendMessage(m.chat, buttonMessageDevote)
 	}
             break
                  
@@ -1413,9 +1413,9 @@ ${vote[m.chat][2].map((v, i) => `├ ${i + 1}. @${v.split`@`[0]}`).join('\n')}
 *${prefix}deletevote* - to delete votes
 
 
-©${MoxieBotInc.user.id}
+©${ElgazarBot.user.id}
 `
-MoxieBotInc.sendTextWithMentions(m.chat, teks_vote, m)
+ElgazarBot.sendTextWithMentions(m.chat, teks_vote, m)
 break
 		case 'deletevote': case'delvote': case 'hapusvote': {
             if (!m.isGroup) throw mess.group
@@ -1429,15 +1429,15 @@ case 'group': case 'grup': {
                 if (!isBotAdmins) throw mess.botAdmin
                 if (!isAdmins) throw mess.admin
                 if (args[0] === 'close'){
-                    await MoxieBotInc.groupSettingUpdate(m.chat, 'announcement').then((res) => m.reply(`*Successfully Closed The Group*`)).catch((err) => m.reply(jsonformat(err)))
+                    await ElgazarBot.groupSettingUpdate(m.chat, 'announcement').then((res) => m.reply(`*Successfully Closed The Group*`)).catch((err) => m.reply(jsonformat(err)))
                 } else if (args[0] === 'open'){
-                    await MoxieBotInc.groupSettingUpdate(m.chat, 'not_announcement').then((res) => m.reply(`*Successfully Opened The Group*`)).catch((err) => m.reply(jsonformat(err)))
+                    await ElgazarBot.groupSettingUpdate(m.chat, 'not_announcement').then((res) => m.reply(`*Successfully Opened The Group*`)).catch((err) => m.reply(jsonformat(err)))
                 } else {
                 let buttons = [
                         { buttonId: 'group open', buttonText: { displayText: 'Open' }, type: 1 },
                         { buttonId: 'group close', buttonText: { displayText: 'Close' }, type: 1 }
                     ]
-                    await MoxieBotInc.sendButtonText(m.chat, buttons, `Mode Group`, botname, m)
+                    await ElgazarBot.sendButtonText(m.chat, buttons, `Mode Group`, botname, m)
 
              }
             }
@@ -1447,15 +1447,15 @@ case 'group': case 'grup': {
                 if (!isBotAdmins) throw mess.botAdmin
                 if (!isAdmins) throw mess.admin
              if (args[0] === 'open'){
-                await MoxieBotInc.groupSettingUpdate(m.chat, 'unlocked').then((res) => m.reply(`*Successfully Opened Edit Group Info*`)).catch((err) => m.reply(jsonformat(err)))
+                await ElgazarBot.groupSettingUpdate(m.chat, 'unlocked').then((res) => m.reply(`*Successfully Opened Edit Group Info*`)).catch((err) => m.reply(jsonformat(err)))
              } else if (args[0] === 'close'){
-                await MoxieBotInc.groupSettingUpdate(m.chat, 'locked').then((res) => m.reply(`*Successfully Close Edit Group Info*`)).catch((err) => m.reply(jsonformat(err)))
+                await ElgazarBot.groupSettingUpdate(m.chat, 'locked').then((res) => m.reply(`*Successfully Close Edit Group Info*`)).catch((err) => m.reply(jsonformat(err)))
              } else {
              let buttons = [
                         { buttonId: 'editinfo open', buttonText: { displayText: 'Open' }, type: 1 },
                         { buttonId: 'editinfo close', buttonText: { displayText: 'Close' }, type: 1 }
                     ]
-                    await MoxieBotInc.sendButtonText(m.chat, buttons, `Mode Edit Info`, botname, m)
+                    await ElgazarBot.sendButtonText(m.chat, buttons, `Mode Edit Info`, botname, m)
 
             }
             }
@@ -1469,7 +1469,7 @@ case 'waifucheck':
 cantik = body.slice(1)
 const okebnh1 =['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','100']
 const Moxiekak = okebnh1[Math.floor(Math.random() * okebnh1.length)]
-MoxieBotInc.sendMessage(m.chat, { text: Moxiekak }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { text: Moxiekak }, { quoted: m })
 break
 case 'mute': {
                 if (!m.isGroup) throw mess.group
@@ -1478,17 +1478,17 @@ case 'mute': {
                 if (args[0] === "on") {
                 if (db.data.chats[m.chat].mute) return m.reply(`It's Been Active Before`)
                 db.data.chats[m.chat].mute = true
-                m.reply(`${MoxieBotInc.user.name} has been muted in this group !`)
+                m.reply(`${ElgazarBot.user.name} has been muted in this group !`)
                 } else if (args[0] === "off") {
                 if (!db.data.chats[m.chat].mute) return m.reply(`Not Activated Before`)
                 db.data.chats[m.chat].mute = false
-                m.reply(`${MoxieBotInc.user.name} has been unmuted in this group !`)
+                m.reply(`${ElgazarBot.user.name} has been unmuted in this group !`)
                 } else {
                  let buttons = [
                         { buttonId: 'mute on', buttonText: { displayText: 'On' }, type: 1 },
                         { buttonId: 'mute off', buttonText: { displayText: 'Off' }, type: 1 }
                     ]
-                    await MoxieBotInc.sendButtonText(m.chat, buttons, `Mute Bot`, botname, m)
+                    await ElgazarBot.sendButtonText(m.chat, buttons, `Mute Bot`, botname, m)
                 }
              }
              break
@@ -1504,14 +1504,14 @@ let waktu = read ? read : unread
 teks += `${global.themeemoji} @${i.userJid.split('@')[0]}\n`
 teks += ` ┗━${global.themeemoji} *Time :* ${moment(waktu * 1000).format('DD/MM/YY HH:mm:ss')} ${global.themeemoji} *Status :* ${read ? 'Read' : 'Sent'}\n\n`
 }
-MoxieBotInc.sendTextWithMentions(m.chat, teks, m)
+ElgazarBot.sendTextWithMentions(m.chat, teks, m)
 }
 break
             case 'linkgroup': case 'linkgc': case 'gclink': case 'grouplink': {
                 if (!m.isGroup) throw mess.group
                 if (!isBotAdmins) throw mess.botAdmin
-                let response = await MoxieBotInc.groupInviteCode(m.chat)
-                MoxieBotInc.sendText(m.chat, `https://chat.whatsapp.com/${response}\n\nGroup Link : ${groupMetadata.subject}`, m, { detectLink: true })
+                let response = await ElgazarBot.groupInviteCode(m.chat)
+                ElgazarBot.sendText(m.chat, `https://chat.whatsapp.com/${response}\n\nGroup Link : ${groupMetadata.subject}`, m, { detectLink: true })
             }
             break
             case 'ephemeral': {
@@ -1520,9 +1520,9 @@ break
                 if (!isAdmins) throw mess.admin
                 if (!text) throw 'Enter the value enable/disable'
                 if (args[0] === 'enable') {
-                    await MoxieBotInc.sendMessage(m.chat, { disappearingMessagesInChat: WA_DEFAULT_EPHEMERAL }).then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
+                    await ElgazarBot.sendMessage(m.chat, { disappearingMessagesInChat: WA_DEFAULT_EPHEMERAL }).then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
                 } else if (args[0] === 'disable') {
-                    await MoxieBotInc.sendMessage(m.chat, { disappearingMessagesInChat: false }).then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
+                    await ElgazarBot.sendMessage(m.chat, { disappearingMessagesInChat: false }).then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
                 }
             }
             break
@@ -1530,7 +1530,7 @@ break
                 if (!m.quoted) throw false
                 let { chat, fromMe, id, isBaileys } = m.quoted
                 if (!isBaileys) throw 'The message was not sent by a bot!'
-                MoxieBotInc.sendMessage(m.chat, { delete: { remoteJid: m.chat, fromMe: true, id: m.quoted.id, participant: m.quoted.sender } })
+                ElgazarBot.sendMessage(m.chat, { delete: { remoteJid: m.chat, fromMe: true, id: m.quoted.id, participant: m.quoted.sender } })
             }
             break
             case 'report': case 'bug': {
@@ -1540,9 +1540,9 @@ break
                let pjtxt = `Message From : @${me.split('@')[0]} \nFor : @${ownernya.split('@')[0]}\n\n${text}`
                let ments = [ownernya, me]
                let buttons = [{ buttonId: 'hehehe', buttonText: { displayText: '🙏THANKS FOR THE REPORT' }, type: 1 }]
-            await MoxieBotInc.sendButtonText(ownernya, buttons, pjtxt, botname, m, {mentions: ments})
+            await ElgazarBot.sendButtonText(ownernya, buttons, pjtxt, botname, m, {mentions: ments})
             let akhji = `Report Sent\nTo Owner @${ownernya.split('@')[0]}\n*Thank you for the report🙏*\n_Your number will be blocked_\n_If the Report is Only Created_`
-            await MoxieBotInc.sendButtonText(m.chat, buttons, akhji, botname, m, {mentions: ments})
+            await ElgazarBot.sendButtonText(m.chat, buttons, akhji, botname, m, {mentions: ments})
             }
             break
             
@@ -1551,14 +1551,14 @@ break
 		            if (!text) throw `Enter text`
 		                            var data = await store.chats.all()
                             for (let i of data) {
-                               MoxieBotInc.sendMessage(i.id, {text: `${ownername}'s Broadcast\n\nMessage : ${q}` })
+                               ElgazarBot.sendMessage(i.id, {text: `${ownername}'s Broadcast\n\nMessage : ${q}` })
                                await sleep(1000)
                             }
                             break
 case 'broadcastimage': case 'bcimage': case 'broadcastvideo': case 'broadcastvid':
 if(!isCreator) throw mess.owner
         if (!text) throw `enter text`
-        let getGroups = await MoxieBotInc.groupFetchAllParticipating()
+        let getGroups = await ElgazarBot.groupFetchAllParticipating()
         let groups = Object.entries(getGroups).slice(0).map(entry => entry[1])
         let Moxiecast = groups.map(v => v.id)
         m.reply(` Broadcasting in ${Moxiecast.length} Group Chat, in ${Moxiecast.length * 1.5} seconds`)
@@ -1566,18 +1566,18 @@ if(!isCreator) throw mess.owner
 let txt = `${ownername}'s Broadcast\n\nMessage : ${text}`
 if(/image/.test(mime)) {
 let media = await quoted.download()
-await MoxieBotInc.sendMessage(i, { image:media,  caption: txt,mentions:participants.map(a => a.id) })
+await ElgazarBot.sendMessage(i, { image:media,  caption: txt,mentions:participants.map(a => a.id) })
 }
 if(/video/.test(mime)){
 let media = await quoted.download()
-await MoxieBotInc.sendMessage(i, { video:media,  caption: txt, mentions:participants.map(a => a.id) })
+await ElgazarBot.sendMessage(i, { video:media,  caption: txt, mentions:participants.map(a => a.id) })
 }
             }
         m.reply(`Successfuly Broadcasted in ${Moxiecast.length} Groups`)      
         break
             case 'q': case 'quoted': {
 		if (!m.quoted) return m.reply('Reply Message!!')
-		let wokwol = await MoxieBotInc.serializeM(await m.getQuotedObj())
+		let wokwol = await ElgazarBot.serializeM(await m.getQuotedObj())
 		if (!wokwol.quoted) return m.reply('The message you replied to does not contain a reply')
 		await wokwol.quoted.copyNForward(m.chat, true)
             }
@@ -1589,23 +1589,23 @@ await MoxieBotInc.sendMessage(i, { video:media,  caption: txt, mentions:particip
                      let nama = store.messages[i].array[0].pushName
                      teks += `${themeemoji} *Name :* ${nama}\n${themeemoji} *User :* @${i.split('@')[0]}\n${themeemoji} *Chat :* https://wa.me/${i.split('@')[0]}\n\n────────────────────────\n\n`
                  }
-                 MoxieBotInc.sendTextWithMentions(m.chat, teks, m)
+                 ElgazarBot.sendTextWithMentions(m.chat, teks, m)
              }
              break
                 case 'listgc': {
                  let anulistg = await store.chats.all().filter(v => v.id.endsWith('@g.us')).map(v => v.id)
                  let teks = `${themeemoji} *GROUP CHAT LIST*\n\nTotal Group : ${anulistg.length} Group\n\n`
                  for (let i of anulistg) {
-                     let metadata = await MoxieBotInc.groupMetadata(i)
+                     let metadata = await ElgazarBot.groupMetadata(i)
                      teks += `${themeemoji} *Name :* ${metadata.subject}\n${themeemoji} *Owner :* ${metadata.owner !== undefined ? '@' + metadata.owner.split`@`[0] : 'Unknown'}\n${themeemoji} *ID :* ${metadata.id}\n${themeemoji} *Made :* ${moment(metadata.creation * 1000).tz('Asia/Kolkata').format('DD/MM/YYYY HH:mm:ss')}\n${themeemoji} *Member :* ${metadata.participants.length}\n\n────────────────────────\n\n`
                  }
-                 MoxieBotInc.sendTextWithMentions(m.chat, teks, m)
+                 ElgazarBot.sendTextWithMentions(m.chat, teks, m)
              }
              break
              case 'listonline': case 'onlinelist': {
                     let id = args && /\d+\-\d+@g.us/.test(args[0]) ? args[0] : m.chat
                     let online = [...Object.keys(store.presences[id]), botNumber]
-                    MoxieBotInc.sendText(m.chat, 'Online Member:\n\n' + online.map(v => '${themeemoji} @' + v.replace(/@.+/, '')).join`\n`, m, { mentions: online })
+                    ElgazarBot.sendText(m.chat, 'Online Member:\n\n' + online.map(v => '${themeemoji} @' + v.replace(/@.+/, '')).join`\n`, m, { mentions: online })
              }
              break
 case 'sticker': case 's': case 'stickergif': case 'sgif': {
@@ -1613,12 +1613,12 @@ case 'sticker': case 's': case 'stickergif': case 'sgif': {
             m.reply(mess.wait)
                     if (/image/.test(mime)) {
                 let media = await quoted.download()
-                let encmedia = await MoxieBotInc.sendImageAsSticker(m.chat, media, m, { packname: global.packname, author: global.author })
+                let encmedia = await ElgazarBot.sendImageAsSticker(m.chat, media, m, { packname: global.packname, author: global.author })
                 await fs.unlinkSync(encmedia)
             } else if (/video/.test(mime)) {
                 if ((quoted.msg || quoted).seconds > 11) return m.reply('*Maximum 10 seconds!*')
                 let media = await quoted.download()
-                let encmedia = await MoxieBotInc.sendVideoAsSticker(m.chat, media, m, { packname: global.packname, author: global.author })
+                let encmedia = await ElgazarBot.sendVideoAsSticker(m.chat, media, m, { packname: global.packname, author: global.author })
                 await fs.unlinkSync(encmedia)
             } else {
                 throw `*Send Image/Video With Caption* ${prefix + command}\nDuration *Video 1-9 Seconds*`
@@ -1670,7 +1670,7 @@ break
 		if (!emoji2) throw `Example : ${prefix + command} 😅+🤔`
 		let anumojimix = await fetchJson(`https://tenor.googleapis.com/v2/featured?key=AIzaSyAyimkuYQYF_FXVALexPuGQctUWRURdCYQ&contentfilter=high&media_filter=png_transparent&component=proactive&collection=emoji_kitchen_v5&q=${encodeURIComponent(emoji1)}_${encodeURIComponent(emoji2)}`)
 		for (let res of anumojimix.results) {
-		    let encmedia = await MoxieBotInc.sendImageAsSticker(m.chat, res.url, m, { packname: global.packname, author: global.author, categories: res.tags })
+		    let encmedia = await ElgazarBot.sendImageAsSticker(m.chat, res.url, m, { packname: global.packname, author: global.author, categories: res.tags })
 		    await fs.unlinkSync(encmedia)
 		}
 	    }
@@ -1679,7 +1679,7 @@ break
 	    if (!text) throw `Example : ${prefix + command} 😅+🤔`
 		let anumix2 = await fetchJson(`https://tenor.googleapis.com/v2/featured?key=AIzaSyAyimkuYQYF_FXVALexPuGQctUWRURdCYQ&contentfilter=high&media_filter=png_transparent&component=proactive&collection=emoji_kitchen_v5&q=${encodeURIComponent(text)}`)
 		for (let res of anumix2.results) {
-		    let encmedia = await MoxieBotInc.sendImageAsSticker(m.chat, res.url, m, { packname: global.packname, author: global.author, categories: res.tags })
+		    let encmedia = await ElgazarBot.sendImageAsSticker(m.chat, res.url, m, { packname: global.packname, author: global.author, categories: res.tags })
 		    await fs.unlinkSync(encmedia)
 		}
 	    }
@@ -1687,7 +1687,7 @@ break
          case 'tts': case 'say':{
          	if (!text) throw `Example : ${prefix + command} text`
              let tts = await fetchJson(`https://api.akuari.my.id/texttovoice/texttosound_english?query=${text}`)
-             MoxieBotInc.sendMessage(m.chat, { audio: { url: tts.result }, mimetype: 'audio/mp4', ptt: true, fileName: `${text}.mp3` }, { quoted: m })
+             ElgazarBot.sendMessage(m.chat, { audio: { url: tts.result }, mimetype: 'audio/mp4', ptt: true, fileName: `${text}.mp3` }, { quoted: m })
          	}
          break 
 	case 'smeme': case 'stickermeme': case 'stickmeme': {
@@ -1696,10 +1696,10 @@ if (!text) return m.reply(`Send/Reply Photo With Caption ${prefix + command} *te
 if (text.includes('|')) return m.reply(`Send/Reply Photo With Caption ${prefix + command} *text*`)
 if (!/image/.test(mime)) return m.reply(`Send/Reply Photo With Caption ${prefix + command} *text*`)
 m.reply(mess.wait)
-mee = await MoxieBotInc.downloadAndSaveMediaMessage(quoted)
+mee = await ElgazarBot.downloadAndSaveMediaMessage(quoted)
 mem = await TelegraPh(mee)
 meme = `https://api.memegen.link/images/custom/-/${text}.png?background=${mem}`
-memek = await MoxieBotInc.sendImageAsSticker(m.chat, meme, m, { packname: global.packname, author: global.author })
+memek = await ElgazarBot.sendImageAsSticker(m.chat, meme, m, { packname: global.packname, author: global.author })
 await fs.unlinkSync(memek)
 }
 break
@@ -1707,13 +1707,13 @@ case 'toimage': case 'toimg': {
                 if (!quoted) throw 'Reply Image'
                 if (!/webp/.test(mime)) throw `Reply sticker with caption *${prefix + command}*`
                 m.reply(mess.wait)
-                let media = await MoxieBotInc.downloadAndSaveMediaMessage(quoted)
+                let media = await ElgazarBot.downloadAndSaveMediaMessage(quoted)
                 let ran = await getRandom('.png')
                 exec(`ffmpeg -i ${media} ${ran}`, (err) => {
                     fs.unlinkSync(media)
                     if (err) throw err
                     let bufferimg13x = fs.readFileSync(ran)
-                    MoxieBotInc.sendMessage(m.chat, { image: bufferimg13x }, { quoted: m })
+                    ElgazarBot.sendMessage(m.chat, { image: bufferimg13x }, { quoted: m })
                     fs.unlinkSync(ran)
                 })
             }
@@ -1723,9 +1723,9 @@ case 'tomp4': case 'tovideo': {
                 if (!/webp/.test(mime)) throw `reply sticker with caption *${prefix + command}*`
                 m.reply(mess.wait)
 		let { webp2mp4File } = require('./lib/uploader')
-                let media = await MoxieBotInc.downloadAndSaveMediaMessage(quoted)
+                let media = await ElgazarBot.downloadAndSaveMediaMessage(quoted)
                 let webpToMp4 = await webp2mp4File(media)
-                await MoxieBotInc.sendMessage(m.chat, { video: { url: webpToMp4.result, caption: 'Convert Webp To Video' } }, { quoted: m })
+                await ElgazarBot.sendMessage(m.chat, { video: { url: webpToMp4.result, caption: 'Convert Webp To Video' } }, { quoted: m })
                 await fs.unlinkSync(media)
             }
             break
@@ -1736,7 +1736,7 @@ case 'tomp4': case 'tovideo': {
             let media = await quoted.download()
             let { toAudio } = require('./lib/converter')
             let audio = await toAudio(media, 'mp4')
-            MoxieBotInc.sendMessage(m.chat, {audio: audio, mimetype: 'audio/mpeg'}, { quoted : m })
+            ElgazarBot.sendMessage(m.chat, {audio: audio, mimetype: 'audio/mpeg'}, { quoted : m })
             }
             break
             case 'tomp3': {
@@ -1747,7 +1747,7 @@ case 'tomp4': case 'tovideo': {
             let media = await quoted.download()
             let { toAudio } = require('./lib/converter')
             let audio = await toAudio(media, 'mp4')
-            MoxieBotInc.sendMessage(m.chat, {document: audio, mimetype: 'audio/mpeg', fileName: `Convert By ${MoxieBotInc.user.name}.mp3`}, { quoted : m })
+            ElgazarBot.sendMessage(m.chat, {document: audio, mimetype: 'audio/mpeg', fileName: `Convert By ${ElgazarBot.user.name}.mp3`}, { quoted : m })
             }
             break
             case 'tovn': case 'toptt': {
@@ -1757,7 +1757,7 @@ case 'tomp4': case 'tovideo': {
             let media = await quoted.download()
             let { toPTT } = require('./lib/converter')
             let audio = await toPTT(media, 'mp4')
-            MoxieBotInc.sendMessage(m.chat, {audio: audio, mimetype:'audio/mpeg', ptt:true }, {quoted:m})
+            ElgazarBot.sendMessage(m.chat, {audio: audio, mimetype:'audio/mpeg', ptt:true }, {quoted:m})
             }
             break
             case 'togif': {
@@ -1765,9 +1765,9 @@ case 'tomp4': case 'tovideo': {
                 if (!/webp/.test(mime)) throw `reply sticker with caption *${prefix + command}*`
                 m.reply(mess.wait)
 		let { webp2mp4File } = require('./lib/uploader')
-                let media = await MoxieBotInc.downloadAndSaveMediaMessage(quoted)
+                let media = await ElgazarBot.downloadAndSaveMediaMessage(quoted)
                 let webpToMp4 = await webp2mp4File(media)
-                await MoxieBotInc.sendMessage(m.chat, { video: { url: webpToMp4.result, caption: 'Convert Webp To Video' }, gifPlayback: true }, { quoted: m })
+                await ElgazarBot.sendMessage(m.chat, { video: { url: webpToMp4.result, caption: 'Convert Webp To Video' }, gifPlayback: true }, { quoted: m })
                 await fs.unlinkSync(media)
             }
             break
@@ -1779,7 +1779,7 @@ case 'tomp4': case 'tovideo': {
 	    let apirnobg = ['q61faXzzR5zNU6cvcrwtUkRU','S258diZhcuFJooAtHTaPEn4T','5LjfCVAp4vVNYiTjq9mXJWHF','aT7ibfUsGSwFyjaPZ9eoJc61','BY63t7Vx2tS68YZFY6AJ4HHF','5Gdq1sSWSeyZzPMHqz7ENfi8','86h6d6u4AXrst4BVMD9dzdGZ','xp8pSDavAgfE5XScqXo9UKHF','dWbCoCb3TacCP93imNEcPxcL']
 	    let apinobg = apirnobg[Math.floor(Math.random() * apirnobg.length)]
 	    hmm = await './src/remobg-'+getRandom('')
-	    localFile = await MoxieBotInc.downloadAndSaveMediaMessage(quoted, hmm)
+	    localFile = await ElgazarBot.downloadAndSaveMediaMessage(quoted, hmm)
 	    outputFile = await './src/hremo-'+getRandom('.png')
 	    m.reply(mess.wait)
 	    remobg.removeBackgroundFromImageFile({
@@ -1790,7 +1790,7 @@ case 'tomp4': case 'tovideo': {
 	      scale: "100%",
 	      outputFile 
 	    }).then(async result => {
-	    MoxieBotInc.sendMessage(m.chat, {image: fs.readFileSync(outputFile), caption: mess.success}, { quoted : m })
+	    ElgazarBot.sendMessage(m.chat, {image: fs.readFileSync(outputFile), caption: mess.success}, { quoted : m })
 	    await fs.unlinkSync(localFile)
 	    await fs.unlinkSync(outputFile)
 	    })
@@ -1805,7 +1805,7 @@ case 'tomp4': case 'tovideo': {
                 for (let i of search.all) {
                     teks += `${themeemoji} No : ${no++}\n${themeemoji} Type : ${i.type}\n${themeemoji} Video ID : ${i.videoId}\n${themeemoji} Title : ${i.title}\n${themeemoji} Views : ${i.views}\n${themeemoji} Duration : ${i.timestamp}\n${themeemoji} Uploaded : ${i.ago}\n${themeemoji} Url : ${i.url}\n\n─────────────────\n\n`
                 }
-                MoxieBotInc.sendMessage(m.chat, { image: { url: search.all[0].thumbnail },  caption: teks }, { quoted: m })
+                ElgazarBot.sendMessage(m.chat, { image: { url: search.all[0].thumbnail },  caption: teks }, { quoted: m })
             }
             break
         case 'google': {
@@ -1823,7 +1823,7 @@ case 'tomp4': case 'tovideo': {
                 }
                 break
 case 'play': case 'yt': { 
-        MoxieBotInc.sendMessage(from, { react: { text: `🔎`, key: m.key }})    
+        ElgazarBot.sendMessage(from, { react: { text: `🔎`, key: m.key }})    
             if (!text) return reply(`Example : ${prefix + command} lelena`)
 let yts = require("yt-search")
 let search = await yts(text)
@@ -1853,11 +1853,11 @@ footer: `${botname} `,
 buttons: buttons,
 headerType: 4,
 }
-MoxieBotInc.sendMessage(m.chat, buttonMessage, { quoted: m })
+ElgazarBot.sendMessage(m.chat, buttonMessage, { quoted: m })
 }
 break
 case 'song': { 
-MoxieBotInc.sendMessage(from, { react: { text: `🎧`, key: m.key }})    
+ElgazarBot.sendMessage(from, { react: { text: `🎧`, key: m.key }})    
     if (!text) return reply(`Example : ${prefix + command} lelena`)
 let yts = require("yt-search")
 let search = await yts(text)
@@ -1887,7 +1887,7 @@ footer: `${botname} `,
 buttons: buttons,
 headerType: 4,
 }
-MoxieBotInc.sendMessage(m.chat, buttonMessage, { quoted: m })
+ElgazarBot.sendMessage(m.chat, buttonMessage, { quoted: m })
 }
 break
 case 'ytdl': {
@@ -1982,17 +1982,17 @@ listMessage :{
 listType: 1
 }
 }), {})
-MoxieBotInc.relayMessage(m.chat, template.message, { messageId: template.key.id })
+ElgazarBot.relayMessage(m.chat, template.message, { messageId: template.key.id })
 }
 break
 case 'ytdoc':
 const Moxieaudp3 = require('./lib/ytdl2')
 if (args.length < 1 || !isUrl(text) || !Moxieaudp3.isYTUrl(text)) throw `Where's the yt link?\nExample: ${prefix + command} https://youtube.com/shorts/YQf-vMjDuKY?feature=share`
-const docdown = await MoxieBotInc.sendMessage(from , { text: global.songdownlod }, { quoted: m } )
+const docdown = await ElgazarBot.sendMessage(from , { text: global.songdownlod }, { quoted: m } )
 const audio=await Moxieaudp3.mp3(text)
-await MoxieBotInc.sendMessage(from, { delete: docdown.key })
-const docup = await MoxieBotInc.sendMessage(from , { text: global.songuplod }, { quoted: m } )
-await MoxieBotInc.sendMessage(m.chat,{
+await ElgazarBot.sendMessage(from, { delete: docdown.key })
+const docup = await ElgazarBot.sendMessage(from , { text: global.songuplod }, { quoted: m } )
+await ElgazarBot.sendMessage(m.chat,{
     audio: fs.readFileSync(audio.path),
     mimetype: 'audio/mpeg', ptt: true,
     contextInfo:{
@@ -2016,21 +2016,21 @@ break
                                 let media = await ytv(text, quality)
                                 if (media.filesize >= 999999) return reply('*File Over Limit* '+util.format(media))
                                 var buf = await getBuffer(media.thumb)
-                                const viddown = await MoxieBotInc.sendMessage(from , { text: global.videodownlod}, { quoted: m } )
-                                await MoxieBotInc.sendMessage(from, { delete: viddown.key })
-                                const vidup = await MoxieBotInc.sendMessage(from , { text:global.videouplod}, { quoted: m } )
-                                const vid = await MoxieBotInc.sendMessage(m.chat, { video: { url: media.dl_link }, jpegThumbnail:buf, mimetype: 'video/mp4', fileName: `video.meta.title.mp4`, caption: `${global.cap}` }, { quoted: m }).catch((err) => reply(mess.error))
-                                await MoxieBotInc.sendMessage(from, { delete: vidup.key }) 
+                                const viddown = await ElgazarBot.sendMessage(from , { text: global.videodownlod}, { quoted: m } )
+                                await ElgazarBot.sendMessage(from, { delete: viddown.key })
+                                const vidup = await ElgazarBot.sendMessage(from , { text:global.videouplod}, { quoted: m } )
+                                const vid = await ElgazarBot.sendMessage(m.chat, { video: { url: media.dl_link }, jpegThumbnail:buf, mimetype: 'video/mp4', fileName: `video.meta.title.mp4`, caption: `${global.cap}` }, { quoted: m }).catch((err) => reply(mess.error))
+                                await ElgazarBot.sendMessage(from, { delete: vidup.key }) 
                             }
                             break
 case 'ytmp3': case 'ytaudio': //credit: Ray Senpai ❤️ https://github.com/EternityBots/Nezuko
 const moxieaudp3 = require('./lib/ytdl2')
 if (args.length < 1 || !isUrl(text) || !moxieaudp3.isYTUrl(text)) throw `Where's the yt link?\nExample: ${prefix + command} https://youtube.com/shorts/YQf-vMjDuKY?feature=share`
-const songdown = await MoxieBotInc.sendMessage(from , { text: global.songdownlod}, { quoted: m } )
+const songdown = await ElgazarBot.sendMessage(from , { text: global.songdownlod}, { quoted: m } )
 const Audio=await moxieaudp3.mp3(text)
-await MoxieBotInc.sendMessage(from, { delete: songdown.key })
-const songcup = await MoxieBotInc.sendMessage(from , { text: global.songuplod}, { quoted: m } )
-await MoxieBotInc.sendMessage(m.chat,{
+await ElgazarBot.sendMessage(from, { delete: songdown.key })
+const songcup = await ElgazarBot.sendMessage(from , { text: global.songuplod}, { quoted: m } )
+await ElgazarBot.sendMessage(m.chat,{
     Audio: fs.readFileSync(audio.path),
     mimetype: 'audio/mp4', ptt: true,
     contextInfo:{
@@ -2047,7 +2047,7 @@ await MoxieBotInc.sendMessage(m.chat,{
 await fs.unlinkSync(audio.path)
 break
 	case 'video': { 
-    MoxieBotInc.sendMessage(from, { react: { text: `🎥`, key: m.key }})    
+    ElgazarBot.sendMessage(from, { react: { text: `🎥`, key: m.key }})    
         if (!text) return reply(`Example : ${prefix + command} lelena`)
  let yts = require("yt-search")
  let search = await yts(text)
@@ -2078,7 +2078,7 @@ break
  buttons: buttons,
  headerType: 4,
  }
- MoxieBotInc.sendMessage(m.chat, buttonMessage, { quoted: m })
+ ElgazarBot.sendMessage(m.chat, buttonMessage, { quoted: m })
  }
  break
 case 'pinterest': {
@@ -2086,7 +2086,7 @@ case 'pinterest': {
 		let { pinterest } = require('./lib/scraper')
                 anupint = await pinterest(text)
                 result = anupint[Math.floor(Math.random() * anupint.length)]
-                MoxieBotInc.sendMessage(m.chat, { image: { url: result }, caption: `${themeemoji} Media Url : `+result }, { quoted: m })
+                ElgazarBot.sendMessage(m.chat, { image: { url: result }, caption: `${themeemoji} Media Url : `+result }, { quoted: m })
             }
             break
             case 'waifu': {
@@ -2101,15 +2101,15 @@ case 'pinterest': {
                     buttons: buttons,
                     headerType: 4
                 }
-                MoxieBotInc.sendMessage(m.chat, buttonMessage, { quoted: m })
+                ElgazarBot.sendMessage(m.chat, buttonMessage, { quoted: m })
             }
             break
 	    case 'couplepp': case 'ppcouple': {
                 m.reply(mess.wait)
                 let anucpp = await fetchJson('https://raw.githubusercontent.com/DGMoxie/Moxie_Plaguing/Moxie_Media/main/couple.json')
                 let random = anucpp[Math.floor(Math.random() * anucpp.length)]
-                MoxieBotInc.sendMessage(m.chat, { image: { url: random.male }, caption: `Couple Male` }, { quoted: m })
-                MoxieBotInc.sendMessage(m.chat, { image: { url: random.female }, caption: `Couple Female` }, { quoted: m })
+                ElgazarBot.sendMessage(m.chat, { image: { url: random.male }, caption: `Couple Male` }, { quoted: m })
+                ElgazarBot.sendMessage(m.chat, { image: { url: random.female }, caption: `Couple Female` }, { quoted: m })
             }
 	    break
             case 'coffee': case 'kopi': {
@@ -2123,7 +2123,7 @@ case 'pinterest': {
                     buttons: buttons,
                     headerType: 4
                 }
-                MoxieBotInc.sendMessage(m.chat, buttonMessage, { quoted: m })
+                ElgazarBot.sendMessage(m.chat, buttonMessage, { quoted: m })
             }
             break
             case 'wallpaper': {
@@ -2141,7 +2141,7 @@ case 'pinterest': {
                     buttons: buttons,
                     headerType: 4
                 }
-                MoxieBotInc.sendMessage(m.chat, buttonMessage, { quoted: m })
+                ElgazarBot.sendMessage(m.chat, buttonMessage, { quoted: m })
             }
             break
             case 'wikimedia': {
@@ -2159,7 +2159,7 @@ case 'pinterest': {
                     buttons: buttons,
                     headerType: 4
                 }
-                MoxieBotInc.sendMessage(m.chat, buttonMessage, { quoted: m })
+                ElgazarBot.sendMessage(m.chat, buttonMessage, { quoted: m })
             }
             break
  case 'tinyurl':{
@@ -2244,7 +2244,7 @@ case 'lava': case 'rockart': case 'bloodglas': case 'halloween': case 'darkgold'
              if (/1917/.test(command)) link = 'https://textpro.me/1917-style-text-effect-online-980.html'
                 if (/leaves/.test(command)) link = 'https://textpro.me/natural-leaves-text-effect-931.html'           
              let anutexpro = await maker.textpro(link, q)
-                MoxieBotInc.sendMessage(m.chat, { image: { url: anutexpro }, caption: `Made by ${global.botname}` }, { quoted: m })
+                ElgazarBot.sendMessage(m.chat, { image: { url: anutexpro }, caption: `Made by ${global.botname}` }, { quoted: m })
              }
              break
 case'glitch3':
@@ -2254,7 +2254,7 @@ teks1 = q.split("|")[0]
 teks2 = q.split("|")[1]
 maker.textpro("https://textpro.me/create-glitch-text-effect-style-tik-tok-983.html", [
     `${teks1}`,`${teks2}`])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 
@@ -2263,7 +2263,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/3d-box-text-effect-online-880.html", [
     `${q}`,])
-.then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+.then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
 .catch((err) => console.log(err));
 break
 
@@ -2272,7 +2272,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
  maker.textpro("https://textpro.me/dropwater-text-effect-872.html", [
      `${q}`,])
-    .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+    .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
     .catch((err) => console.log(err));
      break
 
@@ -2281,7 +2281,7 @@ case 'lion2':
   m.reply(mess.wait)
   maker.textpro("https://textpro.me/create-lion-logo-mascot-online-938.html", [
       `${q}`,])
-     .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+     .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
      .catch((err) => console.log(err));
      break
 
@@ -2290,7 +2290,7 @@ case 'papercut':
       m.reply(mess.wait)
       maker.textpro("https://textpro.me/create-art-paper-cut-text-effect-online-1022.html", [
 `${q}`,])
-         .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+         .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
          .catch((err) => console.log(err));
          break
 
@@ -2299,7 +2299,7 @@ case 'transformer':
       m.reply(mess.wait)
       maker.textpro("https://textpro.me/create-a-transformer-text-effect-online-1035.html", [
 `${q}`,])
-.then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+.then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
 .catch((err) => console.log(err));
 break
    
@@ -2310,7 +2310,7 @@ case 'harrypot':
        teks2 = q.split("|")[1]
        maker.textpro("https://textpro.me/create-harry-potter-text-effect-online-1025.html", [
  `${teks1}`,`${teks2}`])
- .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+ .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
  .catch((err) => console.log(err));
  break
 
@@ -2319,7 +2319,7 @@ case 'neondevil':
       m.reply(mess.wait)
       maker.textpro("https://textpro.me/create-neon-devil-wings-text-effect-online-free-1014.html", [
 `${q}`,])
-         .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+         .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
          .catch((err) => console.log(err));
          break
 
@@ -2328,7 +2328,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/3d-stone-cracked-cool-text-effect-1029.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 
@@ -2337,7 +2337,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/create-3d-avengers-logo-online-974.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 
@@ -2346,7 +2346,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/online-thunder-text-effect-generator-1031.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
    
@@ -2355,7 +2355,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/write-text-on-foggy-window-online-free-1015.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 
@@ -2364,7 +2364,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/create-neon-light-blackpink-logo-text-effect-online-1081.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 
@@ -2376,7 +2376,7 @@ teks1 = q.split("|")[0]
 teks2 = q.split("|")[1]
 maker.textpro("https://textpro.me/create-a-cool-graffiti-text-on-the-wall-1010.html", [
     `${teks1}`,`${teks2}`])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 
@@ -2387,7 +2387,7 @@ teks1 = q.split("|")[0]
 teks2 = q.split("|")[1]
 maker.textpro("https://textpro.me/pornhub-style-logo-online-generator-free-977.html", [
     `${teks1}`,`${teks2}`])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 
@@ -2396,7 +2396,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/create-blackpink-logo-style-online-1001.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 
@@ -2405,7 +2405,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/create-impressive-glitch-text-effects-online-1027.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 
@@ -2416,7 +2416,7 @@ teks1 = q.split("|")[0]
 teks2 = q.split("|")[1]
 maker.textpro("https://textpro.me/create-a-glitch-text-effect-online-free-1026.html", [
     `${teks1}`,`${teks2}`])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 
@@ -2427,7 +2427,7 @@ teks1 = q.split("|")[0]
 teks2 = q.split("|")[1]
 maker.textpro("https://textpro.me/create-glitch-text-effect-style-tik-tok-983.html", [
     `${teks1}`,`${teks2}`])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 
@@ -2438,7 +2438,7 @@ teks1 = q.split("|")[0]
 teks2 = q.split("|")[1]
 maker.textpro("https://textpro.me/create-space-3d-text-effect-online-985.html", [
     `${teks1}`,`${teks2}`])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 
@@ -2449,7 +2449,7 @@ teks1 = q.split("|")[0]
 teks2 = q.split("|")[1]
 maker.textpro("https://textpro.me/create-lion-logo-mascot-online-938.html", [
     `${teks1}`,`${teks2}`])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 
@@ -2458,7 +2458,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/create-3d-neon-light-text-effect-online-1028.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 
@@ -2467,7 +2467,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/neon-text-effect-online-879.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 
@@ -2476,7 +2476,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/green-neon-text-effect-874.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
     
@@ -2485,7 +2485,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/bokeh-text-effect-876.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
    
@@ -2496,7 +2496,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/holographic-3d-text-effect-975.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 
@@ -2510,7 +2510,7 @@ teks1 = q.split("|")[0]
 teks2 = q.split("|")[1]
 maker.textpro("https://textpro.me/online-black-and-white-bear-mascot-logo-creation-1012.html", [
     `${teks1}`,`${teks2}`])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 
@@ -2522,7 +2522,7 @@ teks1 = q.split("|")[0]
 teks2 = q.split("|")[1]
 maker.textpro("https://textpro.me/create-wolf-logo-galaxy-online-936.html", [
     `${teks1}`,`${teks2}`])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 
@@ -2531,7 +2531,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/create-logo-joker-online-934.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 
@@ -2540,7 +2540,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/dropwater-text-effect-872.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
    
@@ -2549,7 +2549,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/create-a-summer-neon-light-text-effect-online-1076.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 
@@ -2558,7 +2558,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/neon-light-text-effect-with-galaxy-style-981.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 
@@ -2567,7 +2567,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/break-wall-text-effect-871.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
    
@@ -2576,7 +2576,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/natural-leaves-text-effect-931.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break 
 
@@ -2585,7 +2585,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/carbon-text-effect-833.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 
@@ -2594,7 +2594,7 @@ if(!q) throw`Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/create-a-sketch-text-effect-online-1044.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 
@@ -2604,11 +2604,11 @@ if (args.length < 1) throw `Example :\n${prefix + command} <name>`
 if (args[0] === 'glitch') {
 if (args.length < 2) throw `Example :\n${prefix + command + ' ' + args[0]} ${global.ownername}`
 let teds = await thiccysapi.textpro("https://textpro.me/create-impressive-glitch-text-effects-online-1027.html", [args[1]])
-MoxieBotInc.sendMessage(from, {image:{url:teds}, caption:"Done!"}, {quoted:m})
+ElgazarBot.sendMessage(from, {image:{url:teds}, caption:"Done!"}, {quoted:m})
 } else if (args[0] === 'glow') {
 if (args.length < 2) throw `Example :\n${prefix + command + ' ' + args[0]} ${global.ownername}`
 let teds = await thiccysapi.textpro("https://textpro.me/create-light-glow-sliced-text-effect-online-1068.html", [args[1]])
-MoxieBotInc.sendMessage(from, {image:{url:teds}, caption:"Done!"}, {quoted:m})
+ElgazarBot.sendMessage(from, {image:{url:teds}, caption:"Done!"}, {quoted:m})
 } else {
 m.reply(`*Text Maker List :*\n•> glitch\n•> glow`)
 }
@@ -2620,7 +2620,7 @@ case 'hoorror':{
      let anui = await textpro(link, q)
      m.reply(`Wait a moment while making the logo about 1 minute`) 
      console.log(anui)
-    MoxieBotInc.sendMessage(from, {image:{url:anui}, caption:"Here you go!"}, {quoted:m})
+    ElgazarBot.sendMessage(from, {image:{url:anui}, caption:"Here you go!"}, {quoted:m})
 }
    break
 case 'whitebear':
@@ -2629,7 +2629,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/online-black-and-white-bear-mascot-logo-creation-1012.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 case 'thunder2':
@@ -2638,7 +2638,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/create-thunder-text-effect-online-881.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
    break
@@ -2648,7 +2648,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/neon-light-text-effect-online-882.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 case 'matrix2':
@@ -2657,7 +2657,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/matrix-style-text-effect-online-884.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 case 'sky':
@@ -2666,7 +2666,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/create-a-cloud-text-effect-on-the-sky-online-1004.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 case 'magma':
@@ -2675,7 +2675,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/create-a-magma-hot-text-effect-online-1030.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 case 'sand':
@@ -2684,7 +2684,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/sand-writing-text-effect-online-990.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 case 'pencil':
@@ -2693,7 +2693,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/create-a-sketch-text-effect-online-1044.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 case 'graffiti':
@@ -2702,7 +2702,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/create-wonderful-graffiti-art-text-effect-1011.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 case 'metallic':
@@ -2711,7 +2711,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/create-a-metallic-text-effect-free-online-1041.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 case 'steel':
@@ -2720,7 +2720,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/steel-text-effect-online-921.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 case 'harrpotter':
@@ -2729,7 +2729,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/create-harry-potter-text-effect-online-1025.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 case 'underwater':
@@ -2738,7 +2738,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/3d-underwater-text-effect-generator-online-1013.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 case 'luxury':
@@ -2747,7 +2747,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/3d-luxury-gold-text-effect-online-1003.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 case 'glue2':
@@ -2756,7 +2756,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/create-3d-glue-text-effect-with-realistic-style-986.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 case 'fabric':
@@ -2765,7 +2765,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/fabric-text-effect-online-964.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 case 'neonlight':
@@ -2774,7 +2774,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/neon-light-glitch-text-generator-online-1063.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 case 'lava':
@@ -2783,7 +2783,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/lava-text-effect-online-914.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 case 'toxic':
@@ -2792,7 +2792,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/toxic-text-effect-online-901.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 case 'ancient':
@@ -2801,7 +2801,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/3d-golden-ancient-text-effect-online-free-1060.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 case 'christmas2':
@@ -2810,7 +2810,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/sparkles-merry-christmas-text-effect-1054.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 case 'sci_fi':
@@ -2819,7 +2819,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/create-3d-sci-fi-text-effect-online-1050.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 case 'rainbow':
@@ -2828,7 +2828,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/3d-rainbow-color-calligraphy-text-effect-1049.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 case 'classic':
@@ -2837,7 +2837,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/video-game-classic-8-bit-text-effect-1037.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 case 'watercolor2':
@@ -2846,7 +2846,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/create-a-free-online-watercolor-text-effect-1017.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 case 'halloweem2':
@@ -2855,7 +2855,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/create-a-spooky-halloween-text-effect-online-1046.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 case 'halloweenfire':
@@ -2864,7 +2864,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/halloween-fire-text-effect-940.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 case 'writing':
@@ -2873,7 +2873,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/sand-writing-text-effect-online-990.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 case 'foggy':
@@ -2882,7 +2882,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/write-text-on-foggy-window-online-free-1015.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 case 'marvel':
@@ -2891,7 +2891,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/create-logo-style-marvel-studios-ver-metal-972.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 case 'skeleton2':
@@ -2900,7 +2900,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/create-halloween-skeleton-text-effect-online-1047.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 case 'sketch':
@@ -2909,7 +2909,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/create-a-sketch-text-effect-online-1044.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 case 'wonderful':
@@ -2918,7 +2918,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/create-wonderful-graffiti-art-text-effect-1011.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 case 'batman':
@@ -2927,7 +2927,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/make-a-batman-logo-online-free-1066.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 case 'juice':
@@ -2936,7 +2936,7 @@ if(!q) throw `Use ${prefix + command} text`
 m.reply(mess.wait)
 maker.textpro("https://textpro.me/fruit-juice-text-effect-861.html", [
     `${q}`,])
-  .then((data) => MoxieBotInc.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
+  .then((data) => ElgazarBot.sendMessage(m.chat, { image: { url: data }, caption: `Made by ${global.botname}` }, { quoted: m }))
   .catch((err) => console.log(err));
    break
 case 'pornhub':{
@@ -2949,7 +2949,7 @@ inilogo9 = args.join(" ")
 var logo9 = inilogo9.split('|')[1]
     let anuphub = await textpro("https://textpro.me/pornhub-style-logo-online-generator-free-977.html", [`${logo4}`,`${logo9}`])
 console.log(anuphub)
-MoxieBotInc.sendMessage(from,{image:{url:anuphub}, caption:"Here you go!"},{quoted:m})
+ElgazarBot.sendMessage(from,{image:{url:anuphub}, caption:"Here you go!"},{quoted:m})
 }
 break
 case 'retro':{
@@ -2961,7 +2961,7 @@ inilogo9 = args.join(" ")
 var logo9 = inilogo9.split('|')[1]
     let anutro2 = await textpro("https://textpro.me/create-3d-retro-text-effect-online-free-1065.html", [`${logo4}`,`${logo9}`])
 console.log(anutro2)
-MoxieBotInc.sendMessage(from,{image:{url:anutro2}, caption:"Here you go!"},{quoted:m})
+ElgazarBot.sendMessage(from,{image:{url:anutro2}, caption:"Here you go!"},{quoted:m})
 }
 break
 case 'horror':{
@@ -2973,7 +2973,7 @@ inilogo9 = args.join(" ")
 var logo9 = inilogo9.split('|')[1]
     let anuror2 = await textpro("https://textpro.me/create-a-cinematic-horror-text-effect-1045.html", [`${logo4}`,`${logo9}`])
 console.log(anuror2)
-MoxieBotInc.sendMessage(from,{image:{url:anuror2}, caption:"Here you go!"},{quoted:m})
+ElgazarBot.sendMessage(from,{image:{url:anuror2}, caption:"Here you go!"},{quoted:m})
 }
 break
 case '8bit':{
@@ -2985,7 +2985,7 @@ inilogo9 = args.join(" ")
 var logo9 = inilogo9.split('|')[1]
     let anubit8 = await textpro("https://textpro.me/video-game-classic-8-bit-text-effect-1037.html", [`${logo4}`,`${logo9}`])
 console.log(anubit8)
-MoxieBotInc.sendMessage(from,{image:{url:anubit8}, caption:"Here you go!"},{quoted:m})
+ElgazarBot.sendMessage(from,{image:{url:anubit8}, caption:"Here you go!"},{quoted:m})
 }
 break
 case 'tiktok':{ 
@@ -2994,7 +2994,7 @@ if (!q.includes('tiktok')) return m.reply(`Link Invalid!!`)
 m.reply(mess.wait)
 require('./lib/tiktok').Tiktok(q).then( data => {
     var button = [{ buttonId: `tiktokaudio ${q}`, buttonText: { displayText: `AUDIO‡` }, type: 1 }, { buttonId: `menu`, buttonText: { displayText: `Menu` }, type: 1 }]
-MoxieBotInc.sendMessage(m.chat, { caption: `Here you go!`, video: { url: data.watermark }, buttons: button, footer: botname, mentions: [sender] })
+ElgazarBot.sendMessage(m.chat, { caption: `Here you go!`, video: { url: data.watermark }, buttons: button, footer: botname, mentions: [sender] })
 })
 }
 break
@@ -3003,7 +3003,7 @@ if (!text) return m.reply( `Example : ${prefix + command} link`)
 if (!q.includes('tiktok')) return m.reply(`Link Invalid!!`)
 m.reply(mess.wait)
 require('./lib/tiktok').Tiktok(q).then( data => {
-MoxieBotInc.sendMessage(m.chat, { audio: { url: data.audio }, mimetype: 'audio/mp4' }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { audio: { url: data.audio }, mimetype: 'audio/mp4' }, { quoted: m })
 })
 }
 break
@@ -3012,304 +3012,304 @@ m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var asupan = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/tiktokvids/tiktokgirl.json'))
 var hasil = pickRandom(asupan)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, video: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, video: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'tiktokghea':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var gheayubi = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/tiktokvids/gheayubi.json'))
 var hasil = pickRandom(gheayubi)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, video: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, video: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'tiktokbocil':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var bocil = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/tiktokvids/bocil.json'))
 var hasil = pickRandom(bocil)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, video: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, video: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'tiktoknukhty':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var ukhty = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/tiktokvids/ukhty.json'))
 var hasil = pickRandom(ukhty)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, video: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, video: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'tiktoksantuy':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var santuy = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/tiktokvids/santuy.json'))
 var hasil = pickRandom(santuy)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, video: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, video: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'tiktokkayes':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var kayes = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/tiktokvids/kayes.json'))
 var hasil = pickRandom(kayes)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, video: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, video: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'tiktokpanrika':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var rikagusriani = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/tiktokvids/panrika.json'))
 var hasil = pickRandom(rikagusriani)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, video: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, video: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'tiktoknotnot':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var notnot = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/tiktokvids/notnot.json'))
 var hasil = pickRandom(notnot)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, video: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, video: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'chinese':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var notnot = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/tiktokpics/china.json'))
 var hasil = pickRandom(notnot)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'hijab':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var notnot = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/tiktokpics/hijab.json'))
 var hasil = pickRandom(notnot)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'indo':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var notnot = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/tiktokpics/indonesia.json'))
 var hasil = pickRandom(notnot)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'japanese':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var notnot = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/tiktokpics/japan.json'))
 var hasil = pickRandom(notnot)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'korean':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var notnot = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/tiktokpics/korea.json'))
 var hasil = pickRandom(notnot)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'malay':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var notnot = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/tiktokpics/malaysia.json'))
 var hasil = pickRandom(notnot)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'randomgirl':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var notnot = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/tiktokpics/random.json'))
 var hasil = pickRandom(notnot)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'randomboy':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var notnot = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/tiktokpics/random2.json'))
 var hasil = pickRandom(notnot)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'thai':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var notnot = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/tiktokpics/thailand.json'))
 var hasil = pickRandom(notnot)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'vietnamese':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var notnot = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/tiktokpics/vietnam.json'))
 var hasil = pickRandom(notnot)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'aesthetic':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var notnot = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/randompics/aesthetic.json'))
 var hasil = pickRandom(notnot)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'antiwork':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var notnot = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/randompics/antiwork.json'))
 var hasil = pickRandom(notnot)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'blackpink':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var notnot = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/randompics/blackpink.json'))
 var hasil = pickRandom(notnot)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'bike':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var notnot = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/randompics/bike.json'))
 var hasil = pickRandom(notnot)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'boneka':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var notnot = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/randompics/boneka.json'))
 var hasil = pickRandom(notnot)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'cosplay':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var notnot = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/randompics/cosplay.json'))
 var hasil = pickRandom(notnot)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'cat':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var notnot = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/randompics/cat.json'))
 var hasil = pickRandom(notnot)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'doggo':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var notnot = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/randompics/doggo.json'))
 var hasil = pickRandom(notnot)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'hacking':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var notnot = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/randompics/hacking.json'))
 var hasil = pickRandom(notnot)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'justina':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var notnot = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/randompics/justina.json'))
 var hasil = pickRandom(notnot)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'kayes':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var notnot = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/randompics/kayes.json'))
 var hasil = pickRandom(notnot)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'kpop':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var notnot = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/randompics/kpop.json'))
 var hasil = pickRandom(notnot)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'notnot':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var notnot = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/randompics/notnot.json'))
 var hasil = pickRandom(notnot)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'car':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var notnot = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/randompics/car.json'))
 var hasil = pickRandom(notnot)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'couplepic':case 'couplepicture':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var notnot = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/randompics/ppcouple.json'))
 var hasil = pickRandom(notnot)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'profilepic':  case 'profilepicture':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var notnot = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/randompics/profile.json'))
 var hasil = pickRandom(notnot)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'pubg':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var notnot = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/randompics/pubg.json'))
 var hasil = pickRandom(notnot)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'rose':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var notnot = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/randompics/rose.json'))
 var hasil = pickRandom(notnot)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'ryujin':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var notnot = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/randompics/ryujin.json'))
 var hasil = pickRandom(notnot)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'ulzzangboy':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var notnot = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/randompics/ulzzangboy.json'))
 var hasil = pickRandom(notnot)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'ulzzanggirl':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var notnot = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/randompics/ulzzanggirl.json'))
 var hasil = pickRandom(notnot)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'wallml': case 'wallpaperml':case 'mobilelegend':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var notnot = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/randompics/wallml.json'))
 var hasil = pickRandom(notnot)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'wallpaperphone': case 'wallphone':
 m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var notnot = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/randompics/wallhp.json'))
 var hasil = pickRandom(notnot)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url }, buttons: but, footer: botname }, { quoted: m })
 break
 
 case 'rentbot': {
 if (!isPremium) return sendButMessage (m.chat, prem1, prem2, prem3, { quoted:m})
-jadibot(MoxieBotInc, m, m.chat)
+jadibot(ElgazarBot, m, m.chat)
 }
 break
 case 'rentbotlist':
 try {
-let user = [... new Set([...global.conns.filter(MoxieBotInc => MoxieBotInc.user).map(MoxieBotInc => MoxieBotInc.user)])]
+let user = [... new Set([...global.conns.filter(ElgazarBot => ElgazarBot.user).map(ElgazarBot => ElgazarBot.user)])]
 te = "*Bot Rent List*\n\n"
 for (let i of user){
-let y = await MoxieBotInc.decodeJid(i.id)
+let y = await ElgazarBot.decodeJid(i.id)
 te += " × User : @" + y.split("@")[0] + "\n"
 te += " × Name : " + i.name + "\n\n"
 }
-MoxieBotInc.sendMessage(m.chat,{text:te,mentions: [y], },{quoted:m})
+ElgazarBot.sendMessage(m.chat,{text:te,mentions: [y], },{quoted:m})
 } catch (err) {
 m.reply(`There are no users who have rented bot yet`)
 }
@@ -3322,14 +3322,14 @@ let regex1 = /(?:https|git)(?::\/\/|@)github\.com[\/:]([^\/:]+)\/(.+)/i
     repo = repo.replace(/.git$/, '')
     let url = `https://api.github.com/repos/${user}/${repo}/zipball`
     let filename = (await fetch(url, {method: 'HEAD'})).headers.get('content-disposition').match(/attachment; filename=(.*)/)[1]
-    MoxieBotInc.sendMessage(m.chat, { document: { url: url }, fileName: filename+'.zip', mimetype: 'application/zip' }, { quoted: m }).catch((err) => reply(mess.error))
+    ElgazarBot.sendMessage(m.chat, { document: { url: url }, fileName: filename+'.zip', mimetype: 'application/zip' }, { quoted: m }).catch((err) => reply(mess.error))
 break
 	        case 'pinterest': {
 m.reply(mess.wait)
 let { pinterest } = require('./lib/scraper')
 anutrest = await pinterest(text)
 result = anutrest[Math.floor(Math.random() * anutrest.length)]
-MoxieBotInc.sendMessage(m.chat, { image: { url: result }, caption: '⭔ Media Url : '+result }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { image: { url: result }, caption: '⭔ Media Url : '+result }, { quoted: m })
 }
 break
         case 'ringtone': {
@@ -3337,28 +3337,28 @@ break
         let { ringtone } = require('./lib/scraper')
 		let anutone2 = await ringtone(text)
 		let result = anutone2[Math.floor(Math.random() * anutone2.length)]
-		MoxieBotInc.sendMessage(m.chat, { audio: { url: result.audio }, fileName: result.title+'.mp3', mimetype: 'audio/mpeg' }, { quoted: m })
+		ElgazarBot.sendMessage(m.chat, { audio: { url: result.audio }, fileName: result.title+'.mp3', mimetype: 'audio/mpeg' }, { quoted: m })
 	    }
 	    break
 case 'stickman':
 m.reply(mess.wait)
-MoxieBotInc.sendMessage(m.chat, {sticker: {url: `https://api.zeeoneofc.xyz/api/telegram-sticker/manusia-lidi?apikey=dhmDlD5x`}}, {quoted: m })
+ElgazarBot.sendMessage(m.chat, {sticker: {url: `https://api.zeeoneofc.xyz/api/telegram-sticker/manusia-lidi?apikey=dhmDlD5x`}}, {quoted: m })
 break
 case 'spongebob':
 m.reply(mess.wait)
-MoxieBotInc.sendMessage(m.chat, {sticker: {url: `https://api.zeeoneofc.xyz/api/telegram-sticker/kawan-sponsbob?apikey=dhmDlD5x`}}, {quoted: m })
+ElgazarBot.sendMessage(m.chat, {sticker: {url: `https://api.zeeoneofc.xyz/api/telegram-sticker/kawan-sponsbob?apikey=dhmDlD5x`}}, {quoted: m })
 break
 case 'gojosatoru':
 m.reply(mess.wait)
-MoxieBotInc.sendMessage(m.chat, {sticker: {url: `https://api.zeeoneofc.xyz/api/telegram-sticker/gojosatoru?apikey=dhmDlD5x`}}, {quoted: m })
+ElgazarBot.sendMessage(m.chat, {sticker: {url: `https://api.zeeoneofc.xyz/api/telegram-sticker/gojosatoru?apikey=dhmDlD5x`}}, {quoted: m })
 break
 case 'nicholas':
 m.reply(mess.wait)
-MoxieBotInc.sendMessage(m.chat, {sticker: {url: `https://api.zeeoneofc.xyz/api/telegram-sticker/nicholas?apikey=dhmDlD5x`}}, {quoted: m })
+ElgazarBot.sendMessage(m.chat, {sticker: {url: `https://api.zeeoneofc.xyz/api/telegram-sticker/nicholas?apikey=dhmDlD5x`}}, {quoted: m })
 break
 case 'cartoon':
 m.reply(mess.wait)
-MoxieBotInc.sendMessage(m.chat, {sticker: {url: `https://api.zeeoneofc.xyz/api/telegram-sticker/kr-robot?apikey=dhmDlD5x`}}, {quoted: m })
+ElgazarBot.sendMessage(m.chat, {sticker: {url: `https://api.zeeoneofc.xyz/api/telegram-sticker/kr-robot?apikey=dhmDlD5x`}}, {quoted: m })
 break
 		case 'bass': case 'blown': case 'deep': case 'earrape': case 'fast': case 'fat': case 'nightcore': case 'reverse': case 'robot': case 'slow': case 'smooth': case 'squirrel':
                 try {
@@ -3377,13 +3377,13 @@ break
                 if (/tupai/.test(command)) set = '-filter:a "atempo=0.5,asetrate=65100"'
                 if (/audio/.test(mime)) {
                 m.reply(mess.wait)
-                let media = await MoxieBotInc.downloadAndSaveMediaMessage(quoted)
+                let media = await ElgazarBot.downloadAndSaveMediaMessage(quoted)
                 let ran = getRandom('.mp3')
                 exec(`ffmpeg -i ${media} ${set} ${ran}`, (err, stderr, stdout) => {
                 fs.unlinkSync(media)
                 if (err) return m.reply(err)
                 let buff = fs.readFileSync(ran)
-                MoxieBotInc.sendMessage(m.chat, { audio: buff, mimetype: 'audio/mpeg' }, { quoted : m })
+                ElgazarBot.sendMessage(m.chat, { audio: buff, mimetype: 'audio/mpeg' }, { quoted : m })
                 fs.unlinkSync(ran)
                 })
                 } else m.reply(`Reply to the audio you want to change with a caption *${prefix + command}*`)
@@ -3421,7 +3421,7 @@ break
 Info: *bold* hash is Locked
 ${Object.entries(global.db.data.sticker).map(([key, value], index) => `${index + 1}. ${value.locked ? `*${key}*` : key} : ${value.text}`).join('\n')}
 `.trim()
-                MoxieBotInc.sendText(m.chat, teks, m, { mentions: Object.values(global.db.data.sticker).map(x => x.mentionedJid).reduce((a,b) => [...a, ...b], []) })
+                ElgazarBot.sendText(m.chat, teks, m, { mentions: Object.values(global.db.data.sticker).map(x => x.mentionedJid).reduce((a,b) => [...a, ...b], []) })
             }
             break
             case 'lockcmd': {
@@ -3451,7 +3451,7 @@ View list of Messages With ${prefix}listmsg`)
                 if (!text) throw `Example : ${prefix + command} file name\n\nView message list with ${prefix}listmsg`
                 let msgs = global.db.data.database
                 if (!(text.toLowerCase() in msgs)) throw `'${text}' not listed in the message list`
-                MoxieBotInc.copyNForward(m.chat, msgs[text.toLowerCase()], true)
+                ElgazarBot.copyNForward(m.chat, msgs[text.toLowerCase()], true)
             }
             break
             case 'listmsg': {
@@ -3476,7 +3476,7 @@ reply(`•Moxie BOT DEVELOPER•\n\n\n   ©2021-2022 Moxie Bot Inc.\n\n🦄Dream
 }
             break
 case 'owner': case 'creator': case 'moderator': case 'mod': {
-MoxieBotInc.sendContact(m.chat, owner, m)
+ElgazarBot.sendContact(m.chat, owner, m)
 }
             break
         case 'menfess':
@@ -3492,11 +3492,11 @@ MoxieBotInc.sendContact(m.chat, owner, m)
 				 let teksnya = `Hi friend, there is confess message for you!!\n\nFrom :  _${saking}_  \nMessage : _${pesan}_ `
 					gambar = `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMkjAJhYezm4h6k1AJ6qfreGkaRdBcR7UHMw&usqp=CAU`
 				 var button = [{ buttonId: `menfesconfirm`, buttonText: { displayText: `CONFIRM‡` }, type: 1 }, { buttonId: `menu`, buttonText: { displayText: `Menu` }, type: 1 }]
-					MoxieBotInc.sendMessage(`${nomor}@s.whatsapp.net`, { caption: teksnya, image: {url: `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMkjAJhYezm4h6k1AJ6qfreGkaRdBcR7UHMw&usqp=CAU`}, buttons: button, footer: botname })
+					ElgazarBot.sendMessage(`${nomor}@s.whatsapp.net`, { caption: teksnya, image: {url: `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMkjAJhYezm4h6k1AJ6qfreGkaRdBcR7UHMw&usqp=CAU`}, buttons: button, footer: botname })
 				m.reply(`Success Sending Menfess!!`)
 				break
 			case 'menfesconfirm':{
- 				 MoxieBotInc.sendMessage(q, {text: `It's been confirmed, Confess🌹`})
+ 				 ElgazarBot.sendMessage(q, {text: `It's been confirmed, Confess🌹`})
 				  m.reply(`Thank you confess for being accepted.`)
 				}
 				break
@@ -3506,7 +3506,7 @@ case 'anonymous': {
 				let buttons = [
                     { buttonId: 'start', buttonText: { displayText: 'Start' }, type: 1 }
                 ]
-                MoxieBotInc.sendButtonText(m.chat, buttons, `\`\`\`Hi ${await MoxieBotInc.getName(m.sender)} Welcome To Anonymous Chat\n\nClick the button below to find a partner\`\`\``, botname, m)
+                ElgazarBot.sendButtonText(m.chat, buttons, `\`\`\`Hi ${await ElgazarBot.getName(m.sender)} Welcome To Anonymous Chat\n\nClick the button below to find a partner\`\`\``, botname, m)
             }
 			break
 case 'keluar': case 'leave': {
@@ -3517,12 +3517,12 @@ case 'keluar': case 'leave': {
                     let buttons = [
                         { buttonId: 'start', buttonText: { displayText: 'Start' }, type: 1 }
                     ]
-                    await MoxieBotInc.sendButtonText(m.chat, buttons, `\`\`\`You Are Not In Anonymous Session, Press Button To Find Partner \`\`\``)
+                    await ElgazarBot.sendButtonText(m.chat, buttons, `\`\`\`You Are Not In Anonymous Session, Press Button To Find Partner \`\`\``)
                     throw false
                 }
                 m.reply('Ok')
                 let other = room.other(m.sender)
-                if (other) await MoxieBotInc.sendText(other, `\`\`\`Partner Has Left Anonymous Session\`\`\``, m)
+                if (other) await ElgazarBot.sendText(other, `\`\`\`Partner Has Left Anonymous Session\`\`\``, m)
                 delete this.anonymous[room.id]
                 if (command === 'leave') break
             }
@@ -3533,7 +3533,7 @@ case 'keluar': case 'leave': {
                     let buttons = [
                         { buttonId: 'keluar', buttonText: { displayText: 'Stop' }, type: 1 }
                     ]
-                    await MoxieBotInc.sendButtonText(m.chat, buttons, `\`\`\`You are still in an anonymous session, press the button below to terminate your anonymous session\`\`\``, botname, m)
+                    await ElgazarBot.sendButtonText(m.chat, buttons, `\`\`\`You are still in an anonymous session, press the button below to terminate your anonymous session\`\`\``, botname, m)
                     throw false
                 }
                 let room = Object.values(this.anonymous).find(room => room.state === 'WAITING' && !room.check(m.sender))
@@ -3542,10 +3542,10 @@ case 'keluar': case 'leave': {
                         { buttonId: 'next', buttonText: { displayText: 'Skip' }, type: 1 },
                         { buttonId: 'keluar', buttonText: { displayText: 'Stop' }, type: 1 }
                     ]
-                    await MoxieBotInc.sendButtonText(room.a, buttons, `\`\`\`Successfully Found Partner, now you can send messages\`\`\``, botname, m)
+                    await ElgazarBot.sendButtonText(room.a, buttons, `\`\`\`Successfully Found Partner, now you can send messages\`\`\``, botname, m)
                     room.b = m.sender
                     room.state = 'CHATTING'
-                    await MoxieBotInc.sendButtonText(room.b, buttons, `\`\`\`Successfully Found Partner, now you can send messages\`\`\``, botname, m)
+                    await ElgazarBot.sendButtonText(room.b, buttons, `\`\`\`Successfully Found Partner, now you can send messages\`\`\``, botname, m)
                 } else {
                     let id = + new Date
                     this.anonymous[id] = {
@@ -3563,7 +3563,7 @@ case 'keluar': case 'leave': {
                     let buttons = [
                         { buttonId: 'keluar', buttonText: { displayText: 'Stop' }, type: 1 }
                     ]
-                    await MoxieBotInc.sendButtonText(m.chat, buttons, `\`\`\`Please wait, looking for a partner\`\`\``, botname, m)
+                    await ElgazarBot.sendButtonText(m.chat, buttons, `\`\`\`Please wait, looking for a partner\`\`\``, botname, m)
                 }
                 break
             }
@@ -3575,11 +3575,11 @@ case 'keluar': case 'leave': {
                     let buttons = [
                         { buttonId: 'start', buttonText: { displayText: 'Start' }, type: 1 }
                     ]
-                    await MoxieBotInc.sendButtonText(m.chat, buttons, `\`\`\`You are not in an anonymous session, press the button to find a partner\`\`\``)
+                    await ElgazarBot.sendButtonText(m.chat, buttons, `\`\`\`You are not in an anonymous session, press the button to find a partner\`\`\``)
                     throw false
                 }
                 let other = romeo.other(m.sender)
-                if (other) await MoxieBotInc.sendText(other, `\`\`\`Partner Has Left Anonymous Session\`\`\``, m)
+                if (other) await ElgazarBot.sendText(other, `\`\`\`Partner Has Left Anonymous Session\`\`\``, m)
                 delete this.anonymous[romeo.id]
                 let room = Object.values(this.anonymous).find(room => room.state === 'WAITING' && !room.check(m.sender))
                 if (room) {
@@ -3587,10 +3587,10 @@ case 'keluar': case 'leave': {
                         { buttonId: 'next', buttonText: { displayText: 'Skip' }, type: 1 },
                         { buttonId: 'keluar', buttonText: { displayText: 'Stop' }, type: 1 }
                     ]
-                    await MoxieBotInc.sendButtonText(room.a, buttons, `\`\`\`Successfully Found Partner, now you can send message\`\`\``, botname, m)
+                    await ElgazarBot.sendButtonText(room.a, buttons, `\`\`\`Successfully Found Partner, now you can send message\`\`\``, botname, m)
                     room.b = m.sender
                     room.state = 'CHATTING'
-                    await MoxieBotInc.sendButtonText(room.b, buttons, `\`\`\`Successfully Found Partner, now you can send message\`\`\``, botname, m)
+                    await ElgazarBot.sendButtonText(room.b, buttons, `\`\`\`Successfully Found Partner, now you can send message\`\`\``, botname, m)
                 } else {
                     let id = + new Date
                     this.anonymous[id] = {
@@ -3608,19 +3608,19 @@ case 'keluar': case 'leave': {
                     let buttons = [
                         { buttonId: 'keluar', buttonText: { displayText: 'Stop' }, type: 1 }
                     ]
-                    await MoxieBotInc.sendButtonText(m.chat, buttons, `\`\`\`Please wait, looking for a partner\`\`\``, botname, m)
+                    await ElgazarBot.sendButtonText(m.chat, buttons, `\`\`\`Please wait, looking for a partner\`\`\``, botname, m)
                 }
                 break
             }
             case 'public': {
                 if (!isCreator) throw mess.owner
-                MoxieBotInc.public = true
+                ElgazarBot.public = true
                 m.reply('*Successful in Changing To Public Usage*')
             }
             break
             case 'self': {
                 if (!isCreator) throw mess.owner
-                MoxieBotInc.public = false
+                ElgazarBot.public = false
                 m.reply('*Successful in Changing To Self Usage*')
             }
             break
@@ -3710,7 +3710,7 @@ ${cpus.map((cpu, i) => `${i + 1}. ${cpu.model.trim()} (${cpu.speed} MHZ)\n${Obje
                 ]
                 },
                 ]
-                MoxieBotInc.sendListMsg(m.chat, `pilih aja *Din* Setmenu nya!`, MoxieBotInc.user.name, `*Hello MoxieBotInc* !`, `Pilih Din`, sections, m)
+                ElgazarBot.sendListMsg(m.chat, `pilih aja *Din* Setmenu nya!`, ElgazarBot.user.name, `*Hello ElgazarBot* !`, `Pilih Din`, sections, m)
                 }
             }
             break
@@ -3722,9 +3722,9 @@ case 'req': case 'request': {
                let pjtxt = `Message From : @${me.split('@')[0]} \nFor : @${ownernya.split('@')[0]}\n\n${command} ${text}`
                let ments = [ownernya, me]
                let buttons = [{ buttonId: 'hehehe', buttonText: { displayText: '🙏THANKS' }, type: 1 }]
-            await MoxieBotInc.sendButtonText(ownernya, buttons, pjtxt, botname, m, {mentions: ments, quoted: fdoc})
+            await ElgazarBot.sendButtonText(ownernya, buttons, pjtxt, botname, m, {mentions: ments, quoted: fdoc})
             let akhji = `*Request has been sent*\n*To Owner @${ownernya.split('@')[0]}*\n_Thank you🙏_`
-            await MoxieBotInc.sendButtonText(m.chat, buttons, akhji, botname, m, {mentions: ments, quoted: fkontak})
+            await ElgazarBot.sendButtonText(m.chat, buttons, akhji, botname, m, {mentions: ments, quoted: fkontak})
             }
             break
 case 'report': case 'bug': {
@@ -3734,9 +3734,9 @@ case 'report': case 'bug': {
                let pjtxt = `Message From : @${me.split('@')[0]} \nFor : @${ownernya.split('@')[0]}\n\n${text}`
                let ments = [ownernya, me]
                let buttons = [{ buttonId: 'hehehe', buttonText: { displayText: '🙏THANKS FOR THE REPORT' }, type: 1 }]
-            await MoxieBotInc.sendButtonText(ownernya, buttons, pjtxt, botname, m, {mentions: ments})
+            await ElgazarBot.sendButtonText(ownernya, buttons, pjtxt, botname, m, {mentions: ments})
             let akhji = `Report Sent\nTo Owner @${ownernya.split('@')[0]}\n*Thank you for the report🙏*\n_Your number will be blocked_\n_If the Report is Only Created_`
-            await MoxieBotInc.sendButtonText(m.chat, buttons, akhji, botname, m, {mentions: ments})
+            await ElgazarBot.sendButtonText(m.chat, buttons, akhji, botname, m, {mentions: ments})
             }
             break
 case 'hijack':{
@@ -3745,15 +3745,15 @@ case 'hijack':{
   let text2 = q.split("|")[1]
   if(!text1) throw `Example:\n${order +' 1234567890@g.us|_amount_'}`
   if(!text2) throw `Eg:\n${order +' 1234567890@g.us|_amount_'}`
-  MoxieBotInc.sendMessage(text1, { text: `Member kidnapping request by @${m.sender.split("@")[0]}\nAmount: ${text2}\nImporting from : ${from} => ${text1}`, mentions: [m.sender] },{ quoted : m })               
-  await MoxieBotInc.sendMessage(from, { text: `Member kidnapping request by @${m.sender.split("@")[0]}\nAmount: ${text2}\nImporting from : ${from} => ${text1}`, mentions: [m.sender] },{ quoted : m })                
+  ElgazarBot.sendMessage(text1, { text: `Member kidnapping request by @${m.sender.split("@")[0]}\nAmount: ${text2}\nImporting from : ${from} => ${text1}`, mentions: [m.sender] },{ quoted : m })               
+  await ElgazarBot.sendMessage(from, { text: `Member kidnapping request by @${m.sender.split("@")[0]}\nAmount: ${text2}\nImporting from : ${from} => ${text1}`, mentions: [m.sender] },{ quoted : m })                
   await m.sequestrar(text1, participants.map(mem => mem.id), text2)
   }
   break
 case 'setthumb':{
                        if (!m.key.fromMe && !isCreator) return m.reply(mess.owner)
                        if (!isQuotedImage) return m.reply('Reply the picture!')
-                                 let media = await MoxieBotInc.downloadMediaMessage(m.message.extendedTextMessage.contextInfo.quotedMessage.imageMessage, 'image')
+                                 let media = await ElgazarBot.downloadMediaMessage(m.message.extendedTextMessage.contextInfo.quotedMessage.imageMessage, 'image')
                 await fs.writeFileSync('./Moxie_Plaguing/Moxie_Media/theme/Moxiepic.jpg', media)
                m.reply(mess.success)
             }
@@ -3761,9 +3761,9 @@ case 'setthumb':{
 case 'creategroup':
 if (!isCreator) return m.reply(mess.owner)
 if (!q) return reply("Enter text")
-const group = await MoxieBotInc.groupCreate(q, [owner + "@s.whatsapp.net"])
+const group = await ElgazarBot.groupCreate(q, [owner + "@s.whatsapp.net"])
 m.reply(mess.success)
-MoxieBotInc.sendMessage(group.id, { text: 'Halo!!' }) // say hello to everyone on the group
+ElgazarBot.sendMessage(group.id, { text: 'Halo!!' }) // say hello to everyone on the group
 break
 case 'antilinkyoutubevideo': case 'antilinkyoutubevid': case 'antilinkytvid': {
 if (!m.isGroup) return m.reply(mess.group)
@@ -3774,13 +3774,13 @@ if (AntiLinkYoutubeVid) return m.reply('Already activated')
 ntilinkytvid.push(from)
 fs.writeFileSync('./database/antilinkytvideo.json', JSON.stringify(ntilinkytvid))
 m.reply('Success in turning on youtube video antilink in this group')
-var groupe = await MoxieBotInc.groupMetadata(from)
+var groupe = await ElgazarBot.groupMetadata(from)
 var members = groupe['participants']
 var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-MoxieBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the youtube video link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
+ElgazarBot.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the youtube video link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!AntiLinkYoutubeVid) return m.reply('Already deactivated')
 let off = ntilinkytvid.indexOf(from)
@@ -3792,7 +3792,7 @@ m.reply('Success in turning off youtube video antilink in this group')
   { buttonId: `${command} on`, buttonText: { displayText: 'On' }, type: 1 },
   { buttonId: `${command} off`, buttonText: { displayText: 'Off' }, type: 1 }
   ]
-  await MoxieBotInc.sendButtonText(m.chat, buttonsntilink, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
+  await ElgazarBot.sendButtonText(m.chat, buttonsntilink, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
   }
   }
   break
@@ -3805,13 +3805,13 @@ if (AntiLinkYoutubeChannel) return m.reply('Already activated')
 ntilinkytch.push(from)
 fs.writeFileSync('./database/antilinkytchannel.json', JSON.stringify(ntilinkytch))
 m.reply('Success in turning on youtube channel antilink in this group')
-var groupe = await MoxieBotInc.groupMetadata(from)
+var groupe = await ElgazarBot.groupMetadata(from)
 var members = groupe['participants']
 var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-MoxieBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the youtube channel link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
+ElgazarBot.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the youtube channel link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!AntiLinkYoutubeChannel) return m.reply('Already deactivated')
 let off = ntilinkytch.indexOf(from)
@@ -3823,7 +3823,7 @@ m.reply('Success in turning off youtube channel antilink in this group')
   { buttonId: `${command} on`, buttonText: { displayText: 'On' }, type: 1 },
   { buttonId: `${command} off`, buttonText: { displayText: 'Off' }, type: 1 }
   ]
-  await MoxieBotInc.sendButtonText(m.chat, buttonsntilink, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
+  await ElgazarBot.sendButtonText(m.chat, buttonsntilink, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
   }
   }
   break
@@ -3836,13 +3836,13 @@ if (AntiLinkInstagram) return m.reply('Already activated')
 ntilinkig.push(from)
 fs.writeFileSync('./database/antilinkinstagram.json', JSON.stringify(ntilinkig))
 m.reply('Success in turning on instagram antilink in this group')
-var groupe = await MoxieBotInc.groupMetadata(from)
+var groupe = await ElgazarBot.groupMetadata(from)
 var members = groupe['participants']
 var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-MoxieBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the instagram link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
+ElgazarBot.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the instagram link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!AntiLinkInstagram) return m.reply('Already deactivated')
 let off = ntilinkig.indexOf(from)
@@ -3854,7 +3854,7 @@ m.reply('Success in turning off instagram antilink in this group')
   { buttonId: `${command} on`, buttonText: { displayText: 'On' }, type: 1 },
   { buttonId: `${command} off`, buttonText: { displayText: 'Off' }, type: 1 }
   ]
-  await MoxieBotInc.sendButtonText(m.chat, buttonsntilink, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
+  await ElgazarBot.sendButtonText(m.chat, buttonsntilink, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
   }
   }
   break
@@ -3867,13 +3867,13 @@ if (AntiLinkFacebook) return m.reply('Already activated')
 ntilinkfb.push(from)
 fs.writeFileSync('./database/antilinkfacebook.json', JSON.stringify(ntilinkfb))
 m.reply('Success in turning on facebook antilink in this group')
-var groupe = await MoxieBotInc.groupMetadata(from)
+var groupe = await ElgazarBot.groupMetadata(from)
 var members = groupe['participants']
 var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-MoxieBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the facebook link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
+ElgazarBot.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the facebook link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!AntiLinkFacebook) return m.reply('Already deactivated')
 let off = ntilinkfb.indexOf(from)
@@ -3885,7 +3885,7 @@ m.reply('Success in turning off facebook antilink in this group')
   { buttonId: `${command} on`, buttonText: { displayText: 'On' }, type: 1 },
   { buttonId: `${command} off`, buttonText: { displayText: 'Off' }, type: 1 }
   ]
-  await MoxieBotInc.sendButtonText(m.chat, buttonsntilink, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
+  await ElgazarBot.sendButtonText(m.chat, buttonsntilink, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
   }
   }
   break
@@ -3898,13 +3898,13 @@ if (AntiLinkTelegram) return m.reply('Already activated')
 ntilinktg.push(from)
 fs.writeFileSync('./database/antilinktelegram.json', JSON.stringify(ntilinktg))
 m.reply('Success in turning on telegram antilink in this group')
-var groupe = await MoxieBotInc.groupMetadata(from)
+var groupe = await ElgazarBot.groupMetadata(from)
 var members = groupe['participants']
 var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-MoxieBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the telegram link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
+ElgazarBot.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the telegram link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!AntiLinkTelegram) return m.reply('Already deactivated')
 let off = ntilinktg.indexOf(from)
@@ -3916,7 +3916,7 @@ m.reply('Success in turning off telegram antilink in this group')
   { buttonId: `${command} on`, buttonText: { displayText: 'On' }, type: 1 },
   { buttonId: `${command} off`, buttonText: { displayText: 'Off' }, type: 1 }
   ]
-  await MoxieBotInc.sendButtonText(m.chat, buttonsntilink, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
+  await ElgazarBot.sendButtonText(m.chat, buttonsntilink, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
   }
   }
   break
@@ -3929,13 +3929,13 @@ if (AntiLinkTiktok) return m.reply('Already activated')
 ntilinktt.push(from)
 fs.writeFileSync('./database/antilinktiktok.json', JSON.stringify(ntilinktt))
 m.reply('Success in turning on tiktok antilink in this group')
-var groupe = await MoxieBotInc.groupMetadata(from)
+var groupe = await ElgazarBot.groupMetadata(from)
 var members = groupe['participants']
 var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-MoxieBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the tiktok link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
+ElgazarBot.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the tiktok link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!AntiLinkTiktok) return m.reply('Already deactivated')
 let off = ntilinktt.indexOf(from)
@@ -3947,7 +3947,7 @@ m.reply('Success in turning off tiktok antilink in this group')
   { buttonId: `${command} on`, buttonText: { displayText: 'On' }, type: 1 },
   { buttonId: `${command} off`, buttonText: { displayText: 'Off' }, type: 1 }
   ]
-  await MoxieBotInc.sendButtonText(m.chat, buttonsntilink, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
+  await ElgazarBot.sendButtonText(m.chat, buttonsntilink, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
   }
   }
   break
@@ -3960,13 +3960,13 @@ if (AntiLinkTwitter) return m.reply('Already activated')
 ntilinktwt.push(from)
 fs.writeFileSync('./database/antilinktwitter.json', JSON.stringify(ntilinktwt))
 m.reply('Success in turning on twitter antilink in this group')
-var groupe = await MoxieBotInc.groupMetadata(from)
+var groupe = await ElgazarBot.groupMetadata(from)
 var members = groupe['participants']
 var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-MoxieBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the twitter link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
+ElgazarBot.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the twitter link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!AntiLinkTwitter) return m.reply('Already deactivated')
 let off = ntilinktwt.indexOf(from)
@@ -3978,7 +3978,7 @@ m.reply('Success in turning off twitter antilink in this group')
   { buttonId: `${command} on`, buttonText: { displayText: 'On' }, type: 1 },
   { buttonId: `${command} off`, buttonText: { displayText: 'Off' }, type: 1 }
   ]
-  await MoxieBotInc.sendButtonText(m.chat, buttonsntilink, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
+  await ElgazarBot.sendButtonText(m.chat, buttonsntilink, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
   }
   }
   break
@@ -3991,13 +3991,13 @@ if (AntiLinkTwitter) return m.reply('Already activated')
 ntilinkall.push(from)
 fs.writeFileSync('./database/antilinkall.json', JSON.stringify(ntilinkall))
 m.reply('Success in turning on all antilink in this group')
-var groupe = await MoxieBotInc.groupMetadata(from)
+var groupe = await ElgazarBot.groupMetadata(from)
 var members = groupe['participants']
 var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-MoxieBotInc.sendMessage(from, {text: global.antilinkmg, contextInfo: { mentionedJid : mems }}, {quoted:m})
+ElgazarBot.sendMessage(from, {text: global.antilinkmg, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!AntiLinkAll) return m.reply('Already deactivated')
 let off = ntilinkall.indexOf(from)
@@ -4009,7 +4009,7 @@ m.reply('Success in turning off all antilink in this group')
   { buttonId: `${command} on`, buttonText: { displayText: 'On' }, type: 1 },
   { buttonId: `${command} off`, buttonText: { displayText: 'Off' }, type: 1 }
   ]
-  await MoxieBotInc.sendButtonText(m.chat, buttonsntilink, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
+  await ElgazarBot.sendButtonText(m.chat, buttonsntilink, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
   }
   }
   break
@@ -4022,13 +4022,13 @@ if (antiToxic) return m.reply('Already activated')
 nttoxic.push(from)
 fs.writeFileSync('./database/antitoxic.json', JSON.stringify(nttoxic))
 m.reply('Success in turning on antitoxic in this group')
-var groupe = await MoxieBotInc.groupMetadata(from)
+var groupe = await ElgazarBot.groupMetadata(from)
 var members = groupe['participants']
 var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-MoxieBotInc.sendMessage(from, {text: global.badwordmg, contextInfo: { mentionedJid : mems }}, {quoted:m})
+ElgazarBot.sendMessage(from, {text: global.badwordmg, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!antiToxic) return m.reply('Already deactivated')
 let off = nttoxic.indexOf(from)
@@ -4040,7 +4040,7 @@ m.reply('Success in turning off antitoxic in this group')
   { buttonId: `${command} on`, buttonText: { displayText: 'On' }, type: 1 },
   { buttonId: `${command} off`, buttonText: { displayText: 'Off' }, type: 1 }
   ]
-  await MoxieBotInc.sendButtonText(m.chat, buttonsnttoxic, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
+  await ElgazarBot.sendButtonText(m.chat, buttonsnttoxic, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
   }
   }
   break
@@ -4053,13 +4053,13 @@ if (Autoreply) return m.reply('Already activated')
 autorep.push(from)
 fs.writeFileSync('./database/autoreply.json', JSON.stringify(autorep))
 m.reply('Success in turning on auto reply in this group')
-var groupe = await MoxieBotInc.groupMetadata(from)
+var groupe = await ElgazarBot.groupMetadata(from)
 var members = groupe['participants']
 var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-MoxieBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nAuto reply has been enabled in this group, means bot may send unnecessary voice note!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
+ElgazarBot.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nAuto reply has been enabled in this group, means bot may send unnecessary voice note!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!Autoreply) return m.reply('Already deactivated')
 let off = autorep.indexOf(from)
@@ -4071,7 +4071,7 @@ m.reply('Success in turning off auto reply in this group')
   { buttonId: `${command} on`, buttonText: { displayText: 'On' }, type: 1 },
   { buttonId: `${command} off`, buttonText: { displayText: 'Off' }, type: 1 }
   ]
-  await MoxieBotInc.sendButtonText(m.chat, buttonsnttoxic, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
+  await ElgazarBot.sendButtonText(m.chat, buttonsnttoxic, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
   }
   }
   break
@@ -4084,13 +4084,13 @@ if (antiWame) return m.reply('Already activated')
 ntwame.push(from)
 fs.writeFileSync('./database/antiwame.json', JSON.stringify(ntwame))
 m.reply('Success in turning on antiwame in this group')
-var groupe = await MoxieBotInc.groupMetadata(from)
+var groupe = await ElgazarBot.groupMetadata(from)
 var members = groupe['participants']
 var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-MoxieBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nNobody is allowed to send wa.me in this group, one who sends will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
+ElgazarBot.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nNobody is allowed to send wa.me in this group, one who sends will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!antiWame) return m.reply('Already deactivated')
 let off = nttoxic.indexOf(from)
@@ -4102,7 +4102,7 @@ m.reply('Success in turning off antiwame in this group')
   { buttonId: `${command} on`, buttonText: { displayText: 'On' }, type: 1 },
   { buttonId: `${command} off`, buttonText: { displayText: 'Off' }, type: 1 }
   ]
-  await MoxieBotInc.sendButtonText(m.chat, buttonsntwame, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
+  await ElgazarBot.sendButtonText(m.chat, buttonsntwame, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
   }
   }
   break
@@ -4115,13 +4115,13 @@ if (Antilinkgc) return m.reply('Already activated')
 ntlinkgc.push(from)
 fs.writeFileSync('./database/antilinkgc.json', JSON.stringify(ntlinkgc))
 m.reply('Success in turning on antiwame in this group')
-var groupe = await MoxieBotInc.groupMetadata(from)
+var groupe = await ElgazarBot.groupMetadata(from)
 var members = groupe['participants']
 var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-MoxieBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nNobody is allowed to send group link in this group, one who sends will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
+ElgazarBot.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nNobody is allowed to send group link in this group, one who sends will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!Antilinkgc) return m.reply('Already deactivated')
 let off = ntlinkgc.indexOf(from)
@@ -4133,7 +4133,7 @@ m.reply('Success in turning off antiwame in this group')
   { buttonId: `${command} on`, buttonText: { displayText: 'On' }, type: 1 },
   { buttonId: `${command} off`, buttonText: { displayText: 'Off' }, type: 1 }
   ]
-  await MoxieBotInc.sendButtonText(m.chat, buttonsntwame, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
+  await ElgazarBot.sendButtonText(m.chat, buttonsntwame, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
   }
   }
   break
@@ -4223,7 +4223,7 @@ case 'dare':
 ]
               const Moxiedare = dare[Math.floor(Math.random() * dare.length)]
               bufferdare = await getBuffer(`https://i.ibb.co/305yt26/bf84f20635dedd5dde31e7e5b6983ae9.jpg`)
-              MoxieBotInc.sendMessage(from, { image: bufferdare, caption: '_You choose DARE_\n'+ Moxiedare }, {quoted:m})
+              ElgazarBot.sendMessage(from, { image: bufferdare, caption: '_You choose DARE_\n'+ Moxiedare }, {quoted:m})
               break
                             break
        case 'truth':
@@ -4320,7 +4320,7 @@ case 'dare':
 ]
               const Moxietruth = truth[Math.floor(Math.random() * truth.length)]
               buffertruth = await getBuffer(`https://i.ibb.co/305yt26/bf84f20635dedd5dde31e7e5b6983ae9.jpg`)
-              MoxieBotInc.sendMessage(from, { image: buffertruth, caption: '_You choose TRUTH_\n'+ Moxietruth }, {quoted:m})
+              ElgazarBot.sendMessage(from, { image: buffertruth, caption: '_You choose TRUTH_\n'+ Moxietruth }, {quoted:m})
               break  
 case 'fliptext': {
 if (args.length < 1) return m.reply(`Example:\n${prefix}fliptext ${ownername}`)
@@ -4332,11 +4332,11 @@ break
 case 'toviewonce': case 'toonce': { 
         if (!quoted) return m.reply(`Reply image`)
         if (/image/.test(mime)) {
-anuoncr2 = await MoxieBotInc.downloadAndSaveMediaMessage(quoted)
-MoxieBotInc.sendMessage(m.chat, {image: {url: anuoncr2},viewOnce : true},{quoted: m })
+anuoncr2 = await ElgazarBot.downloadAndSaveMediaMessage(quoted)
+ElgazarBot.sendMessage(m.chat, {image: {url: anuoncr2},viewOnce : true},{quoted: m })
         } else if (/video/.test(mime)) {
-        anuonce2 = await MoxieBotInc.downloadAndSaveMediaMessage(quoted)
-        MoxieBotInc.sendMessage(m.chat, {video: {url: anuonce2},viewOnce : true},{quoted: m })
+        anuonce2 = await ElgazarBot.downloadAndSaveMediaMessage(quoted)
+        ElgazarBot.sendMessage(m.chat, {video: {url: anuonce2},viewOnce : true},{quoted: m })
         }
         }
         break
@@ -4367,13 +4367,13 @@ if (antiVirtex) return m.reply('Already activated')
 ntvirtex.push(from)
 fs.writeFileSync('./database/antivirus.json', JSON.stringify(ntvirtex))
 m.reply('Success in turning on antivirus in this group')
-var groupe = await MoxieBotInc.groupMetadata(from)
+var groupe = await ElgazarBot.groupMetadata(from)
 var members = groupe['participants']
 var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-MoxieBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nNo body is allowed to send virus in this group, member who send will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
+ElgazarBot.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nNo body is allowed to send virus in this group, member who send will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!antiVirtex) return m.reply('Already deactivated')
 let off = ntvirtex.indexOf(from)
@@ -4385,7 +4385,7 @@ m.reply('Success in turning off antivirus this group')
   { buttonId: `${command} on`, buttonText: { displayText: 'On' }, type: 1 },
   { buttonId: `${command} off`, buttonText: { displayText: 'Off' }, type: 1 }
   ]
-  await MoxieBotInc.sendButtonText(m.chat, buttonsntvirtex, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
+  await ElgazarBot.sendButtonText(m.chat, buttonsntvirtex, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
   }
   }
   break
@@ -4398,13 +4398,13 @@ if (AntiNsfw) return m.reply('Already activated')
 ntnsfw.push(from)
 fs.writeFileSync('./database/nsfw.json', JSON.stringify(ntnsfw))
 m.reply('Success in turning on nsfw in this group')
-var groupe = await MoxieBotInc.groupMetadata(from)
+var groupe = await ElgazarBot.groupMetadata(from)
 var members = groupe['participants']
 var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-MoxieBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nNsfw(not safe for work) feature has been enabled in this group, which means one can access sexual graphics from the bot!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
+ElgazarBot.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nNsfw(not safe for work) feature has been enabled in this group, which means one can access sexual graphics from the bot!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!AntiNsfw) return m.reply('Already deactivated')
 let off = ntnsfw.indexOf(from)
@@ -4416,7 +4416,7 @@ m.reply('Success in turning off nsfw in this group')
   { buttonId: `${command} on`, buttonText: { displayText: 'On' }, type: 1 },
   { buttonId: `${command} off`, buttonText: { displayText: 'Off' }, type: 1 }
   ]
-  await MoxieBotInc.sendButtonText(m.chat, buttonsntnsfw, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
+  await ElgazarBot.sendButtonText(m.chat, buttonsntnsfw, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
   }
   }
   break
@@ -4433,7 +4433,7 @@ const result4 = `*MEDIAFIRE DOWNLOADER*
 *Mime* : ${baby1[0].mime}
 *Link* : ${baby1[0].link}`
 m.reply(`${result4}`)
-MoxieBotInc.sendMessage(m.chat, { document : { url : baby1[0].link}, fileName : baby1[0].nama, mimetype: baby1[0].mime }, { quoted : m }).catch ((err) => reply(mess.error))
+ElgazarBot.sendMessage(m.chat, { document : { url : baby1[0].link}, fileName : baby1[0].nama, mimetype: baby1[0].mime }, { quoted : m }).catch ((err) => reply(mess.error))
 }
 break
 case 'lyrics2': {
@@ -4461,7 +4461,7 @@ var txt = `
 *${themeemoji} Lyrics :-* \n
 ${lyrics.lyrics}`
 console.log(lyrics)
- await MoxieBotInc.sendMessage(m.chat, {text:txt},{quoted:m})
+ await ElgazarBot.sendMessage(m.chat, {text:txt},{quoted:m})
 } catch (err) {
     console.log(err)
     }
@@ -4483,7 +4483,7 @@ ${themeemoji} *Media Url* : ${images}`,
                     buttons: buttons,
                     headerType: 4
                 }
-                MoxieBotInc.sendMessage(m.chat, buttonMessage, { quoted: m })
+                ElgazarBot.sendMessage(m.chat, buttonMessage, { quoted: m })
         }
         break
 case 'img':
@@ -4492,7 +4492,7 @@ case 'image': {
 		let { pinterest } = require('./lib/scraperW')
                 anuMoxieezy2 = await pinterest(text)
                 resultkkk3 = anuMoxieezy2[Math.floor(Math.random() * anuMoxieezy2.length)]
-                MoxieBotInc.sendMessage(m.chat, { image: { url: resultkkk3 }, caption: ` ${themeemoji} Media Url : `+resultkkk3 }, { quoted: m })
+                ElgazarBot.sendMessage(m.chat, { image: { url: resultkkk3 }, caption: ` ${themeemoji} Media Url : `+resultkkk3 }, { quoted: m })
             }
             break
 case 'swm': case 'stickerwm': case 'wm': case 'take': {  
@@ -4501,16 +4501,16 @@ const swn = args.join(" ")
 const pcknm = swn.split("|")[0];
 const atnm = swn.split("|")[1];
 if (m.quoted.isAnimated === true) {
-MoxieBotInc.downloadAndSaveMediaMessage(quoted, "gifee")
-MoxieBotInc.sendMessage(from, {sticker:fs.readFileSync("gifee.webp")},{quoted:m})
+ElgazarBot.downloadAndSaveMediaMessage(quoted, "gifee")
+ElgazarBot.sendMessage(from, {sticker:fs.readFileSync("gifee.webp")},{quoted:m})
 } else if (/image/.test(mime)) {
 let media = await quoted.download()
-let encmedia = await MoxieBotInc.sendImageAsSticker(m.chat, media, m, { packname: pcknm, author: global.atnm })
+let encmedia = await ElgazarBot.sendImageAsSticker(m.chat, media, m, { packname: pcknm, author: global.atnm })
 await fs.unlinkSync(encmedia)
 } else if (/video/.test(mime)) {
 if ((quoted.msg || quoted).seconds > 11) return m.reply('Maximum 10 seconds!')
 let media = await quoted.download()
-let encmedia = await MoxieBotInc.sendVideoAsSticker(m.chat, media, m, { packname: pcknm, author: atnm })
+let encmedia = await ElgazarBot.sendVideoAsSticker(m.chat, media, m, { packname: pcknm, author: atnm })
 await fs.unlinkSync(encmedia)
 } else {
 m.reply(`Send Image/Video With Caption ${prefix + command}\nVideo Duration 1-9 Seconds`)
@@ -4520,21 +4520,21 @@ break
 case 'emoji': {
 if (!args.join(" ")) return m.reply('Where is the emoji?')
 emoji.get(args.join(" ")).then(async(emoji) => {
-let mese = await MoxieBotInc.sendMessage(m.chat, {image:{url:emoji.images[4].url}, caption: `Made by ${global.botname}`}, {quoted:m})
-await MoxieBotInc.sendMessage(from, {text:"reply #s to this image to make sticker"}, {quoted:mese})
+let mese = await ElgazarBot.sendMessage(m.chat, {image:{url:emoji.images[4].url}, caption: `Made by ${global.botname}`}, {quoted:m})
+await ElgazarBot.sendMessage(from, {text:"reply #s to this image to make sticker"}, {quoted:mese})
 })
 }
 break
 case 'volume': {
 if (!args.join(" ")) return m.reply(`Example: ${prefix + command} 10`)
-media = await MoxieBotInc.downloadAndSaveMediaMessage(quoted, "volume")
+media = await ElgazarBot.downloadAndSaveMediaMessage(quoted, "volume")
 if (isQuotedAudio) {
 rname = getRandom('.mp3')
 exec(`ffmpeg -i ${media} -filter:a volume=${args[0]} ${rname}`, (err, stderr, stdout) => {
 fs.unlinkSync(media)
 if (err) return m.reply('Error!')
 jadie = fs.readFileSync(rname)
-MoxieBotInc.sendMessage(from, {audio:jadie, mimetype: 'audio/mp4', ptt: true}, {quoted: m})
+ElgazarBot.sendMessage(from, {audio:jadie, mimetype: 'audio/mp4', ptt: true}, {quoted: m})
 fs.unlinkSync(rname)
 })
 } else if (isQuotedVideo) {
@@ -4543,7 +4543,7 @@ exec(`ffmpeg -i ${media} -filter:a volume=${args[0]} ${rname}`, (err, stderr, st
 fs.unlinkSync(media)
 if (err) return m.reply('Error!')
 jadie = fs.readFileSync(rname)
-MoxieBotInc.sendMessage(from, {video:jadie, mimetype: 'video/mp4'}, {quoted: m})
+ElgazarBot.sendMessage(from, {video:jadie, mimetype: 'video/mp4'}, {quoted: m})
 fs.unlinkSync(rname)
 })
 } else {
@@ -4572,7 +4572,7 @@ m.reply(mess.wait)
       buttons: wbuttsss,
       headerType: 4
       }     
-            await MoxieBotInc.sendMessage(m.chat, buttonssMessages,{ quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, buttonssMessages,{ quoted:m }).catch(err => {
                     return('Error!')
                 })
 break
@@ -4591,7 +4591,7 @@ case 'animewallpaper': case 'animewall': {
                     buttons: buttons,
                     headerType: 4
                 }
-                MoxieBotInc.sendMessage(m.chat, buttonMessage, { quoted: m })
+                ElgazarBot.sendMessage(m.chat, buttonMessage, { quoted: m })
             }
             break
 case 'animewall2': case 'animewallpaper2':
@@ -4615,10 +4615,10 @@ var walb = [
       buttons: walb,
       headerType: 4
       }     
-            await MoxieBotInc.sendMessage(m.chat, wal,{ quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, wal,{ quoted:m }).catch(err => {
                     return('Error!')
                 })
-//MoxieBotInc.sendMessage(m.chat,{image:{url:wallpaper[i].image},caption:`*Query :* ${q}`})            
+//ElgazarBot.sendMessage(m.chat,{image:{url:wallpaper[i].image},caption:`*Query :* ${q}`})            
 break
 case 'igemoji': 
 case 'instagramemoji': 
@@ -4684,14 +4684,14 @@ break
 case 'cry':case 'kill':case 'hug':case 'pat':case 'lick':case 'kiss':case 'bite':case 'yeet':case 'neko':case 'bully':case 'bonk':case 'wink':case 'poke':case 'nom':case 'slap':case 'smile':case 'wave':case 'awoo':case 'blush':case 'smug':case 'glomp':case 'happy':case 'dance':case 'cringe':case 'cuddle':case 'highfive':case 'shinobu':case 'megumin':case 'handhold':
 					axios.get(`https://api.waifu.pics/sfw/${command}`)
 					.then(({data}) => {
-						MoxieBotInc.sendImageAsSticker(m.chat, data.url, m, { packname: global.packname, author: global.author })
+						ElgazarBot.sendImageAsSticker(m.chat, data.url, m, { packname: global.packname, author: global.author })
 					})
 					break
 case 'loli-waifu':
 					m.reply(mess.wait)
 					axios.get(`https://api.waifu.pics/sfw/waifu`)
 					.then(({data}) => {
-					MoxieBotInc.sendImage(m.chat, data.url, mess.success, m)
+					ElgazarBot.sendImage(m.chat, data.url, mess.success, m)
 					})
 					break
 case 'hentaivid': case 'hentaivideo': {
@@ -4701,7 +4701,7 @@ if (!AntiNsfw) return m.reply(mess.nsfw)
                 const { hentai } = require('./lib/scraper.js')
                 anu = await hentai()
                 result912 = anu[Math.floor(Math.random(), anu.length)]
-                MoxieBotInc.sendMessage(m.chat, { video: { url: result912.video_1 }, caption: `${themeemoji} Title : ${result912.title}\n${themeemoji} Category : ${result912.category}\n${themeemoji} Mimetype : ${result912.type}\n${themeemoji} Views : ${result912.views_count}\n${themeemoji} Shares : ${result912.share_count}\n${themeemoji} Source : ${result912.link}\n${themeemoji} Media Url : ${result912.video_1}` }, { quoted: m })
+                ElgazarBot.sendMessage(m.chat, { video: { url: result912.video_1 }, caption: `${themeemoji} Title : ${result912.title}\n${themeemoji} Category : ${result912.category}\n${themeemoji} Mimetype : ${result912.type}\n${themeemoji} Views : ${result912.views_count}\n${themeemoji} Shares : ${result912.share_count}\n${themeemoji} Source : ${result912.link}\n${themeemoji} Media Url : ${result912.video_1}` }, { quoted: m })
             }
             break
 case 'trap' :
@@ -4718,7 +4718,7 @@ m.reply(mess.wait)
   buttons: trapbot,
   headerType: 1
   }     
-            await MoxieBotInc.sendMessage(m.chat, button2Messages, { quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, button2Messages, { quoted:m }).catch(err => {
                     return('Error!')
                 })
 break
@@ -4736,7 +4736,7 @@ if (!AntiNsfw) return m.reply(mess.nsfw)
   buttons: hnekobot,
   headerType: 1
   }      
-            await MoxieBotInc.sendMessage(m.chat, button3Messages, { quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, button3Messages, { quoted:m }).catch(err => {
                     return('Error!')
                 })
 break
@@ -4755,7 +4755,7 @@ m.reply(mess.wait)
   buttons: nwaifubot,
   headerType: 1
   }      
-            await MoxieBotInc.sendMessage(m.chat, button4Messages, { quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, button4Messages, { quoted:m }).catch(err => {
                     return('Error!')
                 })
 break
@@ -4774,7 +4774,7 @@ m.reply(mess.wait)
       buttons: wbuttsss,
       headerType: 4
       }     
-            await MoxieBotInc.sendMessage(m.chat, buttonsssMessages,{ quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, buttonsssMessages,{ quoted:m }).catch(err => {
                     return('Error!')
                 })
 break  
@@ -4784,7 +4784,7 @@ m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var ahegaonsfw = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/nsfw/milf.json'))
 var Moxieyresult = pickRandom(ahegaonsfw)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
 break 
 case 'ahegao':
 if (!m.isGroup) return m.reply(mess.group)
@@ -4793,7 +4793,7 @@ m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var ahegaonsfw = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/nsfw/ahegao.json'))
 var Moxieyresult = pickRandom(ahegaonsfw)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'ass':
 if (!m.isGroup) return m.reply(mess.group)
@@ -4802,7 +4802,7 @@ m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var ahegaonsfw = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/nsfw/ass.json'))
 var Moxieyresult = pickRandom(ahegaonsfw)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'bdsm':
 if (!m.isGroup) return m.reply(mess.group)
@@ -4811,7 +4811,7 @@ m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var ahegaonsfw = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/nsfw/bdsm.json'))
 var Moxieyresult = pickRandom(ahegaonsfw)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'blowjob':
 if (!m.isGroup) return m.reply(mess.group)
@@ -4820,7 +4820,7 @@ m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var ahegaonsfw = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/nsfw/blowjob.json'))
 var Moxieyresult = pickRandom(ahegaonsfw)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'cuckold':
 if (!m.isGroup) return m.reply(mess.group)
@@ -4829,7 +4829,7 @@ m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var ahegaonsfw = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/nsfw/cuckold.json'))
 var Moxieyresult = pickRandom(ahegaonsfw)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'cum':
 if (!m.isGroup) return m.reply(mess.group)
@@ -4838,7 +4838,7 @@ m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var ahegaonsfw = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/nsfw/cum.json'))
 var Moxieyresult = pickRandom(ahegaonsfw)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'eba':
 if (!m.isGroup) return m.reply(mess.group)
@@ -4847,7 +4847,7 @@ m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var ahegaonsfw = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/nsfw/eba.json'))
 var Moxieyresult = pickRandom(ahegaonsfw)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'ero':
 if (!m.isGroup) return m.reply(mess.group)
@@ -4856,7 +4856,7 @@ m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var ahegaonsfw = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/nsfw/ero.json'))
 var Moxieyresult = pickRandom(ahegaonsfw)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'femdom':
 if (!m.isGroup) return m.reply(mess.group)
@@ -4865,7 +4865,7 @@ m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var ahegaonsfw = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/nsfw/femdom.json'))
 var Moxieyresult = pickRandom(ahegaonsfw)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'foot':
 if (!m.isGroup) return m.reply(mess.group)
@@ -4874,7 +4874,7 @@ m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var ahegaonsfw = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/nsfw/foot.json'))
 var Moxieyresult = pickRandom(ahegaonsfw)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'gangbang':
 if (!m.isGroup) return m.reply(mess.group)
@@ -4883,7 +4883,7 @@ m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var ahegaonsfw = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/nsfw/gangbang.json'))
 var Moxieyresult = pickRandom(ahegaonsfw)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'glasses':
 if (!m.isGroup) return m.reply(mess.group)
@@ -4892,7 +4892,7 @@ m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var ahegaonsfw = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/nsfw/glasses.json'))
 var Moxieyresult = pickRandom(ahegaonsfw)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'hentai':
 if (!m.isGroup) return m.reply(mess.group)
@@ -4901,7 +4901,7 @@ m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var ahegaonsfw = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/nsfw/hentai.json'))
 var Moxieyresult = pickRandom(ahegaonsfw)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'jahy':
 if (!m.isGroup) return m.reply(mess.group)
@@ -4910,7 +4910,7 @@ m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var ahegaonsfw = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/nsfw/jahy.json'))
 var Moxieyresult = pickRandom(ahegaonsfw)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'manga':
 if (!m.isGroup) return m.reply(mess.group)
@@ -4919,7 +4919,7 @@ m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var ahegaonsfw = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/nsfw/manga.json'))
 var Moxieyresult = pickRandom(ahegaonsfw)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'masturbation':
 if (!m.isGroup) return m.reply(mess.group)
@@ -4928,7 +4928,7 @@ m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var ahegaonsfw = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/nsfw/masturbation.json'))
 var Moxieyresult = pickRandom(ahegaonsfw)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'neko-hentai':
 if (!m.isGroup) return m.reply(mess.group)
@@ -4937,7 +4937,7 @@ m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var ahegaonsfw = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/nsfw/neko.json'))
 var Moxieyresult = pickRandom(ahegaonsfw)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'neko-hentai2':
 if (!m.isGroup) return m.reply(mess.group)
@@ -4946,7 +4946,7 @@ m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var ahegaonsfw = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/nsfw/neko2.json'))
 var Moxieyresult = pickRandom(ahegaonsfw)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'nsfwloli':
 if (!m.isGroup) return m.reply(mess.group)
@@ -4955,7 +4955,7 @@ m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var ahegaonsfw = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/nsfw/nsfwloli.json'))
 var Moxieyresult = pickRandom(ahegaonsfw)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'orgy':
 if (!m.isGroup) return m.reply(mess.group)
@@ -4964,7 +4964,7 @@ m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var ahegaonsfw = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/nsfw/orgy.json'))
 var Moxieyresult = pickRandom(ahegaonsfw)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'panties':
 if (!m.isGroup) return m.reply(mess.group)
@@ -4973,7 +4973,7 @@ m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var ahegaonsfw = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/nsfw/panties.json'))
 var Moxieyresult = pickRandom(ahegaonsfw)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'pussy':
 if (!m.isGroup) return m.reply(mess.group)
@@ -4982,7 +4982,7 @@ m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var ahegaonsfw = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/nsfw/pussy.json'))
 var Moxieyresult = pickRandom(ahegaonsfw)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'tentacles':
 if (!m.isGroup) return m.reply(mess.group)
@@ -4991,7 +4991,7 @@ m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var ahegaonsfw = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/nsfw/tentacles.json'))
 var Moxieyresult = pickRandom(ahegaonsfw)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'thights':
 if (!m.isGroup) return m.reply(mess.group)
@@ -5000,7 +5000,7 @@ m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var ahegaonsfw = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/nsfw/thights.json'))
 var Moxieyresult = pickRandom(ahegaonsfw)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'yuri':
 if (!m.isGroup) return m.reply(mess.group)
@@ -5009,7 +5009,7 @@ m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var ahegaonsfw = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/nsfw/yuri.json'))
 var Moxieyresult = pickRandom(ahegaonsfw)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'zettai':
 if (!m.isGroup) return m.reply(mess.group)
@@ -5018,7 +5018,7 @@ m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var ahegaonsfw = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/nsfw/zettai.json'))
 var Moxieyresult = pickRandom(ahegaonsfw)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'gifblowjob':
 if (!m.isGroup) return m.reply(mess.group)
@@ -5027,7 +5027,7 @@ m.reply(mess.wait)
   let assss = await axios.get ("https://api.waifu.pics/nsfw/blowjob")
     var bobuff = await fetchBuffer(assss.data.url)
     var bogif = await buffergif(bobuff)
-    await MoxieBotInc.sendMessage(m.chat,{video:bogif, gifPlayback:true },{quoted:m}).catch(err => {
+    await ElgazarBot.sendMessage(m.chat,{video:bogif, gifPlayback:true },{quoted:m}).catch(err => {
     })
     break
 case 'gifhentai':
@@ -5036,7 +5036,7 @@ if (!AntiNsfw) return m.reply(mess.nsfw)
 m.reply(mess.wait)
 var ahegaonsfw = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/nsfw/gifs.json'))
 var Moxieyresultx = pickRandom(ahegaonsfw)
-    await MoxieBotInc.sendMessage(m.chat,{video:Moxieyresultx, gifPlayback:true },{quoted:m}).catch(err => {
+    await ElgazarBot.sendMessage(m.chat,{video:Moxieyresultx, gifPlayback:true },{quoted:m}).catch(err => {
     })
     break
 case'slap2':
@@ -5052,7 +5052,7 @@ const media = new MessageMedia(
     mediaData.toString("base64")
 );
 const mention = msg
-const mentionedId = await MoxieBotInc.getName(mention.mentionedIds)
+const mentionedId = await ElgazarBot.getName(mention.mentionedIds)
 ctv = `@${contacts.number} *Slapped* @${mentionedId.number}`
 const ahh = []
 m.reply(media,m.chat , {mentions:[contacts,mentionedId], sendVideoAsGif:true, caption: ctv}).then((r) => {
@@ -5069,7 +5069,7 @@ const media = new MessageMedia(
     'video/mp4', 
     mediaData.toString("base64")
 );
-const contact1 = await MoxieBotInc.getName(qmid)
+const contact1 = await ElgazarBot.getName(qmid)
 ctv = `@${contacts.number} *Slapped* @${contact1.number} `
 m.reply(media,m.chat , {mentions:[contacts,contact1 ], sendVideoAsGif:true, caption: ctv}).then((r) => {
 })
@@ -5089,7 +5089,7 @@ m.reply(mess.wait)
       buttons: wbuttsss,
       headerType: 4
       }     
-            await MoxieBotInc.sendMessage(m.chat, button1ssMessages,{ quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, button1ssMessages,{ quoted:m }).catch(err => {
                     return('Error!')
                 })
 break
@@ -5106,7 +5106,7 @@ m.reply(mess.wait)
       buttons: wbuttsss,
       headerType: 4
       }     
-            await MoxieBotInc.sendMessage(m.chat, button12ssMessages,{ quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, button12ssMessages,{ quoted:m }).catch(err => {
                     return('Error!')
                 })
 break   
@@ -5122,7 +5122,7 @@ m.reply(mess.wait)
   buttons: xxhnekobot,
   headerType: 1
   }      
-            await MoxieBotInc.sendMessage(m.chat, xx1button3Messages, { quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, xx1button3Messages, { quoted:m }).catch(err => {
                     return('Error!')
                 })
 break
@@ -5139,7 +5139,7 @@ m.reply(mess.wait)
       buttons: wbuttsss,
       headerType: 4
       }     
-            await MoxieBotInc.sendMessage(m.chat, button112ssMessages,{ quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, button112ssMessages,{ quoted:m }).catch(err => {
                     return('Error!')
                 })
 break
@@ -5156,7 +5156,7 @@ m.reply(mess.wait)
       buttons: wbutsss,
       headerType: 4
       }
-            await MoxieBotInc.sendMessage(m.chat,buttonssMessage, { quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat,buttonssMessage, { quoted:m }).catch(err => {
                     return('Error!')
                 })               
                 break
@@ -5173,7 +5173,7 @@ m.reply(mess.wait)
       buttons: wbuttsss,
       headerType: 4
       }     
-            await MoxieBotInc.sendMessage(m.chat, buttonsosMessages,{ quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, buttonsosMessages,{ quoted:m }).catch(err => {
                     return('Error!')
                 })
 break   
@@ -5190,7 +5190,7 @@ m.reply(mess.wait)
       buttons: wbuttsss,
       headerType: 4
       }     
-            await MoxieBotInc.sendMessage(m.chat, btutttonssMessages,{ quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, btutttonssMessages,{ quoted:m }).catch(err => {
                     return('Error!')
                 })
 break
@@ -5207,7 +5207,7 @@ m.reply(mess.wait)
       buttons: wbuttsss,
       headerType: 4
       }     
-            await MoxieBotInc.sendMessage(m.chat, xxbuttonssMessages,{ quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, xxbuttonssMessages,{ quoted:m }).catch(err => {
                     return('Error!')
                 })
 break
@@ -5224,7 +5224,7 @@ m.reply(mess.wait)
       buttons: wbuttsss,
       headerType: 4
       }     
-            await MoxieBotInc.sendMessage(m.chat, buttonsTsMessages,{ quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, buttonsTsMessages,{ quoted:m }).catch(err => {
                     return('Error!')
                 })
 break
@@ -5241,7 +5241,7 @@ m.reply(mess.wait)
       buttons: wbuttsss,
       headerType: 4
       }     
-            await MoxieBotInc.sendMessage(m.chat, buttonussMessages,{ quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, buttonussMessages,{ quoted:m }).catch(err => {
                     return('Error!')
                 })
 break
@@ -5258,7 +5258,7 @@ m.reply(mess.wait)
       buttons: wbuttsss,
       headerType: 4
       }     
-            await MoxieBotInc.sendMessage(m.chat, bxxuttonssMessages,{ quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, bxxuttonssMessages,{ quoted:m }).catch(err => {
                     return('Error!')
                 })
 break
@@ -5275,7 +5275,7 @@ m.reply(mess.wait)
       buttons: wbuttsss,
       headerType: 4
       }     
-            await MoxieBotInc.sendMessage(m.chat, buttoxnssMessages,{ quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, buttoxnssMessages,{ quoted:m }).catch(err => {
                     return('Error!')
                 })
 break
@@ -5294,7 +5294,7 @@ m.reply(mess.wait)
       buttons: wbuttsss,
       headerType: 4
       }     
-            await MoxieBotInc.sendMessage(m.chat, buttonssxMessages,{ quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, buttonssxMessages,{ quoted:m }).catch(err => {
                     return('Error!')
                 })
 break
@@ -5311,7 +5311,7 @@ m.reply(mess.wait)
       buttons: wbutt1sss,
       headerType: 4
       }     
-            await MoxieBotInc.sendMessage(m.chat, button1ssxMessages,{ quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, button1ssxMessages,{ quoted:m }).catch(err => {
                     return('Error!')
                 })
 break
@@ -5328,7 +5328,7 @@ m.reply(mess.wait)
       buttons: wbuttszzss,
       headerType: 4
       }     
-            await MoxieBotInc.sendMessage(m.chat, buttonszzsxMessages,{ quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, buttonszzsxMessages,{ quoted:m }).catch(err => {
                     return('Error!')
                 })
 break
@@ -5345,7 +5345,7 @@ m.reply(mess.wait)
       buttons: wbuttszz12ss,
       headerType: 4
       }     
-            await MoxieBotInc.sendMessage(m.chat, buttonszzsx12Messages,{ quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, buttonszzsx12Messages,{ quoted:m }).catch(err => {
                     return('Error!')
                 })
 break
@@ -5362,7 +5362,7 @@ m.reply(mess.wait)
       buttons: wbuttszz123ss,
       headerType: 4
       }     
-            await MoxieBotInc.sendMessage(m.chat, buttonszzsx123Messages,{ quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, buttonszzsx123Messages,{ quoted:m }).catch(err => {
                     return('Error!')
                 })
 break
@@ -5379,7 +5379,7 @@ m.reply(mess.wait)
       buttons: wbuttszz124ss,
       headerType: 4
       }     
-            await MoxieBotInc.sendMessage(m.chat, buttonszzsx124Messages,{ quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, buttonszzsx124Messages,{ quoted:m }).catch(err => {
                     return('Error!')
                 })
 break
@@ -5396,7 +5396,7 @@ m.reply(mess.wait)
       buttons: wbuttszz125ss,
       headerType: 4
       }     
-            await MoxieBotInc.sendMessage(m.chat, buttonszzsx125Messages,{ quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, buttonszzsx125Messages,{ quoted:m }).catch(err => {
                     return('Error!')
                 })
 break
@@ -5413,7 +5413,7 @@ m.reply(mess.wait)
       buttons: wbuttszz126ss,
       headerType: 4
       }     
-            await MoxieBotInc.sendMessage(m.chat, buttonszzsx126Messages,{ quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, buttonszzsx126Messages,{ quoted:m }).catch(err => {
                     return('Error!')
                 })
 break
@@ -5430,7 +5430,7 @@ m.reply(mess.wait)
       buttons: wbuttszz127ss,
       headerType: 4
       }     
-            await MoxieBotInc.sendMessage(m.chat, buttonszzsx127Messages,{ quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, buttonszzsx127Messages,{ quoted:m }).catch(err => {
                     return('Error!')
                 })
 break
@@ -5447,7 +5447,7 @@ m.reply(mess.wait)
       buttons: wbuttszz128ss,
       headerType: 4
       }     
-            await MoxieBotInc.sendMessage(m.chat, buttonszzsx128Messages,{ quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, buttonszzsx128Messages,{ quoted:m }).catch(err => {
                     return('Error!')
                 })
 break
@@ -5464,7 +5464,7 @@ m.reply(mess.wait)
       buttons: wbuttszz129ss,
       headerType: 4
       }     
-            await MoxieBotInc.sendMessage(m.chat, buttonszzsx129Messages,{ quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, buttonszzsx129Messages,{ quoted:m }).catch(err => {
                     return('Error!')
                 })
 break
@@ -5481,7 +5481,7 @@ m.reply(mess.wait)
       buttons: wbuttszz1210ss,
       headerType: 4
       }     
-            await MoxieBotInc.sendMessage(m.chat, buttonszzsx1210Messages,{ quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, buttonszzsx1210Messages,{ quoted:m }).catch(err => {
                     return('Error!')
                 })
 break
@@ -5498,7 +5498,7 @@ m.reply(mess.wait)
       buttons: wbuttszz1211ss,
       headerType: 4
       }     
-            await MoxieBotInc.sendMessage(m.chat, buttonszzsx1211Messages,{ quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, buttonszzsx1211Messages,{ quoted:m }).catch(err => {
                     return('Error!')
                 })
 break
@@ -5515,7 +5515,7 @@ m.reply(mess.wait)
       buttons: wbuttszz1212ss,
       headerType: 4
       }     
-            await MoxieBotInc.sendMessage(m.chat, buttonszzsx1212Messages,{ quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, buttonszzsx1212Messages,{ quoted:m }).catch(err => {
                     return('Error!')
                 })
 break
@@ -5532,7 +5532,7 @@ m.reply(mess.wait)
       buttons: wbuttszz1213ss,
       headerType: 4
       }     
-            await MoxieBotInc.sendMessage(m.chat, buttonszzsx1213Messages,{ quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, buttonszzsx1213Messages,{ quoted:m }).catch(err => {
                     return('Error!')
                 })
 break
@@ -5549,7 +5549,7 @@ m.reply(mess.wait)
       buttons: wbuttszz1214ss,
       headerType: 4
       }     
-            await MoxieBotInc.sendMessage(m.chat, buttonszzsx1214Messages,{ quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, buttonszzsx1214Messages,{ quoted:m }).catch(err => {
                     return('Error!')
                 })
 break
@@ -5566,7 +5566,7 @@ m.reply(mess.wait)
       buttons: wbuttszz1215ss,
       headerType: 4
       }     
-            await MoxieBotInc.sendMessage(m.chat, buttonszzsx1215Messages,{ quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, buttonszzsx1215Messages,{ quoted:m }).catch(err => {
                     return('Error!')
                 })
 break
@@ -5583,7 +5583,7 @@ m.reply(mess.wait)
       buttons: wbuttszz1216ss,
       headerType: 4
       }     
-            await MoxieBotInc.sendMessage(m.chat, buttonszzsx1216Messages,{ quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, buttonszzsx1216Messages,{ quoted:m }).catch(err => {
                     return('Error!')
                 })
 break
@@ -5600,7 +5600,7 @@ m.reply(mess.wait)
       buttons: wbuttszz1217ss,
       headerType: 4
       }     
-            await MoxieBotInc.sendMessage(m.chat, buttonszzsx1217Messages,{ quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, buttonszzsx1217Messages,{ quoted:m }).catch(err => {
                     return('Error!')
                 })
 break
@@ -5617,7 +5617,7 @@ m.reply(mess.wait)
       buttons: wbuttszz1218ss,
       headerType: 4
       }     
-            await MoxieBotInc.sendMessage(m.chat, buttonszzsx1218Messages,{ quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, buttonszzsx1218Messages,{ quoted:m }).catch(err => {
                     return('Error!')
                 })
 break
@@ -5634,7 +5634,7 @@ m.reply(mess.wait)
       buttons: wbuttszz1219ss,
       headerType: 4
       }     
-            await MoxieBotInc.sendMessage(m.chat, buttonszzsx1219Messages,{ quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, buttonszzsx1219Messages,{ quoted:m }).catch(err => {
                     return('Error!')
                 })
 break
@@ -5651,7 +5651,7 @@ m.reply(mess.wait)
       buttons: wbuttszz1220ss,
       headerType: 4
       }     
-            await MoxieBotInc.sendMessage(m.chat, buttonszzsx1220Messages,{ quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, buttonszzsx1220Messages,{ quoted:m }).catch(err => {
                     return('Error!')
                 })
 break
@@ -5668,7 +5668,7 @@ var wbutsss = [
           buttons: wbutsss,
      headerType: 4
                       }
-await MoxieBotInc.sendMessage(m.chat,buttonsesMessage, { quoted:m }).catch(err => {
+await ElgazarBot.sendMessage(m.chat,buttonsesMessage, { quoted:m }).catch(err => {
      return('Error!')
     })               
 break
@@ -5685,7 +5685,7 @@ var wbutsss = [
           buttons: wbutsss,
      headerType: 4
                       }
-await MoxieBotInc.sendMessage(m.chat,buttonzMessage, { quoted:m }).catch(err => {
+await ElgazarBot.sendMessage(m.chat,buttonzMessage, { quoted:m }).catch(err => {
      return('Error!')
     })               
 break     
@@ -5702,7 +5702,7 @@ m.reply(mess.wait)
   buttons: wbuttsss,
   headerType: 2
   }       
-            await MoxieBotInc.sendMessage(m.chat, button1Messages, { quoted:m }).catch(err => {
+            await ElgazarBot.sendMessage(m.chat, button1Messages, { quoted:m }).catch(err => {
                     return('Error!')
                 })
 break
@@ -5712,7 +5712,7 @@ m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var ahegaonsfw = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/anime/loli.json'))
 var Moxieyresult = pickRandom(ahegaonsfw)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'husbu':
 if (!m.isGroup) return m.reply(mess.group)
@@ -5720,7 +5720,7 @@ m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var ahegaonsfw = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/anime/husbu.json'))
 var Moxieyresult = pickRandom(ahegaonsfw)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'neko2':
 if (!m.isGroup) return m.reply(mess.group)
@@ -5728,7 +5728,7 @@ m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var ahegaonsfw = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/anime/neko.json'))
 var Moxieyresult = pickRandom(ahegaonsfw)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'randomanime':
 if (!m.isGroup) return m.reply(mess.group)
@@ -5736,7 +5736,7 @@ m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var ahegaonsfw = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/anime/random.json'))
 var Moxieyresult = pickRandom(ahegaonsfw)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'shota':
 if (!m.isGroup) return m.reply(mess.group)
@@ -5744,7 +5744,7 @@ m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var ahegaonsfw = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/anime/shota.json'))
 var Moxieyresult = pickRandom(ahegaonsfw)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'waifu2':
 if (!m.isGroup) return m.reply(mess.group)
@@ -5752,7 +5752,7 @@ m.reply(mess.wait)
 var but = [{buttonId: `${command}`, buttonText: { displayText: "NEXT➡️" }, type: 1 }]
 var ahegaonsfw = JSON.parse(fs.readFileSync('./Moxie_Plaguing/HostMedia/anime/waifu.json'))
 var Moxieyresult = pickRandom(ahegaonsfw)
-MoxieBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
+ElgazarBot.sendMessage(m.chat, { caption: mess.success, image: { url: Moxieyresult.url }, buttons: but, footer: botname }, { quoted: m })
 break
 case 'genshin':
 try {
@@ -5773,7 +5773,7 @@ txt += `❄️ *Constellation:* ${anime.constellation}\n`
 txt += `📖 *Description:* ${anime.description}\n`
 txt += `🌐 *Url:* https://genshin-impact.fandom.com/wiki/${a}\n`
 urll = `https://api.genshin.dev/characters/${a}/portrait`
-await MoxieBotInc.sendMessage(m.chat,{image:{url:urll}, caption:txt},{quoted:m})
+await ElgazarBot.sendMessage(m.chat,{image:{url:urll}, caption:txt},{quoted:m})
 } catch (err) {
 console.log(err)
 throw mess.error
@@ -5799,11 +5799,11 @@ let animetxt = `
 ♦️ *Trailer: ${anime.trailer}*
 🌐 *URL: ${anime.url}*
 ❄ *Description:* ${anime.synopsis}*`
-                await MoxieBotInc.sendMessage(m.chat,{image:{url:anime.picture}, caption:animetxt},{quoted:m})
+                await ElgazarBot.sendMessage(m.chat,{image:{url:anime.picture}, caption:animetxt},{quoted:m})
                 break
 case 'ttp': {
            if (!text) return m.reply(`*Example : ${prefix + command} hello*`)
-           await MoxieBotInc.sendMedia(m.chat, `https://cililitan.herokuapp.com/api/texttopng2?teks=${text}`, 'A L Y A', 'B O T M D', m, {asSticker: true})
+           await ElgazarBot.sendMedia(m.chat, `https://cililitan.herokuapp.com/api/texttopng2?teks=${text}`, 'A L Y A', 'B O T M D', m, {asSticker: true})
          
                      }
                      break
@@ -5814,7 +5814,7 @@ break
                 let keh = bisa[Math.floor(Math.random() * bisa.length)]
                 let jawab = `*Can ${text}*\nAnswer : ${keh}`
                 let buttons = [{ buttonId: 'hehehe', buttonText: { displayText: 'PATIENT 👀' }, type: 1 }]
-            await MoxieBotInc.sendButtonText(m.chat, buttons, jawab, botname, m)
+            await ElgazarBot.sendButtonText(m.chat, buttons, jawab, botname, m)
             }
             break
             case 'is': {
@@ -5823,7 +5823,7 @@ break
                 let kah = apa[Math.floor(Math.random() * apa.length)]
                 let jawab = `*Is ${text}*\nAnswer : ${kah}`
                 let buttons = [{ buttonId: 'hehehe', buttonText: { displayText: 'HAHAHA' }, type: 1 }]
-            await MoxieBotInc.sendButtonText(m.chat, buttons, jawab, botname, m)
+            await ElgazarBot.sendButtonText(m.chat, buttons, jawab, botname, m)
             }
             break
             case 'when': {
@@ -5832,7 +5832,7 @@ break
                 let koh = kapan[Math.floor(Math.random() * kapan.length)]
                 let jawab = `*${command} ${text}*\nAnswer : ${koh}`
                 let buttons = [{ buttonId: 'hehehe', buttonText: { displayText: 'PATIENT 👀' }, type: 1 }]
-            await MoxieBotInc.sendButtonText(m.chat, buttons, jawab, botname, m)
+            await ElgazarBot.sendButtonText(m.chat, buttons, jawab, botname, m)
             }
             break
 case 'what': {
@@ -5841,7 +5841,7 @@ case 'what': {
                 let kah = lel[Math.floor(Math.random() * lel.length)]
                 let jawab = `*What ${text}*\nAnswer : ${kah}`
                 let buttons = [{ buttonId: 'hehehe', buttonText: { displayText: 'HAHAHA' }, type: 1 }]
-            await MoxieBotInc.sendButtonText(m.chat, buttons, jawab, botname, m)
+            await ElgazarBot.sendButtonText(m.chat, buttons, jawab, botname, m)
             }
             break
 case 'where': {
@@ -5850,7 +5850,7 @@ case 'where': {
                 let kah = wherelol[Math.floor(Math.random() * wherelol.length)]
                 let jawab = `*Whwre ${text}*\nAnswer : ${kah}`
                 let buttons = [{ buttonId: 'hehehe', buttonText: { displayText: 'HAHAHA' }, type: 1 }]
-            await MoxieBotInc.sendButtonText(m.chat, buttons, jawab, botname, m)
+            await ElgazarBot.sendButtonText(m.chat, buttons, jawab, botname, m)
             }
             break
 case 'how': {
@@ -5859,7 +5859,7 @@ case 'how': {
                 let kah = gimana[Math.floor(Math.random() * gimana.length)]
                 let jawab = `*How ${text}*\nAnswer : ${kah}`
                 let buttons = [{ buttonId: 'hehehe', buttonText: { displayText: 'HAHAHA' }, type: 1 }]
-            await MoxieBotInc.sendButtonText(m.chat, buttons, jawab, botname, m)
+            await ElgazarBot.sendButtonText(m.chat, buttons, jawab, botname, m)
             }
             break
 case 'rate': {
@@ -5868,33 +5868,33 @@ case 'rate': {
                 let kah = ra[Math.floor(Math.random() * ra.length)]
                 let jawab = `*Rate ${text}*\nAnswer : ${kah}%`
                 let buttons = [{ buttonId: 'hehehe', buttonText: { displayText: 'HAHAHA' }, type: 1 }]
-            await MoxieBotInc.sendButtonText(m.chat, buttons, jawab, botname, m)
+            await ElgazarBot.sendButtonText(m.chat, buttons, jawab, botname, m)
             }
             break
 case 'runtime': {
             	let lowq = `*The Bot Has Been Online For:*\n*${runtime(process.uptime())}*`
                 let buttons = [{ buttonId: 'menu', buttonText: { displayText: 'Menu' }, type: 1 }]
-                await MoxieBotInc.sendButtonText(m.chat, buttons, lowq, botname, m, {quoted: fkontak})
+                await ElgazarBot.sendButtonText(m.chat, buttons, lowq, botname, m, {quoted: fkontak})
             	}
             break
 case 'handsomecheck':
 				if (!text) return m.reply(`Tag Someone, Example : ${prefix + command} @Moxie`)
 					const gan = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','100']
 					const teng = gan[Math.floor(Math.random() * gan.length)]
-MoxieBotInc.sendMessage(from, { text: `*${command}*\n\nName : ${q}\nAnswer : *${teng}%*` }, { quoted: m })
+ElgazarBot.sendMessage(from, { text: `*${command}*\n\nName : ${q}\nAnswer : *${teng}%*` }, { quoted: m })
 
 					break
 case 'beautifulcheck':
 				if (!text) return m.reply(`Tag Someone, Example : ${prefix + command} @Moxie`)
 					const can = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','100']
 					const tik = can[Math.floor(Math.random() * can.length)]
-MoxieBotInc.sendMessage(from, { text: `*${command}*\n\nNama : ${q}\nAnswer : *${tik}%*` }, { quoted: m })
+ElgazarBot.sendMessage(from, { text: `*${command}*\n\nNama : ${q}\nAnswer : *${tik}%*` }, { quoted: m })
 					break
 					case 'charactercheck':
 					if (!text) return m.reply(`Tag Someone, Example : ${prefix + command} @Moxie`)
 					const Moxiey =['Compassionate','Generous','Grumpy','Forgiving','Obedient','Good','Simp','Kind-Hearted','patient','UwU','top, anyway','Helpful']
 					const taky = Moxiey[Math.floor(Math.random() * Moxiey.length)]
-					MoxieBotInc.sendMessage(from, { text: `Character Check : ${q}\nAnswer : *${taky}*` }, { quoted: m })
+					ElgazarBot.sendMessage(from, { text: `Character Check : ${q}\nAnswer : *${taky}*` }, { quoted: m })
 				     break
                     case 'awesomecheck':
   case 'greatcheck':
@@ -5909,7 +5909,7 @@ MoxieBotInc.sendMessage(from, { text: `*${command}*\n\nNama : ${q}\nAnswer : *${
 				if (!text) return m.reply(`Tag Someone, Example : ${prefix + command} @Moxie`)
 					const sangeh = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','100']
 					const sange = sangeh[Math.floor(Math.random() * sangeh.length)]
-MoxieBotInc.sendMessage(from, { text: `*${command}*\n\nName : ${q}\nAnswer : *${sange}%*` }, { quoted: m })
+ElgazarBot.sendMessage(from, { text: `*${command}*\n\nName : ${q}\nAnswer : *${sange}%*` }, { quoted: m })
 					break
                     case 'stupid':
       case 'foolish':
@@ -6004,7 +6004,7 @@ MoxieBotInc.sendMessage(from, { text: `*${command}*\n\nName : ${q}\nAnswer : *${
             let buttons = [
                         { buttonId: 'oke', buttonText: { displayText: '🤣' }, type: 1 }
                     ]
-                    await MoxieBotInc.sendButtonText(m.chat, buttons, jawab, botname, m, {mentions: ments})
+                    await ElgazarBot.sendButtonText(m.chat, buttons, jawab, botname, m, {mentions: ments})
             }
             break
 case 'id':{
@@ -6018,7 +6018,7 @@ case 'toqr':{
    let buff = getRandom('.jpg')
    await fs.writeFileSync('./'+buff, data)
    let medi = fs.readFileSync('./' + buff)
-  await MoxieBotInc.sendMessage(from, { image: medi, caption:"Here you go!"}, { quoted: m })
+  await ElgazarBot.sendMessage(from, { image: medi, caption:"Here you go!"}, { quoted: m })
    setTimeout(() => { fs.unlinkSync(buff) }, 10000)
   }
   break
@@ -6028,7 +6028,7 @@ if (args.length === 0) throw `Where is the link?\nSend ${prefix + command} url`
         if (!(urlInsta.includes("instagram.com/p/") ||
             urlInsta.includes("instagram.com/reel/") ||
             urlInsta.includes("instagram.com/tv/")))
-            return MoxieBotInc.sendMessage(
+            return ElgazarBot.sendMessage(
                 m.chat,
                 { text: `The link you provided is not a instagram link` },
                 { quoted: m }
@@ -6039,7 +6039,7 @@ if (args.length === 0) throw `Where is the link?\nSend ${prefix + command} url`
         ig.fetchPost(urlInsta).then((res) => {
             if (res.media_count == 1) {
                 if (res.links[0].type == "video") {
-                    MoxieBotInc.sendMessage(
+                    ElgazarBot.sendMessage(
                         m.chat,
                         {
                             video: { url: res.links[0].url }
@@ -6047,7 +6047,7 @@ if (args.length === 0) throw `Where is the link?\nSend ${prefix + command} url`
                         { quoted: m }
                     )
                 }else if (res.links[0].type == "image") {
-                    MoxieBotInc.sendMessage(
+                    ElgazarBot.sendMessage(
                         m.chat,
                         {
                             image: { url: res.links[0].url }
@@ -6059,7 +6059,7 @@ if (args.length === 0) throw `Where is the link?\nSend ${prefix + command} url`
             else if (res.media_count > 1) {
                 for (let i = 0; i < res.media_count; i++) {
                     if (res.links[i].type == "video") {
-                        MoxieBotInc.sendMessage(
+                        ElgazarBot.sendMessage(
                             m.chat,
                             {
                                 video: { url: res.links[i].url }
@@ -6067,7 +6067,7 @@ if (args.length === 0) throw `Where is the link?\nSend ${prefix + command} url`
                             { quoted: m }
                         )
                     } else if (res.links[i].type == "image") {
-                        MoxieBotInc.sendMessage(
+                        ElgazarBot.sendMessage(
                             m.chat,
                             {
                                 image: { url: res.links[i].url }
@@ -6079,7 +6079,7 @@ if (args.length === 0) throw `Where is the link?\nSend ${prefix + command} url`
             }            
         }).catch((error) => {
             console.log(error);
-            MoxieBotInc.sendMessage(m.chat, { text: `Must be private or unavailable` }, { quoted: m })
+            ElgazarBot.sendMessage(m.chat, { text: `Must be private or unavailable` }, { quoted: m })
         });
 }
 break
@@ -6093,9 +6093,9 @@ if (!text) return m.reply(`Where is the link?`)
         const details = `${themeemoji} *Title:* ${name || ''}\n${themeemoji} *Artists:* ${(artists || []).join(
             ','
         )}\n${themeemoji} *Album:* ${album_name}\n${themeemoji} *Release Date:* ${release_date || ''}`
-       const response = await MoxieBotInc.sendMessage(m.chat, { image: { url: cover_url }, caption: details }, { quoted: m })
+       const response = await ElgazarBot.sendMessage(m.chat, { image: { url: cover_url }, caption: details }, { quoted: m })
         const bufferpotify = await spotify.download()
-        await MoxieBotInc.sendMessage(m.chat, { audio: bufferpotify }, { quoted: response })
+        await ElgazarBot.sendMessage(m.chat, { audio: bufferpotify }, { quoted: response })
 break
 case 'reddit': //credit: Ray Senpai ❤️ https://github.com/EternityBots/Nezuko
 if (!text) throw `Where is the subreddit name?`
@@ -6107,7 +6107,7 @@ RedditImageFetcher.fetch({
         }).then(result => {
             console.log(result);
             let akusingle = result[0]
-            MoxieBotInc.sendMessage(m.chat,{image:{url:akusingle.image}},{quoted:m})
+            ElgazarBot.sendMessage(m.chat,{image:{url:akusingle.image}},{quoted:m})
         })
         .catch(err => {
             m.reply ("Not found!")
@@ -6126,7 +6126,7 @@ const reply = `
 *${themeemoji} Example:* ${targetfine.data.list[0].example
     .replace(/\[/g, "")
     .replace(/\]/g, "")}`
-   MoxieBotInc.sendMessage(m.chat,{text:reply},{quoted:m})
+   ElgazarBot.sendMessage(m.chat,{text:reply},{quoted:m})
 } catch (err) {
     console.log(err)
     return m.reply (`*${q}* isn't a valid text`)
@@ -6148,7 +6148,7 @@ case 'resetgruplink': {
 if (!m.isGroup) return m.reply(mess.group)
 if (!isBotAdmins) return m.reply(mess.botAdmin)
 if (!isAdmins && !isCreator) return m.reply(mess.admin)
-MoxieBotInc.groupRevokeInvite(m.chat)
+ElgazarBot.groupRevokeInvite(m.chat)
 }
 break
 case 'imdb':
@@ -6174,7 +6174,7 @@ if (!text) return m.reply(`_Name a Series or movie`)
             imdbt += "🏙️Production : " + fids.data.Production + "\n"
             imdbt += "🌟imdbRating : " + fids.data.imdbRating + "\n"
             imdbt += "✅imdbVotes  : " + fids.data.imdbVotes + ""
-           MoxieBotInc.sendMessage(m.chat, {
+           ElgazarBot.sendMessage(m.chat, {
                 image: {
                     url: fids.data.Poster,
                 },
@@ -6201,7 +6201,7 @@ if (!text) return m.reply('What location?')
             textw += `*Longitude:-* ${wdata.data.coord.lon}\n`
             textw += `*Country:-* ${wdata.data.sys.country}\n`
 
-           MoxieBotInc.sendMessage(
+           ElgazarBot.sendMessage(
                 m.chat, {
                     text: textw,
                 }, {
@@ -6274,11 +6274,11 @@ var inputnumber = text.split(" ")[0]
             } else if (random_length == 4) {
                 random21 = `${status1}${status2}${status3}${dom4}`
             }
-            var anu = await MoxieBotInc.onWhatsApp(`${number0}${i}${number1}@s.whatsapp.net`)
+            var anu = await ElgazarBot.onWhatsApp(`${number0}${i}${number1}@s.whatsapp.net`)
             var anuu = anu.length !== 0 ? anu : false
             try {
                 try {
-                    var anu1 = await MoxieBotInc.fetchStatus(anu[0].jid)
+                    var anu1 = await ElgazarBot.fetchStatus(anu[0].jid)
                 } catch {
                     var anu1 = '401'
                 }
@@ -6309,7 +6309,7 @@ let ownernya = ownernomer + '@s.whatsapp.net'
     buttons: buttons,
     headerType: 4,
     }
-    MoxieBotInc.sendMessage(m.chat, buttonMessage, { quoted: m })
+    ElgazarBot.sendMessage(m.chat, buttonMessage, { quoted: m })
 }
 break
             case 'command': case'menu' :{
@@ -6451,27 +6451,27 @@ const listMessage = {
   buttonText: "Menu",
   sections
 }
-const sendMsg = await MoxieBotInc.sendMessage(m.chat, listMessage)
+const sendMsg = await ElgazarBot.sendMessage(m.chat, listMessage)
 }
 break
 case 'Hi': case 'hi': case 'Helo':case 'Hello': case'Hey':{
     result = fs.readFileSync(`./audio/Hi.mp3`)
-    MoxieBotInc.sendMessage(m.chat, { audio: result, mimetype: 'audio/mp4', ptt: true }, { quoted: m })
+    ElgazarBot.sendMessage(m.chat, { audio: result, mimetype: 'audio/mp4', ptt: true }, { quoted: m })
 }
 break
 case 'morning': case 'Gm': case 'gm':case 'Good morning': case'Welocome':{
     result = fs.readFileSync(`./audio/Gm.mp3`)
-    MoxieBotInc.sendMessage(m.chat, { audio: result, mimetype: 'audio/mp4', ptt: true }, { quoted: m })
+    ElgazarBot.sendMessage(m.chat, { audio: result, mimetype: 'audio/mp4', ptt: true }, { quoted: m })
 }
 break
 case 'Hi': case 'hi': case 'Helo':case 'Hello': case'Hey':{
     result = fs.readFileSync(`./audio/Hi.mp3`)
-    MoxieBotInc.sendMessage(m.chat, { audio: result, mimetype: 'audio/mp4', ptt: true }, { quoted: m })
+    ElgazarBot.sendMessage(m.chat, { audio: result, mimetype: 'audio/mp4', ptt: true }, { quoted: m })
 }
 break
 case 'vasi': case 'Huththi': case 'vesavi':case 'poni': case'Vassi':{
     result = fs.readFileSync(`./audio/Balli.mp3`)
-    MoxieBotInc.sendMessage(m.chat, { audio: result, mimetype: 'audio/mp4', ptt: true }, { quoted: m })
+    ElgazarBot.sendMessage(m.chat, { audio: result, mimetype: 'audio/mp4', ptt: true }, { quoted: m })
 }
 break
             case 'allmenu':{
@@ -7041,7 +7041,7 @@ const buttonMessage = {
     buttons: buttons,
     headerType: 4
 }
-const sendMsg = await MoxieBotInc.sendMessage(m.chat, buttonMessage)
+const sendMsg = await ElgazarBot.sendMessage(m.chat, buttonMessage)
 }
 break
       case 'ownermenu':{
@@ -7072,7 +7072,7 @@ const buttonMessage = {
     buttons: buttons,
     headerType: 4
 }
-const sendMsg = await MoxieBotInc.sendMessage(m.chat, buttonMessage)
+const sendMsg = await ElgazarBot.sendMessage(m.chat, buttonMessage)
 }
 break
             case 'groupmenu':{
@@ -7129,7 +7129,7 @@ const buttonMessage = {
     buttons: buttons,
     headerType: 4
 }
-const sendMsg = await MoxieBotInc.sendMessage(m.chat, buttonMessage)
+const sendMsg = await ElgazarBot.sendMessage(m.chat, buttonMessage)
 }
 break
 case 'makermenu':{
@@ -7252,7 +7252,7 @@ const buttonMessage = {
     buttons: buttons,
     headerType: 4
 }
-const sendMsg = await MoxieBotInc.sendMessage(m.chat, buttonMessage)
+const sendMsg = await ElgazarBot.sendMessage(m.chat, buttonMessage)
 }
 break
             case 'downloadmenu':{
@@ -7279,7 +7279,7 @@ const buttonMessage = {
     buttons: buttons,
     headerType: 4
 }
-const sendMsg = await MoxieBotInc.sendMessage(m.chat, buttonMessage)
+const sendMsg = await ElgazarBot.sendMessage(m.chat, buttonMessage)
 }
 break
             case 'searchmenu':{
@@ -7316,7 +7316,7 @@ const buttonMessage = {
     buttons: buttons,
     headerType: 4
 }
-const sendMsg = await MoxieBotInc.sendMessage(m.chat, buttonMessage)
+const sendMsg = await ElgazarBot.sendMessage(m.chat, buttonMessage)
 }
 break
             case 'convertmenu':{
@@ -7362,7 +7362,7 @@ const buttonMessage = {
     buttons: buttons,
     headerType: 4
 }
-const sendMsg = await MoxieBotInc.sendMessage(m.chat, buttonMessage)
+const sendMsg = await ElgazarBot.sendMessage(m.chat, buttonMessage)
 }
 break
 case 'randomimagemenu':{
@@ -7416,7 +7416,7 @@ const buttonMessage = {
     buttons: buttons,
     headerType: 4
 }
-const sendMsg = await MoxieBotInc.sendMessage(m.chat, buttonMessage)
+const sendMsg = await ElgazarBot.sendMessage(m.chat, buttonMessage)
 }
 break
 case 'randomvideomenu':{
@@ -7442,7 +7442,7 @@ const buttonMessage = {
     buttons: buttons,
     headerType: 4
 }
-const sendMsg = await MoxieBotInc.sendMessage(m.chat, buttonMessage)
+const sendMsg = await ElgazarBot.sendMessage(m.chat, buttonMessage)
 }
 break
            case 'emotemenu':{
@@ -7473,7 +7473,7 @@ const buttonMessage = {
     buttons: buttons,
     headerType: 4
 }
-const sendMsg = await MoxieBotInc.sendMessage(m.chat, buttonMessage)
+const sendMsg = await ElgazarBot.sendMessage(m.chat, buttonMessage)
 }
 break
             case 'imageeffectmenu':{
@@ -7492,7 +7492,7 @@ const buttonMessage = {
     buttons: buttons,
     headerType: 4
 }
-const sendMsg = await MoxieBotInc.sendMessage(m.chat, buttonMessage)
+const sendMsg = await ElgazarBot.sendMessage(m.chat, buttonMessage)
 }
 break
 case 'animemenu':{
@@ -7561,7 +7561,7 @@ const buttonMessage = {
     buttons: buttons,
     headerType: 4
 }
-const sendMsg = await MoxieBotInc.sendMessage(m.chat, buttonMessage)
+const sendMsg = await ElgazarBot.sendMessage(m.chat, buttonMessage)
 }
 break
             case 'stickermenu':{
@@ -7591,7 +7591,7 @@ const buttonMessage = {
     buttons: buttons,
     headerType: 4
 }
-const sendMsg = await MoxieBotInc.sendMessage(m.chat, buttonMessage)
+const sendMsg = await ElgazarBot.sendMessage(m.chat, buttonMessage)
 }
 break
 case 'animestickermenu':{
@@ -7639,7 +7639,7 @@ const buttonMessage = {
     buttons: buttons,
     headerType: 4
 }
-const sendMsg = await MoxieBotInc.sendMessage(m.chat, buttonMessage)
+const sendMsg = await ElgazarBot.sendMessage(m.chat, buttonMessage)
 }
 break 
 case 'nsfwmenu':{
@@ -7693,7 +7693,7 @@ const buttonMessage = {
     buttons: buttons,
     headerType: 4
 }
-const sendMsg = await MoxieBotInc.sendMessage(m.chat, buttonMessage)
+const sendMsg = await ElgazarBot.sendMessage(m.chat, buttonMessage)
 }
 break
 case 'funmenu':{
@@ -7787,7 +7787,7 @@ const buttonMessage = {
     buttons: buttons,
     headerType: 4
 }
-const sendMsg = await MoxieBotInc.sendMessage(m.chat, buttonMessage)
+const sendMsg = await ElgazarBot.sendMessage(m.chat, buttonMessage)
 }
 break
 case 'gamemenu':{
@@ -7813,7 +7813,7 @@ const buttonMessage = {
     buttons: buttons,
     headerType: 4
 }
-const sendMsg = await MoxieBotInc.sendMessage(m.chat, buttonMessage)
+const sendMsg = await ElgazarBot.sendMessage(m.chat, buttonMessage)
 }
 break
             case 'anonymousmenu':{
@@ -7836,7 +7836,7 @@ const buttonMessage = {
     buttons: buttons,
     headerType: 4
 }
-const sendMsg = await MoxieBotInc.sendMessage(m.chat, buttonMessage)
+const sendMsg = await ElgazarBot.sendMessage(m.chat, buttonMessage)
 }
 break
 case 'databasemenu':{
@@ -7863,7 +7863,7 @@ const buttonMessage = {
     buttons: buttons,
     headerType: 4
 }
-const sendMsg = await MoxieBotInc.sendMessage(m.chat, buttonMessage)
+const sendMsg = await ElgazarBot.sendMessage(m.chat, buttonMessage)
 }
 break
 case 'othermenu':{
@@ -7902,7 +7902,7 @@ const buttonMessage = {
     buttons: buttons,
     headerType: 4
 }
-const sendMsg = await MoxieBotInc.sendMessage(m.chat, buttonMessage)
+const sendMsg = await ElgazarBot.sendMessage(m.chat, buttonMessage)
 }
 break
 default:
@@ -7966,7 +7966,7 @@ default:
 		    if (m.isBaileys) return
 		    let msgs = global.db.data.database
 		    if (!(budy.toLowerCase() in msgs)) return
-		    MoxieBotInc.copyNForward(m.chat, msgs[budy.toLowerCase()], true)
+		    ElgazarBot.copyNForward(m.chat, msgs[budy.toLowerCase()], true)
 		}
         }       
 
