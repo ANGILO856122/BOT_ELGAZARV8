@@ -1,8 +1,8 @@
 {
-  "name": "Moxie-MD-Bot",
+  "name": "ELGAZAR_BOTV8",
   "description": "whatsapp md bot build with nodejs",
-  "repository": "https://github.com/nipuna15/Moxie-MD-Bot",
-  "logo": "https://github.com/nipuna15/nipuna15/raw/main/Moxiepic.jpg",
+  "repository": "https://github.com/Babelhara/BOT_ELGAZARV8",
+  "logo": "https://telegra.ph/file/86f4d8e6bfb7ba044994f.jpg",
   "keywords": ["nodejs", "bot", "whatsapp bot", "whatsapp automation", "multi device"],
   "buildpacks": [
     {
